@@ -14,8 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kills', function (Blueprint $table) {
-            $table->id();
+            $table->integer('result_id')
+                ->unsigned();
+            $table->integer('user_killed_id')
+                ->unsigned();
             $table->timestamps();
+        });
+        Schema::table('kills', function (Blueprint $table) {
+            $table->foreign('result_id')->references('id')->on('results');
+            $table->foreign('user_killed_id')->references('id')->on('users');
+
         });
     }
 
@@ -26,6 +34,8 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('kills');
+        Schema::enableForeignKeyConstraints();
     }
 };

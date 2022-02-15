@@ -13,17 +13,24 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('championships', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',50);
-            $table->integer('user_id')->unsigned();
-            $table->unsignedInteger('image_id')
-                ->nullable();
+            $table->integer('user_id')
+                ->unsigned();
+            $table->integer('deck_id')
+                ->unsigned();
+            $table->integer('match_id')
+                ->unsigned();
+            $table->integer('place');
+            $table->integer('score');
             $table->timestamps();
         });
-        Schema::table('championships', function (Blueprint $table) {
-            $table->foreign('image_id')->references('id')->on('images');
+        Schema::table('results', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('deck_id')->references('id')->on('decks');
+            $table->foreign('match_id')->references('id')->on('matchs');
+
+
         });
     }
 
@@ -35,7 +42,7 @@ return new class extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('championships');
+        Schema::dropIfExists('results');
         Schema::enableForeignKeyConstraints();
     }
 };

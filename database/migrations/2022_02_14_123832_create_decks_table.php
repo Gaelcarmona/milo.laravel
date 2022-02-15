@@ -16,7 +16,14 @@ return new class extends Migration
         Schema::create('decks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->integer('user_id')->unsigned();
+            $table->unsignedInteger('image_id')
+                ->nullable();
             $table->timestamps();
+        });
+        Schema::table('decks', function (Blueprint $table) {
+            $table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -27,6 +34,8 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('decks');
+        Schema::enableForeignKeyConstraints();
     }
 };

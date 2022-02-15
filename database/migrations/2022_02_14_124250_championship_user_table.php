@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('championships', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title',50);
+        Schema::create('championship_user', function (Blueprint $table) {
+
             $table->integer('user_id')->unsigned();
-            $table->unsignedInteger('image_id')
-                ->nullable();
+            $table->integer('championship_id')
+                ->unsigned();
             $table->timestamps();
         });
-        Schema::table('championships', function (Blueprint $table) {
-            $table->foreign('image_id')->references('id')->on('images');
+        Schema::table('championship_user', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('championship_id')->references('id')->on('championships');
         });
     }
 
@@ -35,7 +34,7 @@ return new class extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('championships');
+        Schema::dropIfExists('championship_user');
         Schema::enableForeignKeyConstraints();
     }
 };

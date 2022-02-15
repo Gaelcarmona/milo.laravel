@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('title');
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -26,6 +28,10 @@ return new class extends Migration
      */
     public function down()
     {
+
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('images');
+        Schema::enableForeignKeyConstraints();
+
     }
 };
