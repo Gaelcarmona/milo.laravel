@@ -1,0 +1,33 @@
+body{
+    /*height: 100vh;*/
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+li{
+    list-style: none;
+}
+main a{
+    color: blue;
+}
+.bg-main{
+    background-color: #d0d1d1;
+    /* background-color:grey; */
+}
+main{
+    height: 80vh;
+    background-image: url("../../public/images/accueilwallpaper.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+em{
+    background-color: red;
+    border-radius: 30px;
+    padding: 0.5em;
+}
+.accueil{
+    background-color: rgba(117, 190, 218, 0.5);
+    text-align: center;
+
+}
