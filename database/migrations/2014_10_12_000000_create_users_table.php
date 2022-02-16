@@ -21,8 +21,6 @@ return new class extends Migration
                 ->nullable();
             $table->string('password')
                 ->nullable();
-            $table->integer('creator_id')
-                ->nullable();
             $table->unsignedInteger('image_id')
                 ->nullable();
             $table->rememberToken();
@@ -30,7 +28,6 @@ return new class extends Migration
         });
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('image_id')->references('id')->on('images');
-//            $table->foreign('creator_id')->references('id')->on('users');
 
 
         });

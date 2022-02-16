@@ -1,4 +1,3 @@
-<?php use App\Models\User; ?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -51,38 +50,27 @@
     </header>
     <body>
     <main>
-        <h1>Panel admin</h1>
-        <h2>Les users</h2>
-    <table>
-        <thead>
-            <th>id</th>
-            <th>pseudo</th>
-            <th>email</th>
-            <th>image_id</th>
-            <th>éditer</th>
-            <th>supprimer</th>
-        </thead>
-
-        <tbody>
-        <?php $users = User::all() ?>
-        @foreach ($users as $user)
-
-
-            <tr>
-                <td>{{$user->id}}</td>
-                <td>{{$user->pseudo}}</td>
-                <td>{{$user->email}}</td>
-                <td><img src="{{$user->image_id}}"></td>
-                <td><a href="{{ route('user.edit', $user->id) }}"> modifier</a></td>
-                <td><a href="{{ route('user.delete', $user->id) }}">supprimer</a></td>
-            </tr>
-
-        @endforeach
-
-        </tbody>
-
-    </table>
-        <a href="{{ route('register') }}">Créer un user</a>
+    <form action="{{route('insert.player')}}" class='mx-5 mt-5' method='post'>
+        @csrf
+        <div class='mb-3'>
+            <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>
+            <input
+                type='text'
+                name='pseudo'
+                required
+            >
+            <input
+                type='hidden'
+                name='creator_id'
+                value="{{\Illuminate\Support\Facades\Auth::id()}}"
+            >
+            @if($errors->has('pseudo'))
+                <p>Le champ « pseudo » a une erreur</p>
+                <p>{{$errors->first('pseudo')}}</p>
+            @endif
+        </div>
+        <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
+    </form>
     </main>
     </body>
     <footer class='footer navbar bottom bg-dark  text-white py-3'>

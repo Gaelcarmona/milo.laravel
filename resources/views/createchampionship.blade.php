@@ -1,4 +1,3 @@
-<?php use App\Models\User; ?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -51,38 +50,36 @@
     </header>
     <body>
     <main>
-        <h1>Panel admin</h1>
-        <h2>Les users</h2>
-    <table>
-        <thead>
-            <th>id</th>
-            <th>pseudo</th>
-            <th>email</th>
-            <th>image_id</th>
-            <th>éditer</th>
-            <th>supprimer</th>
-        </thead>
+    <form action="{{route('insert.championship')}}" class='mx-5 mt-5' method='post'>
+        @csrf
+        <div class='mb-3'>
+            <label for='title' class='form-label fw-bold px-3'>Nom du championnat</label>
+            <input
+                type='text'
+                name='title'
+                required
+            >
+            <input
+                type='hidden'
+                name='user_id'
+                value="{{\Illuminate\Support\Facades\Auth::id()}}"
+            >
+            @if($errors->has('title'))
+                <p>Le champ « title » a une erreur</p>
+                <p>{{$errors->first('title')}}</p>
+            @endif
 
-        <tbody>
-        <?php $users = User::all() ?>
-        @foreach ($users as $user)
-
-
-            <tr>
-                <td>{{$user->id}}</td>
-                <td>{{$user->pseudo}}</td>
-                <td>{{$user->email}}</td>
-                <td><img src="{{$user->image_id}}"></td>
-                <td><a href="{{ route('user.edit', $user->id) }}"> modifier</a></td>
-                <td><a href="{{ route('user.delete', $user->id) }}">supprimer</a></td>
-            </tr>
-
-        @endforeach
-
-        </tbody>
-
-    </table>
-        <a href="{{ route('register') }}">Créer un user</a>
+        </div>
+        <div>
+            <input type="checkbox" value="{{Auth::id()}}" id="{{Auth::user()->pseudo}}" name="player[]">
+            <label for="player[]">{{Auth::user()->pseudo}}</label>
+            @foreach($associateUsers as $associateUser)
+                <input type="checkbox" value="{{$associateUser->user_id}}" id="{{ \App\Models\User::where('id',$associateUser->user_id)->first()->pseudo}}" name="player[]">
+                <label for="player[]">{{ \App\Models\User::where('id',$associateUser->user_id)->first()->pseudo}}</label>
+            @endforeach
+        </div>
+        <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
+    </form>
     </main>
     </body>
     <footer class='footer navbar bottom bg-dark  text-white py-3'>

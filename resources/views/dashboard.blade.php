@@ -14,7 +14,8 @@
             </div>
         </div>
     </div>
-{{--    {{$user}}--}}
-    {{Session::get('pseudo')}}
-    {{session('pseudo')}}
+<!--   --><?php //dd($data = Session::all()); ?>
+<!--  --><?php // dd($session_id = Session::getId()); ?>
+<?php // dd(Auth::user()); ?>
+
 </x-app-layout>
