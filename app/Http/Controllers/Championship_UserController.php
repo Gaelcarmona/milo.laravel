@@ -13,7 +13,7 @@ class Championship_UserController extends Controller
         foreach ($_POST['player'] as $player){
 
         $championship = DB::table('championships')->latest('id')->first();
-        $championshipUser = new App\Http\Controllers\Championship_User();
+        $championshipUser = new Championship_User();
 
         $championshipUser->user_id = $request->input('player');
         $championshipUser->championship_id = $championship->id;

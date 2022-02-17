@@ -41,32 +41,69 @@ class UserController extends Controller
     public function delete($id)
     {
         User::where('id', $id)->delete();
-        return view('/admin');
+        return view('/user');
     }
 
     public function playerInsert(CreateAndEditPlayerRequest $request)
     {
-//        dd("ici");
         $user = new User();
 
         $user->pseudo = $request->input('pseudo');
-//        $user->creator_id = $request->input(Auth::id());
         $user->save();
         $this->associateUserInsert();
-
 
 
 //        dd('coucou');
         return view('/user');
 
     }
-    public function associateUserInsert(){
+
+    public function associateUserInsert()
+    {
         $user = DB::table('users')->latest('id')->first();
         $associateUser = new Associate_User();
-        $associateUser->creator_id =Auth::id();
+        $associateUser->creator_id = Auth::id();
         $associateUser->user_id = $user->id;
         $associateUser->save();
     }
+
+    //affichage des joueurs créés par l'user
+    public function displayPlayers()
+    {
+
+        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
+
+        return view('/players', ['associateUsers' => $associateUsers]);
+    }
+
+    //formulaire d'édition d'un player
+    public function editPlayerForm($id)
+    {
+        return view('playerEdit', ['id' => $id]);
+    }
+
+
+    public function playerUpdate(CreateAndEditPlayerRequest $request)
+    {
+
+        $user = User::where('id', $request->request->get('id'))->first();
+        $user->pseudo = $request->request->get('pseudo');
+        $user->save();
+
+
+        return view('/user');
+    }
+
+    public function displayPlayerProfile($id)
+    {
+
+        $player = User::where('id', $id)->first();
+//        dd($player);
+        return view('/player', ['id' => $id,
+            'player' => $player]);
+
+    }
+
 
 
 

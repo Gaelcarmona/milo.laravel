@@ -50,22 +50,31 @@
     </header>
     <body>
     <main>
-    <form action="{{route('insert.player')}}" class='mx-5 mt-5' method='post'>
-        @csrf
-        <div class='mb-3'>
-            <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>
-            <input
-                type='text'
-                name='pseudo'
-                required
-            >
-            @if($errors->has('pseudo'))
-                <p>Le champ « pseudo » a une erreur</p>
-                <p>{{$errors->first('pseudo')}}</p>
-            @endif
-        </div>
-        <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
-    </form>
+        <table>
+            <thead>
+                <th>ID</th>
+                <th>Pseudo</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{Auth::id()}}</td>
+                    <td><a href="{{ route('displayPlayerProfile', Auth::id()) }}">{{Auth::user()->pseudo}}</a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                    @foreach($associateUsers as $associateUser)
+                <tr>
+                        <td>{{$associateUser->user_id}}</td>
+                        <td><a href="{{ route('displayPlayerProfile', $associateUser->user_id) }}">{{ \App\Models\User::where('id',$associateUser->user_id)->first()->pseudo}}</a></td>
+                        <td><a href="{{ route('editPlayer', $associateUser->user_id) }}"> modifier</a></td>
+                        <td><a href="{{ route('player.delete', $associateUser->user_id) }}">supprimer</a></td>
+                </tr>
+                    @endforeach
+            </tbody>
+        </table>
+
     </main>
     </body>
     <footer class='footer navbar bottom bg-dark  text-white py-3'>

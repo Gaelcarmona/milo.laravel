@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Championship_User extends Model
 {
+    public $table = 'championship_user';
     use HasFactory;
 
     protected $fillable = [

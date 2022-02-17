@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<header class='header bg-dark py-3 text-black'>
+<header class='header bg-dark py-3 text-white'>
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
@@ -36,15 +36,7 @@
                 <nav class='navbar navbar-expand-lg'>
                     <ul class='navbar-nav me-right  mb-2 mb-lg-0'>
                         <li class='nav-item'>
-                            {{--                                <form action="{{route('logout')}}" method="post">--}}
-                            {{--                                <button type="submit">Se déconnecter</button>--}}
-                            {{--                                </form>--}}
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                    {{ __('Log Out') }}
-                                </button>
-                            </form>
+                            <a class='nav-link'>Statistiques</a>
                         </li>
                         <li class='nav-item'>
                             <a class='nav-link'>Se connecter</a>
@@ -58,49 +50,40 @@
 </header>
 <body>
 <main>
-    <div>
-        <div class="statistiques row">
-            <div class="col-6">
-                <figure>
-{{--                    <img src="images/accueilwallpaper.jpg">--}}
-                </figure>
-            </div>
-            <div class="col-6">
-                <h1>Mes statistiques</h1>
-            </div>
-        </div>
-        <div class="joueurs">
-            <div>
-                <h1>Mes joueurs</h1>
-                <div>
-                    <a href="{{ route('createplayer') }}">Créer un joueur</a>
-                    <a href="{{ route('players') }}">Voir mes joueurs</a>
-                </div>
-            </div>
-            <div>
-                <figure>
-{{--                    <img src="images/accueilwallpaper.jpg">--}}
-                </figure>
-            </div>
-        </div>
-        <div class="championnats">
-            <div>
-                <figure>
-{{--                    <img src="images/accueilwallpaper.jpg">--}}
-                </figure>
-            </div>
-            <div>
-                <h1>Mes championnats</h1>
-                <a href="{{route('create.championship')}}">Créer un championnat</a>
-                <a href="{{ route('championships') }}">Voir mes championnats</a>
-            </div>
-        </div>
-    </div>
+    <p>hello</p>
+    <p>Coucou je m'appelle {{ $player->pseudo }}</p>
+    <p>Mon id est le {{ $player->id }}</p>
+    <p>j'ai été créé le {{ $player->created_at }}</p>
+    @if($player->email == null)
+        <p>J'ai été créé par un utilisateur, je n'ai donc ni mail ni mot de passe</p>
+    @else
+        <p>mon email est {{ $player->email }}</p>
+    @endif
+
+    <h1>Les decks de {{ $player->pseudo }}</h1>
+
+{{--        <table>--}}
+{{--            <thead>--}}
+{{--                <th>ID</th>--}}
+{{--                <th>Nom</th>--}}
+{{--                <th>Modifier</th>--}}
+{{--                <th>Supprimer</th>--}}
+{{--            </thead>--}}
+{{--            <tbody>--}}
+{{--                    @foreach($decks as $deck)--}}
+{{--                <tr>--}}
+{{--                        <td>{{$deck->user_id}}</td>--}}
+{{--                        <td><a href="{{ route('displayDeckProfile', $deck->user_id) }}">{{ \App\Models\User::where('id',$deck->user_id)->first()->title}}</a></td>--}}
+{{--                        <td><a href="{{ route('editDeck', $deck->user_id) }}"> modifier</a></td>--}}
+{{--                        <td><a href="{{ route('deck.delete', $deck->user_id) }}">supprimer</a></td>--}}
+{{--                </tr>--}}
+{{--                    @endforeach--}}
+{{--            </tbody>--}}
+{{--        </table>--}}
+
+    <a href="{{ route('form.deck', ['id' => $player->id]) }}">Créer un deck</a>
 
 </main>
-<!--   --><?php //dd($data = Session::all()); ?>
-{{--<!--  --><?php // dd($session_id = Session::getId()); ?>--}}
-{{--@dd(Auth::id()); --}}
 </body>
 <footer class='footer navbar bottom bg-dark  text-white py-3'>
     <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>

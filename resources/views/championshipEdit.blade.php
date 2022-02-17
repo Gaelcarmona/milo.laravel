@@ -50,18 +50,26 @@
     </header>
     <body>
     <main>
-    <form action="{{route('insert.player')}}" class='mx-5 mt-5' method='post'>
+    <form action="{{route('update.championship')}}" class='mx-5 mt-5' method='post'>
         @csrf
+{{--        @dd($id);--}}
         <div class='mb-3'>
-            <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>
+            <label for='title' class='form-label fw-bold px-3'>Titre</label>
             <input
                 type='text'
-                name='pseudo'
+                name='title'
                 required
+                value=""
             >
-            @if($errors->has('pseudo'))
-                <p>Le champ « pseudo » a une erreur</p>
-                <p>{{$errors->first('pseudo')}}</p>
+            <input
+                type='hidden'
+                name='id'
+                required
+                value="{{ $id }}"
+            >
+            @if($errors->has('title'))
+                <p>Le champ « title » a une erreur</p>
+                <p>{{$errors->first('title')}}</p>
             @endif
         </div>
         <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
