@@ -28,29 +28,29 @@
         </header>
         <body>
         <main>
-            <form class='mx-5 mt-5' method='post'>
+            <form action="{{route('insert.match')}}" class='mx-5 mt-5' method='post'>
                 @csrf
+                {{--        @dd($player);--}}
                 <div class='mb-3'>
-                    <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>
+                    <label for='pseudo' class='form-label fw-bold px-3'>Titre</label>
                     <input
                         type='text'
-                        name='pseudo'
+                        name='title'
                         required
                     >
-                </div>
-                </div>
-                <div class='mb-3'>
-                    <label for='password' class='form-label fw-bold px-3'>Mot de passe</label>
+                    @if($errors->has('title'))
+                        <p>Le champ « title » a une erreur</p>
+                        <p>{{$errors->first('title')}}</p>
+                    @endif
                     <input
-                        type='password'
-                        id="password"
+                        type='hidden'
+                        name='championship_id'
                         required
-                        name='password'
-                        value=''>
+                        value="{{ $championship->id }}"
+                    >
                 </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
             </form>
-
         </main>
         </body>
         <footer class='footer navbar bottom bg-dark  text-white py-3'>

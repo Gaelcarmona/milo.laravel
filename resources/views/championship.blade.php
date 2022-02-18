@@ -28,28 +28,35 @@
         </header>
         <body>
         <main>
-            <form class='mx-5 mt-5' method='post'>
-                @csrf
-                <div class='mb-3'>
-                    <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>
-                    <input
-                        type='text'
-                        name='pseudo'
-                        required
-                    >
-                </div>
-                </div>
-                <div class='mb-3'>
-                    <label for='password' class='form-label fw-bold px-3'>Mot de passe</label>
-                    <input
-                        type='password'
-                        id="password"
-                        required
-                        name='password'
-                        value=''>
-                </div>
-                <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
-            </form>
+            <p>hello</p>
+            <p>Coucou je suis le championnat "{{ $championship->title }}"</p>
+            <p>Mon id est le {{ $championship->id }}</p>
+            <p>j'ai été créé le {{ $championship->created_at }}</p>
+            <p>mon propriétaire a pour id le n° {{ $championship->user_id }}</p>
+
+            <table>
+                <thead>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+                </thead>
+                <tbody>
+                @foreach($matchs as $match)
+                    <tr>
+                        <td>{{$match->id}}</td>
+                        <td>
+                            <a href="{{ route('displayMatchProfile', $match->id) }}">{{ \App\Models\Matchs::where('id',$match->id)->first()->title}}</a>
+                        </td>
+                        <td><a href="{{ route('editForm.match', $match->id) }}"> modifier</a></td>
+                        <td><a href="{{ route('delete.match', $match->id) }}">supprimer</a></td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+
+            <a href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
+
 
         </main>
         </body>

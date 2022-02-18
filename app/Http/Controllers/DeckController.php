@@ -14,8 +14,8 @@ class DeckController extends Controller
     {
         $player = User::where('id', $id)->first();
         return view('/createDeck'
-        , [
-            'player' => $player]);
+            , [
+                'player' => $player]);
     }
 
     public function insert(CreateAndEditDeckRequest $request)
@@ -25,7 +25,42 @@ class DeckController extends Controller
         $deck->user_id = $request->input('user_id');
         $deck->save();
 
-        return redirect()->route('displayPlayerProfile',['id' => $deck->user_id]);
+        return redirect()->route('displayPlayerProfile', ['id' => $deck->user_id]);
 
+    }
+
+    public function displayDeckProfile($id)
+    {
+
+        $deck = Deck::where('id', $id)->first();
+
+        return view('/deck', [
+            'id' => $id,
+            'deck' => $deck,
+        ]);
+    }
+
+    //formulaire d'édition d'un championnat
+    public function editDeckForm($id)
+    {
+        return view('deckEdit', ['id' => $id]);
+    }
+
+    //Update d'un deck
+    public function deckUpdate(CreateAndEditDeckRequest $request)
+    {
+
+        $deck = Deck::where('id', $request->request->get('id'))->first();
+        $deck->title = $request->request->get('title');
+        $deck->save();
+
+
+        return redirect('/players');
+    }
+
+    public function delete($id)
+    {
+        Deck::where('id', $id)->delete();
+        return redirect('/players');
     }
 }

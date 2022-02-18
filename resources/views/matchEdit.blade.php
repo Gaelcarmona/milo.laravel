@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-3">
                         <figure>
-                            <img src="images/frame57.svg">
+                            <img src="../images/frame57.svg">
                         </figure>
                     </div>
                     <div class="col-9">
@@ -28,29 +28,36 @@
         </header>
         <body>
         <main>
-            <form class='mx-5 mt-5' method='post'>
+            <form action="{{route('update.match')}}" class='mx-5 mt-5' method='post'>
                 @csrf
+                {{--        @dd($id);--}}
                 <div class='mb-3'>
-                    <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>
+                    <label for='title' class='form-label fw-bold px-3'>Titre</label>
                     <input
                         type='text'
-                        name='pseudo'
+                        name='title'
                         required
+                        value=""
                     >
-                </div>
-                </div>
-                <div class='mb-3'>
-                    <label for='password' class='form-label fw-bold px-3'>Mot de passe</label>
                     <input
-                        type='password'
-                        id="password"
+                        type='hidden'
+                        name='id'
                         required
-                        name='password'
-                        value=''>
+                        value="{{ $id }}"
+                    >
+                    <input
+                        type='hidden'
+                        name='championship_id'
+                        required
+                        value="{{ $id }}"
+                    >
+                    @if($errors->has('title'))
+                        <p>Le champ « title » a une erreur</p>
+                        <p>{{$errors->first('title')}}</p>
+                    @endif
                 </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
             </form>
-
         </main>
         </body>
         <footer class='footer navbar bottom bg-dark  text-white py-3'>

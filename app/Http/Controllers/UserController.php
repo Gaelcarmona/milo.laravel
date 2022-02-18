@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Associate_User;
+use App\Models\Deck;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -96,12 +97,15 @@ class UserController extends Controller
 
     public function displayPlayerProfile($id)
     {
-
+        $decks = Deck::query()->where('user_id', '=', $id)->get();
+//        dd($decks);
         $player = User::where('id', $id)->first();
 //        dd($player);
-        return view('/player', ['id' => $id,
-            'player' => $player]);
-
+        return view('/player', [
+            'id' => $id,
+            'player' => $player,
+            'decks'=> $decks,
+        ]);
     }
 
 

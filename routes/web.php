@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChampionshipController;
 use App\Http\Controllers\DeckController;
+use App\Http\Controllers\MatchsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,6 +76,9 @@ Route::post('/championship/insert', [ChampionshipController::class, 'insert'])->
 //Affichage des championnats
 Route::get('/championships',[ChampionshipController::class, 'displayChampionships'])->name('championships');
 
+//Profil d'un championnat
+Route::get('/championship/{id}',[ChampionshipController::class, 'displayChampionshipProfile'])->name('displayChampionshipProfile');
+
 //Formulaire d'édition d'un championnat
 Route::get('/championship/edit/{id}',[ChampionshipController::class, 'editChampionshipForm'])->name('editChampionship');
 
@@ -89,14 +93,14 @@ Route::get('/championship/delete/{id}',[ChampionshipController::class, 'delete']
 
 
 //gestion des decks
-//vers le formulaire de création de deck par un user
+//vers le formulaire de création de deck par un joueur
 Route::get('/createDeck/{id}',[DeckController::class, 'deckForm'])->name('form.deck');
 
-//création de deck par un user
+//création de deck par un joueur
 Route::post('/deck/insert', [DeckController::class, 'insert'])->name('insert.deck');
 
-//Affichage des decks
-Route::get('/decks',[DeckController::class, 'displayDecks'])->name('decks');
+//Profil d'un deck
+Route::get('/deck/{id}',[DeckController::class, 'displayDeckProfile'])->name('displayDeckProfile');
 
 //Formulaire d'édition d'un deck
 Route::get('/deck/edit/{id}',[DeckController::class, 'editDeckForm'])->name('editForm.deck');
@@ -106,6 +110,28 @@ Route::post('/deck/update',[DeckController::class, 'deckUpdate'])->name('update.
 
 //Delete d'un deck
 Route::get('/deck/delete/{id}',[DeckController::class, 'delete'])->name('delete.deck');
+
+
+
+//gestion des matchs
+//vers le formulaire de création de match par un user
+Route::get('/createMatch/{id}',[MatchsController::class, 'matchForm'])->name('form.match');
+
+//création de match par un user
+Route::post('/match/insert', [MatchsController::class, 'insert'])->name('insert.match');
+
+//Profil d'un match
+Route::get('/match/{id}',[MatchsController::class, 'displayMatchProfile'])->name('displayMatchProfile');
+
+//Formulaire d'édition d'un match
+Route::get('/match/edit/{id}',[MatchsController::class, 'editMatchForm'])->name('editForm.match');
+
+//Update d'un match
+Route::post('/match/update',[MatchsController::class, 'matchUpdate'])->name('update.match');
+
+//Delete d'un match
+Route::get('/match/delete/{id}',[MatchsController::class, 'delete'])->name('delete.match');
+
 
 
 

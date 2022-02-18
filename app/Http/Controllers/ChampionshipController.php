@@ -6,9 +6,9 @@ use App\Models\Associate_User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Championship;
+use App\Models\Matchs;
 use App\Models\Championship_User;
 use \App\Http\Requests\CreateAndEditChampionshipRequest;
-
 
 
 class ChampionshipController extends Controller
@@ -76,6 +76,19 @@ class ChampionshipController extends Controller
         return view('/championships', ['championships' => $championships]);
     }
 
+    //affichage d'un championnat
+    public function displayChampionshipProfile($id)
+    {
+        $matchs = Matchs::query()->where('championship_id', '=', $id)->get();
+        $championship = Championship::where('id', $id)->first();
+
+        return view('/championship', [
+            'id' => $id,
+            'championship' => $championship,
+                'matchs' => $matchs,
+        ]);
+    }
+
     //formulaire d'édition d'un championnat
     public function editChampionshipForm($id)
     {
@@ -90,7 +103,7 @@ class ChampionshipController extends Controller
             'id' => $request->request->get('id'),
             'user_id' => $this->user_id
         ])->first();
-        if($championship === null)
+        if ($championship === null)
             return redirect('/user?not_exists');
         $championship->title = $request->request->get('title');
         $championship->save();

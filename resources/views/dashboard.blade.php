@@ -14,8 +14,8 @@
             </div>
         </div>
     </div>
-<!--   --><?php //dd($data = Session::all()); ?>
+    <!--   --><?php //dd($data = Session::all()); ?>
 <!--  --><?php // dd($session_id = Session::getId()); ?>
-<?php // dd(Auth::user()); ?>
+    <?php // dd(Auth::user()); ?>
 
 </x-app-layout>
