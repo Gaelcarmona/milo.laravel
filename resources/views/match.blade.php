@@ -35,6 +35,28 @@
             <p>mon championnat a pour id le n° {{ $match->championship_id }}</p>
 
 
+{{--                        <table>--}}
+{{--                <thead>--}}
+{{--                <th>ID</th>--}}
+{{--                <th>Nom</th>--}}
+{{--                <th>Modifier</th>--}}
+{{--                <th>Supprimer</th>--}}
+{{--                </thead>--}}
+{{--                <tbody>--}}
+{{--                @foreach($results as $result)--}}
+{{--                    <tr>--}}
+{{--                        <td>{{$deck->id}}</td>--}}
+{{--                        <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ \App\Models\Deck::where('id',$deck->id)->first()->title}}</a></td>--}}
+{{--                        <td><a href="{{ route('editForm.deck', $deck->id) }}"> modifier</a></td>--}}
+{{--                        <td><a href="{{ route('delete.deck', $deck->id) }}">supprimer</a></td>--}}
+{{--                    </tr>--}}
+{{--                @endforeach--}}
+{{--                </tbody>--}}
+{{--            </table>--}}
+
+            <a href="{{ route('form.result', ['match_id' => $match->id, 'championship_id'=> $match->championship_id]) }}">Entrer un résultat</a>
+
+
 
         </main>
         </body>

@@ -98,9 +98,8 @@ class UserController extends Controller
     public function displayPlayerProfile($id)
     {
         $decks = Deck::query()->where('user_id', '=', $id)->get();
-//        dd($decks);
         $player = User::where('id', $id)->first();
-//        dd($player);
+
         return view('/player', [
             'id' => $id,
             'player' => $player,

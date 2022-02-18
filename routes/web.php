@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChampionshipController;
 use App\Http\Controllers\DeckController;
 use App\Http\Controllers\MatchsController;
+use App\Http\Controllers\ResultController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -113,6 +114,9 @@ Route::get('/deck/delete/{id}',[DeckController::class, 'delete'])->name('delete.
 
 
 
+
+
+
 //gestion des matchs
 //vers le formulaire de création de match par un user
 Route::get('/createMatch/{id}',[MatchsController::class, 'matchForm'])->name('form.match');
@@ -131,6 +135,29 @@ Route::post('/match/update',[MatchsController::class, 'matchUpdate'])->name('upd
 
 //Delete d'un match
 Route::get('/match/delete/{id}',[MatchsController::class, 'delete'])->name('delete.match');
+
+
+
+
+
+//gestion des résultats
+//vers le formulaire de création de résultat par un user
+Route::get('/createResult/{match_id}/{championship_id}',[ResultController::class, 'resultForm'])->name('form.result');
+
+//création de résultat par un user
+Route::post('/result/insert', [ResultController::class, 'insert'])->name('insert.result');
+
+//Profil d'un résultat
+Route::get('/result/{id}',[ResultController::class, 'displayResultProfile'])->name('displayResultProfile');
+
+//Formulaire d'édition d'un résultat
+Route::get('/result/edit/{id}',[ResultController::class, 'editResultForm'])->name('editForm.result');
+
+//Update d'un résultat
+Route::post('/result/update',[ResultController::class, 'resultUpdate'])->name('update.result');
+
+//Delete d'un résultat
+Route::get('/result/delete/{id}',[ResultController::class, 'delete'])->name('delete.result');
 
 
 
