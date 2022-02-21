@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-3">
                         <figure>
-                            <img src="images/frame57.svg">
+                            <img src="../../images/frame57.svg">
                         </figure>
                     </div>
                     <div class="col-9">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </header>
-        <body>
+        <body id="test">
         <main>
             <form action="{{route('insert.result')}}" class='mx-5 mt-5' method='post'>
                 @csrf
@@ -39,7 +39,7 @@
                         <option value="">Choisis un joueur</option>
 
                         @foreach($users as $user)
-                            <option value="{{$user->id}} ?">
+                            <option value="{{$user->id}}">
                                 {{ $user->pseudo}}
                             </option>
                         @endforeach
@@ -67,18 +67,18 @@
                 <div>
                     <label for="deck" class="form-label">Nom du deck <span
                             class="small text-secondary">(Obligatoire)</span></label>
-                    <select
-                        id="deck"
-                        name="deck">
-                        <option value="">Choisis un deck</option>
-                        @foreach($decks as $deck)
-                            <option
+{{--                    <select--}}
+{{--                        id="deck"--}}
+{{--                        name="deck">--}}
+{{--                        <option value="">Choisis un deck</option>--}}
+{{--                        @foreach($decks as $deck)--}}
+{{--                            <option--}}
 
-                                value="{{ $deck->id }}">
-                                {{$deck->title}}
-                            </option>
-                        @endforeach
-                    </select>
+{{--                                value="{{ $deck->id }}">--}}
+{{--                                {{$deck->title}}--}}
+{{--                            </option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
                 </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
             </form>
@@ -87,6 +87,7 @@
         <footer class='footer navbar bottom bg-dark  text-white py-3'>
             <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>
         </footer>
+        <script src="{{ asset('js/createResults.js') }}"></script>
     </x-slot>
 
 </x-app-layout>

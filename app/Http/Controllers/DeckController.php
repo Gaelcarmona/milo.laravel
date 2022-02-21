@@ -63,4 +63,11 @@ class DeckController extends Controller
         Deck::where('id', $id)->delete();
         return redirect('/players');
     }
+
+        public function decksUser($user){
+//        $decks = [];
+        $decksUser = Deck::query()->where('user_id', '=', $user)->get();
+//        $decks[] = $decksUser;
+            return response()->json($decksUser);
+    }
 }

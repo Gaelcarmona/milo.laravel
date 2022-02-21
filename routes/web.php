@@ -117,6 +117,10 @@ Route::get('/deck/delete/{id}',[DeckController::class, 'delete'])->name('delete.
 
 
 
+
+
+
+
 //gestion des matchs
 //vers le formulaire de création de match par un user
 Route::get('/createMatch/{id}',[MatchsController::class, 'matchForm'])->name('form.match');

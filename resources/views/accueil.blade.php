@@ -25,8 +25,8 @@
 {{--        </style>--}}
 {{--    </head>--}}
 
-<x-app-layout>
-    <x-slot name="header">
+{{--<x-app-layout>--}}
+{{--    <x-slot name="header">--}}
 
 
         <header class='header bg-dark py-3 text-white'>
@@ -76,9 +76,9 @@
         </footer>
 
 
-    </x-slot>
+{{--    </x-slot>--}}
 
-</x-app-layout>
+{{--</x-app-layout>--}}
 
 
 

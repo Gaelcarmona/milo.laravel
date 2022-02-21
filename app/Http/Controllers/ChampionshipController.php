@@ -56,7 +56,6 @@ class ChampionshipController extends Controller
 
             $championship = DB::table('championships')->latest('id')->first();
             $championshipUser = new Championship_User();
-//        dd($championshipUser->user_id = $player);
 
             $championshipUser->user_id = $player;
             $championshipUser->championship_id = $championship->id;

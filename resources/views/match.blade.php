@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-3">
                         <figure>
-                            <img src="images/frame57.svg">
+                            <img src="../images/frame57.svg">
                         </figure>
                     </div>
                     <div class="col-9">
