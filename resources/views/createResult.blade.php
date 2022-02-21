@@ -87,6 +87,9 @@
         <footer class='footer navbar bottom bg-dark  text-white py-3'>
             <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>
         </footer>
+{{--        <script>--}}
+{{--            window.listOfDecks = @json($decksUser)--}}
+{{--        </script>--}}
         <script src="{{ asset('js/createResults.js') }}"></script>
     </x-slot>
 
