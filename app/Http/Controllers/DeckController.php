@@ -64,10 +64,13 @@ class DeckController extends Controller
         return redirect('/players');
     }
 
-        public function decksUser($user){
-//        $decks = [];
+    public function decksUser(User $user)
+    {
+
+//        dd($user);
+
         $decksUser = Deck::query()->where('user_id', '=', $user)->get();
 //        $decks[] = $decksUser;
-            return response()->json($decksUser);
+        return response()->json($decksUser);
     }
 }

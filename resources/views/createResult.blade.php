@@ -39,7 +39,7 @@
                         <option value="">Choisis un joueur</option>
 
                         @foreach($users as $user)
-                            <option value="{{$user->id}}">
+                            <option data-url="{{ route('select.deck', ['user' => $user->id]) }}" value="{{$user->id}}">
                                 {{ $user->pseudo}}
                             </option>
                         @endforeach
@@ -64,13 +64,13 @@
                         <option value="6">6</option>
                     </select>
                 </div>
-{{--                <div>--}}
-{{--                    <label for="deck" class="form-label">Nom du deck <span--}}
-{{--                            class="small text-secondary">(Obligatoire)</span></label>--}}
-{{--                    <select--}}
-{{--                        id="deck"--}}
-{{--                        name="deck">--}}
-{{--                        <option value="">Choisis un deck</option>--}}
+                <div id="decks">
+                    <label for="deck" class="form-label">Nom du deck <span
+                            class="small text-secondary">(Obligatoire)</span></label>
+                    <select
+                        id="deck"
+                        name="deck">
+                        <option value="">Choisis un deck</option>
 {{--                        @foreach($decksUser as $deck)--}}
 {{--                            <option--}}
 
@@ -78,8 +78,8 @@
 {{--                                {{$deck->title}}--}}
 {{--                            </option>--}}
 {{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                </div>--}}
+                    </select>
+                </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
             </form>
         </main>
