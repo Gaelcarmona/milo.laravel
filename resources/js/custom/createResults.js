@@ -1,30 +1,36 @@
-const chooseUser = document.getElementById("user");
-chooseUser.addEventListener("click", onClickChooseUser);
+// const chooseUser = document.getElementById("user");
+// chooseUser.addEventListener("Click", onClickChooseUser);
 
+    $('#user').on('change', function(){
+        onClickChooseUser();
+    });
 
-function onClickChooseUser() {
-
-    console.log()
-    window.listOfDecks
+function onClickChooseUser() {   
+    
     $.ajax({
         url: $("#user option:selected").data('url'),
         type: 'GET',
     }).done(function (data) {
-    // console.log(data);
+        console.log(data);
+        // todo
+        // selectionner mon select
+        //supprimer les anciennes options
+        // $('#deck').html('');
 
-// todo
-// selectionner mon select
-//supprimer les anciennes options
+        let html = '';
         data.forEach(function(deck){
-        // faire option et ajouter au select
-    })
+            html += '<option value="'+ deck.id +'">'+ deck.title +'</option>';
+            // faire option et ajouter au select
+        })
+
+        $('#deck').html(html);
 
 
     }).fail(function () {
 
         //some code going here if error
 
-    });
+});
 
     // let filtered = window.listOfDecks.filter(deck => {
     //     return deck.user_id === parseInt(chooseUser.value)
