@@ -64,14 +64,14 @@
                         <option value="6">6</option>
                     </select>
                 </div>
-                <div>
-                    <label for="deck" class="form-label">Nom du deck <span
-                            class="small text-secondary">(Obligatoire)</span></label>
+{{--                <div>--}}
+{{--                    <label for="deck" class="form-label">Nom du deck <span--}}
+{{--                            class="small text-secondary">(Obligatoire)</span></label>--}}
 {{--                    <select--}}
 {{--                        id="deck"--}}
 {{--                        name="deck">--}}
 {{--                        <option value="">Choisis un deck</option>--}}
-{{--                        @foreach($decks as $deck)--}}
+{{--                        @foreach($decksUser as $deck)--}}
 {{--                            <option--}}
 
 {{--                                value="{{ $deck->id }}">--}}
@@ -79,7 +79,7 @@
 {{--                            </option>--}}
 {{--                        @endforeach--}}
 {{--                    </select>--}}
-                </div>
+{{--                </div>--}}
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
             </form>
         </main>

@@ -36,7 +36,7 @@ class ResultController extends Controller
                 'users' => $users,
                 'match_id' => $match_id,
                 'players' => $players,
-//                'decks'=> $decks,
+//                'decksUser'=> $decksUser,
             ]);
     }
 

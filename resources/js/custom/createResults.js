@@ -6,5 +6,6 @@ function onClickChooseUser()
 {
     // console.log('coucofghf');
     console.log(chooseUser.value);
+    decksUser(chooseUser.value);
 
 }
