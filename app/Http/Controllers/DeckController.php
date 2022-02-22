@@ -69,7 +69,7 @@ class DeckController extends Controller
 
 //        dd($user);
 
-        $decksUser = Deck::query()->where('user_id', '=', $user)->get();
+        $decksUser = Deck::query()->where('user_id', '=', $user->id)->get();
 //        $decks[] = $decksUser;
         return response()->json($decksUser);
     }

@@ -31,11 +31,11 @@
             <form action="{{route('insert.result')}}" class='mx-5 mt-5' method='post'>
                 @csrf
                 <div>
-                    <label for="user" class="form-label">Nom du joueur <span
+                    <label for="user_id" class="form-label">Nom du joueur <span
                             class="small text-secondary">(Obligatoire)</span></label>
                     <select
-                        id="user"
-                        name="user">
+                        id="user_id"
+                        name="user_id">
                         <option value="">Choisis un joueur</option>
 
                         @foreach($users as $user)
@@ -48,7 +48,7 @@
                         type='hidden'
                         name='match_id'
                         required
-                        {{--                        value="{{ $match->id }}"--}}
+                        value="{{ $match_id }}"
                     >
                 </div>
                 <div>
@@ -65,19 +65,12 @@
                     </select>
                 </div>
                 <div id="decks">
-                    <label for="deck" class="form-label">Nom du deck <span
+                    <label for="deck_id" class="form-label">Nom du deck <span
                             class="small text-secondary">(Obligatoire)</span></label>
                     <select
-                        id="deck"
-                        name="deck">
+                        id="deck_id"
+                        name="deck_id">
                         <option value="">Choisis un deck</option>
-{{--                        @foreach($decksUser as $deck)--}}
-{{--                            <option--}}
-
-{{--                                value="{{ $deck->id }}">--}}
-{{--                                {{$deck->title}}--}}
-{{--                            </option>--}}
-{{--                        @endforeach--}}
                     </select>
                 </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
@@ -87,9 +80,6 @@
         <footer class='footer navbar bottom bg-dark  text-white py-3'>
             <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>
         </footer>
-{{--        <script>--}}
-{{--            window.listOfDecks = @json($decksUser)--}}
-{{--        </script>--}}
         <script src="{{ asset('js/createResults.js') }}"></script>
     </x-slot>
 
