@@ -32,30 +32,48 @@
             <p>Coucou je suis le match "{{ $match->title }}"</p>
             <p>Mon id est le {{ $match->id }}</p>
             <p>j'ai été créé le {{ $match->created_at }}</p>
-            <p>mon championnat a pour id le n° {{ $match->championship_id }}</p>
+            <p>J'appartiens au championnat
+                nommé {{ $match->championship->title }} ayant pour id
+                le n° {{ $match->championship_id }}</p>
+            <p></p>
 
 
-{{--                        <table>--}}
-{{--                <thead>--}}
-{{--                <th>ID</th>--}}
-{{--                <th>Nom</th>--}}
-{{--                <th>Modifier</th>--}}
-{{--                <th>Supprimer</th>--}}
-{{--                </thead>--}}
-{{--                <tbody>--}}
-{{--                @foreach($results as $result)--}}
-{{--                    <tr>--}}
-{{--                        <td>{{$deck->id}}</td>--}}
-{{--                        <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ \App\Models\Deck::where('id',$deck->id)->first()->title}}</a></td>--}}
-{{--                        <td><a href="{{ route('editForm.deck', $deck->id) }}"> modifier</a></td>--}}
-{{--                        <td><a href="{{ route('delete.deck', $deck->id) }}">supprimer</a></td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
-{{--            </table>--}}
+            <table>
+                <thead>
+                <th>ID</th>
+                <th>Place</th>
+                <th>Joueur</th>
+                <th>Deck</th>
+                <th>Joueurs éliminés</th>
+                <th>Score</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+                </thead>
+                <tbody>
+                @foreach($results as $result)
+                    {{--                                        @dd($result->user)--}}
+                    <tr>
+                        <td>{{$result->id}}</td>
+                        <td>{{$result->place}}</td>
+                        <td>{{ $result->user->pseudo }}</td>
+                        <td>{{ $result->deck->title }}</td>
+                        <td>
+                            <a href="{{ route('form.kill',[ 'match_id'=> $match->id]) }}">+</a>
+                        </td>
+                        <td>{{$result->score}}</td>
+                        <td>
+                            <a href="{{ route('editForm.result',['match_id' => $match->id, 'user_id'=>$result->user_id, 'championship_id'=> $match->championship_id, 'id' => $result->id] ) }}">modifier</a>
+                        </td>
+                        <td>
+                            <a href="{{ route('delete.result', [ 'championship_id'=> $match->championship_id, 'id' => $result->id] ) }}">supprimer</a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
 
-            <a href="{{ route('form.result', ['match_id' => $match->id, 'championship_id'=> $match->championship_id]) }}">Entrer un résultat</a>
-
+            <a href="{{ route('form.result', ['match_id' => $match->id, 'championship_id'=> $match->championship_id]) }}">Entrer
+                un résultat</a>
 
 
         </main>

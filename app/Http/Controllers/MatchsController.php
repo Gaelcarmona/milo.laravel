@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Result;
 use Illuminate\Http\Request;
 use App\Models\Matchs;
 use App\Models\Championship;
@@ -36,12 +37,14 @@ class MatchsController extends Controller
     //Profil d'un match
     public function displayMatchProfile($id)
     {
-
+        $results = Result::query()->where('match_id', '=', $id)->get();
         $match = Matchs::where('id', $id)->first();
+
 
         return view('/match', [
             'id' => $id,
             'match' => $match,
+            'results' => $results,
         ]);
     }
 
@@ -58,7 +61,7 @@ class MatchsController extends Controller
 
 
         $match = Matchs::where('id', $request->request->get('id'))->first();
-//        dd($match);
+        dd($request);
 
         $match->title = $request->request->get('title');
 //        $match->championship_id = $request->request->get('championship_id');

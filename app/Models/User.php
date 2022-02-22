@@ -42,4 +42,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+        public function results()
+    {
+        return $this->belongsTo(Result::class);
+    }
+
+        public function matchs()
+    {
+        return $this->belongsToMany(Matchs::class);
+    }
 }

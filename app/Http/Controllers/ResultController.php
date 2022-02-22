@@ -51,25 +51,73 @@ class ResultController extends Controller
         $result->match_id = $request->input('match_id');
         $result->place = $request->input('place');
 
-        if ($request->input('place') === 1){
-            $result->score = 7;
-        }elseif ($request->input('place') === 2){
-            $result->score = 5;
-        }elseif ($request->input('place') === 3){
-            $result->score = 3;
-        }elseif ($request->input('place') === 4){
-            $result->score = 2;
-        }elseif ($request->input('place') === 5){
-            $result->score = 1;
-        }elseif ($request->input('place') === 6){
-            $result->score = 0;
+        if ($request->input('place')) {
+            $scorePlaceEquivalence = [
+                1 => 7,
+                2 => 5,
+                3 => 3,
+                4 => 2,
+                5 => 1,
+                6 => 0,
+            ];
+            $result->score = $scorePlaceEquivalence[$request->input('place')];
         }
-//        dd($result);
 
         $result->save();
 
         return redirect()->route('displayMatchProfile', ['id' => $result->match_id]);
 
+    }
+
+
+    //formulaire d'édition d'un résultat
+    public function editResultForm($id, $user_id)
+    {
+        $decksUser = Deck::query()->where('user_id', '=', $user_id)->get();
+        $match_id = Matchs::query()->where('id', '=', $id)->get();
+        return view('resultEdit', [
+            'id' => $id,
+            'decksUser' => $decksUser,
+            'user_id' => $user_id,
+            'match_id' => $match_id,
+        ]);
+    }
+
+
+    //Update d'un résultat
+    public function resultUpdate(CreateAndEditResultRequest $request)
+    {
+//        dd($request);
+//        dd($request->request);
+//        $result = Deck::query()->where('id', '=', $id)->get();
+        $result = Result::where('id', $request->request->get('id'))->first();
+//        dd($result);
+        $result->deck_id = $request->input('deck_id');
+        $result->place = $request->input('place');
+
+        if ($request->input('place')) {
+            $scorePlaceEquivalence = [
+                1 => 7,
+                2 => 5,
+                3 => 3,
+                4 => 2,
+                5 => 1,
+                6 => 0,
+            ];
+            $result->score = $scorePlaceEquivalence[$request->input('place')];
+        }
+
+        $result->save();
+
+        return redirect('/championships');
+    }
+
+
+    //suppression d'un résultat
+    public function delete($id)
+    {
+        Result::where('id', $id)->delete();
+        return redirect('/championships');
     }
 
 

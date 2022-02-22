@@ -28,28 +28,25 @@
         </header>
         <body id="test">
         <main>
-            <form action="{{route('insert.result')}}" class='mx-5 mt-5' method='post'>
+            {{--            @dd($match_id);--}}
+            <p>Modification de résultat pour {{ \App\Models\User::where('id',$user_id)->first()->pseudo }} </p>
+            <p>dans le match {{ \App\Models\Matchs::where('id',$match_id[0]->id)->first()->title }}</p>
+            {{--            <p>{{ $match_id[0]->id }}</p>--}}
+            <form action="{{route('update.result')}}" class='mx-5 mt-5' method='post'>
                 @csrf
-                <div>
-                    <label for="user_id" class="form-label">Nom du joueur <span
-                            class="small text-secondary">(Obligatoire)</span></label>
-                    <select
-                        id="user_id"
-                        name="user_id">
-                        <option value="">Choisis un joueur</option>
 
-                        @foreach($users as $user)
-                            <option data-url="{{ route('select.deck', ['user' => $user->id]) }}" value="{{$user->id}}">
-                                {{ $user->pseudo}}
-                            </option>
-                        @endforeach
-                    </select>
-                    <input
-                        type='hidden'
-                        name='match_id'
-                        required
-                        value="{{ $match_id }}"
-                    >
+                <input
+                    type='hidden'
+                    name='match_id'
+                    required
+                    value="{{ $match_id }}"
+                >
+                <input
+                    type='hidden'
+                    name='id'
+                    required
+                    value="{{ $id }}"
+                >
                 </div>
                 <div>
                     <label for="place" class="form-label">Placement du joueur <span class="small text-secondary">(Obligatoire)</span></label>
@@ -71,6 +68,13 @@
                         id="deck_id"
                         name="deck_id">
                         <option value="">Choisis un deck</option>
+                        @foreach($decksUser as $deck)
+                            <option
+
+                                value="{{ $deck->id }}">
+                                {{$deck->title}}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>

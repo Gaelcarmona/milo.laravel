@@ -14,9 +14,6 @@
                         <nav class='navbar navbar-expand-lg'>
                             <ul class='navbar-nav me-right  mb-2 mb-lg-0'>
                                 <li class='nav-item'>
-                                    {{--                                <form action="{{route('logout')}}" method="post">--}}
-                                    {{--                                <button type="submit">Se déconnecter</button>--}}
-                                    {{--                                </form>--}}
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit"

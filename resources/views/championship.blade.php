@@ -55,6 +55,21 @@
                 </tbody>
             </table>
 
+            <table>
+                <thead>
+                <th>Id</th>
+                <th>Nom</th>
+                </thead>
+                <tbody>
+                @foreach($users as $user)
+                    <tr>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->pseudo}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+
             <a href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
 
 

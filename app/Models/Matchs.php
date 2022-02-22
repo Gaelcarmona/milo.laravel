@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Matchs extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'title',
         'championship_id',
         'image_id',
     ];
+
+    public function championship()
+    {
+        return $this->hasOne(Championship::class, 'id', 'championship_id');
+    }
+
 }

@@ -16,4 +16,14 @@ class Result extends Model
         'place',
         'score',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function deck()
+    {
+        return $this->hasOne(Deck::class, 'id', 'deck_id');
+    }
 }

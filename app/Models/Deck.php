@@ -14,4 +14,10 @@ class Deck extends Model
         'user_id',
         'image_id',
     ];
+
+
+    public function results()
+    {
+        return $this->belongsTo(Result::class);
+    }
 }

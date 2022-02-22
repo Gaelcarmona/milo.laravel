@@ -14,4 +14,9 @@ class Championship extends Model
         'user_id',
         'image_id',
     ];
+
+    public function matchs()
+    {
+        return $this->belongsTo(Matchs::class);
+    }
 }

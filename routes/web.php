@@ -5,6 +5,7 @@ use App\Http\Controllers\ChampionshipController;
 use App\Http\Controllers\DeckController;
 use App\Http\Controllers\MatchsController;
 use App\Http\Controllers\ResultController;
+use App\Http\Controllers\KillController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -151,17 +152,32 @@ Route::get('/createResult/{match_id}/{championship_id}',[ResultController::class
 //création de résultat par un user
 Route::post('/result/insert', [ResultController::class, 'insert'])->name('insert.result');
 
-//Profil d'un résultat
-Route::get('/result/{id}',[ResultController::class, 'displayResultProfile'])->name('displayResultProfile');
-
 //Formulaire d'édition d'un résultat
-Route::get('/result/edit/{id}',[ResultController::class, 'editResultForm'])->name('editForm.result');
+Route::get('/result/edit/{id}/{user_id}',[ResultController::class, 'editResultForm'])->name('editForm.result');
 
 //Update d'un résultat
 Route::post('/result/update',[ResultController::class, 'resultUpdate'])->name('update.result');
 
 //Delete d'un résultat
 Route::get('/result/delete/{id}',[ResultController::class, 'delete'])->name('delete.result');
+
+
+
+//gestion des kills
+//vers le formulaire de création de kill par un user
+Route::get('/create-kill/{match_id}',[KillController::class, 'killForm'])->name('form.kill');
+
+////création de kill par un user
+//Route::post('/kill/insert', [KillController::class, 'insert'])->name('insert.kill');
+//
+////Formulaire d'édition d'un kill
+//Route::get('/kill/edit/{id}/{user_id}',[KillController::class, 'editKillForm'])->name('editForm.result');
+//
+////Update d'un kill
+//Route::post('/kill/update',[KillController::class, 'killUpdate'])->name('update.kill');
+//
+////Delete d'un kill
+//Route::get('/kill/delete/{id}',[KillController::class, 'delete'])->name('delete.kill');
 
 
 

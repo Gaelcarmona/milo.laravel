@@ -28,7 +28,7 @@ class CreateAndEditResultRequest extends FormRequest
 //            'deck_id ' => 'required',
 //            'match_id ' => 'required',
             'place' => 'required',
-//            'score' => 'required',
+//            'score' => 'nullable',
 
         ];
     }
