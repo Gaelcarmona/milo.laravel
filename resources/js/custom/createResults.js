@@ -1,17 +1,18 @@
-// const chooseUser = document.getElementById("user");
-// chooseUser.addEventListener("Click", onClickChooseUser);
+const chooseUser = document.getElementById("user");
+chooseUser.addEventListener("Click", onClickChooseUser);
 
-    $('#user').on('change', function(){
-        onClickChooseUser();
-    });
+    // $('#user').on('change', function(){
+    //     onClickChooseUser();
+    // });
 
-function onClickChooseUser() {   
-    
+function onClickChooseUser() {
+
+    // console.log(chooseUser.value);
+    //     console.log(data);
     $.ajax({
         url: $("#user option:selected").data('url'),
         type: 'GET',
     }).done(function (data) {
-        console.log(data);
         // todo
         // selectionner mon select
         //supprimer les anciennes options
