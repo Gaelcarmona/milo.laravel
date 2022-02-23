@@ -44,14 +44,25 @@ class User extends Authenticatable
     ];
 
 
-
-        public function results()
+    public function results()
     {
         return $this->belongsTo(Result::class);
     }
 
-        public function matchs()
+    public function matchs()
     {
         return $this->belongsToMany(Matchs::class);
     }
+
+    public function championshipUser()
+    {
+        return $this->belongsTo(Championship_User::class);
+    }
+
+    public function associateUser()
+    {
+        return $this->belongsTo(Associate_User::class);
+    }
+
+
 }

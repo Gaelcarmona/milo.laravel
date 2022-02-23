@@ -54,23 +54,26 @@
                 @endforeach
                 </tbody>
             </table>
+            <a href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
 
             <table>
                 <thead>
                 <th>Id</th>
                 <th>Nom</th>
+                <th>Supprimer</th>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @foreach($championshipUsers as $championshipUser)
                     <tr>
-                        <td>{{$user->id}}</td>
-                        <td>{{$user->pseudo}}</td>
+                        <td>{{$championshipUser->user->id}}</td>
+                        <td>{{$championshipUser->user->pseudo}}</td>
+                        <td><a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->user->id ,'championship_id' => $championship->id]) }}">supprimer</a></td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+            <a href="{{ route('form.player.in.championship', ['championship_id' => $championship->id]) }}">Ajouter un joueur au championnat</a>
 
-            <a href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
 
 
         </main>

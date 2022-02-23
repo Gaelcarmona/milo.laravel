@@ -28,28 +28,32 @@
         </header>
         <body>
         <main>
-            <form action="{{route('insert.kill')}}" class='mx-5 mt-5' method='post'>
+            <form action="{{route('insert.player.in.championship')}}"
+                  class='mx-5 mt-5' method='post'>
                 @csrf
                 <div class='mb-3'>
-                    <label for="user_killed_id " class="form-label">Joueur éliminé <span
+                    <input
+                        type='hidden'
+                        name='championship_id'
+                        value="{{ $championship_id }}"
+                    >
+                </div>
+                <div>
+                    <label for="user_id" class="form-label">Nom du joueur <span
                             class="small text-secondary">(Obligatoire)</span></label>
                     <select
-                        id="user_killed_id "
-                        name="user_killed_id ">
+                        id="user_id"
+                        name="user_id">
                         <option value="">Choisis un joueur</option>
-                        @foreach($resultMatchUsers as $resultMatchUser)
-                            <option value="{{$resultMatchUser->id}}">
-                                {{ $resultMatchUser->user->pseudo}}
+                        <option value="{{Auth::id()}}">{{Auth::user()->pseudo}}</option>
+{{--                            @dd($associateUsers);--}}
+                        @foreach($associateUsers as $associateUser)
+                            <option value="{{$associateUser->user_id}}">
+                                {{ $associateUser->user->pseudo}}
                             </option>
                         @endforeach
                     </select>
-                    <input
-                        type='hidden'
-                        name='result_id'
-                        value="{{$result_id}}"
-                    >
                 </div>
-
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
             </form>
         </main>

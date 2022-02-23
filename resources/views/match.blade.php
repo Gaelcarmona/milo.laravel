@@ -58,7 +58,7 @@
                         <td>{{ $result->user->pseudo }}</td>
                         <td>{{ $result->deck->title }}</td>
                         <td>
-                            <a href="{{ route('form.kill',[ 'match_id'=> $match->id]) }}">+</a>
+                            <a href="{{ route('form.kill',[ 'result_id'=> $result->id, 'match_id' => $match->id ]) }}">+</a>
                         </td>
                         <td>{{$result->score}}</td>
                         <td>

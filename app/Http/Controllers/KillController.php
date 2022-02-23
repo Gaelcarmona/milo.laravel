@@ -10,18 +10,15 @@ use Illuminate\Http\Request;
 class KillController extends Controller
 {
     //vers le formulaire de création de match par un user
-    public function killForm($match_id)
+    public function killForm($result_id, $match_id)
     {
-//        $users = User::where('id',)->get();
-        $match = Matchs::where('id', $match_id)->first();
-//       $users = Matchs::find($match)->user()->get();
+        $resultMatchUsers = Result::where('match_id', $match_id)->get();
 
-        dd($match);
-//        dd($results[0]->user_id);
-
-//        $result = Result::where('id', $id)->first();
         return view('/create-kill'
             , [
-                'result' => $result]);
+                'match_id' => $match_id,
+                'result_id' => $result_id,
+                'resultMatchUsers' => $resultMatchUsers,
+            ]);
     }
 }

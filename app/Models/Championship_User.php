@@ -14,4 +14,9 @@ class Championship_User extends Model
         'user_id',
         'championship_id',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

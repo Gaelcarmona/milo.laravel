@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChampionshipController;
+use App\Http\Controllers\Championship_UserController;
 use App\Http\Controllers\DeckController;
 use App\Http\Controllers\MatchsController;
 use App\Http\Controllers\ResultController;
@@ -56,7 +57,7 @@ Route::get('/players',[UserController::class, 'displayPlayers'])->name('players'
 Route::get('/player/edit/{id}',[UserController::class, 'editPlayerForm'])->name('editPlayer');
 
 //Update d'un joueur
-Route::post('/player/update',[App\Http\Controllers\UserController::class, 'playerUpdate'])->name('update.player');
+Route::post('/player/update',[UserController::class, 'playerUpdate'])->name('update.player');
 
 //Delete d'un joueur
 Route::get('/player/delete/{id}',[UserController::class, 'delete'])->name('player.delete');
@@ -89,6 +90,21 @@ Route::post('/championship/update',[ChampionshipController::class, 'championship
 
 //Delete d'un championnat
 Route::get('/championship/delete/{id}',[ChampionshipController::class, 'delete'])->name('championship.delete');
+
+
+
+
+
+//gestion des joueurs dans un championnat
+//Vers le formulaire d'ajout de joueur dans un championnat
+Route::get('/form-player-in-championship/{championship_id}',[Championship_UserController::class, 'formPlayerInChampionship'])->name('form.player.in.championship');
+
+//ajout d'un joueur dans un championnat
+Route::post('/championship/insert-player', [Championship_UserController::class, 'insert'])->name('insert.player.in.championship');
+
+//Delete d'un joueur dans un championnat
+Route::get('/championship/delete-player/{user_id}/{championship_id}',[Championship_UserController::class, 'delete'])->name('delete.player.in.championship');
+
 
 
 
@@ -163,12 +179,14 @@ Route::get('/result/delete/{id}',[ResultController::class, 'delete'])->name('del
 
 
 
+
+
 //gestion des kills
 //vers le formulaire de création de kill par un user
-Route::get('/create-kill/{match_id}',[KillController::class, 'killForm'])->name('form.kill');
+Route::get('/create-kill/{result_id}/{match_id}',[KillController::class, 'killForm'])->name('form.kill');
 
 ////création de kill par un user
-//Route::post('/kill/insert', [KillController::class, 'insert'])->name('insert.kill');
+Route::post('/kill/insert', [KillController::class, 'insert'])->name('insert.kill');
 //
 ////Formulaire d'édition d'un kill
 //Route::get('/kill/edit/{id}/{user_id}',[KillController::class, 'editKillForm'])->name('editForm.result');

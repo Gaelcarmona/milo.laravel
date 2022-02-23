@@ -14,8 +14,13 @@ class Associate_User extends Model
     public $table = 'associate_user';
     use HasFactory;
 
-        protected $fillable = [
+    protected $fillable = [
         'creator_id',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

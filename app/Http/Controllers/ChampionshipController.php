@@ -80,12 +80,14 @@ class ChampionshipController extends Controller
     {
         $matchs = Matchs::query()->where('championship_id', '=', $id)->get();
         $championship = Championship::where('id', $id)->first();
-        $users =
+        $championshipUsers = Championship_User::where('championship_id', $id)->get();
+//        dd($championshipUsers);
 
         return view('/championship', [
             'id' => $id,
             'championship' => $championship,
-                'matchs' => $matchs,
+            'matchs' => $matchs,
+            'championshipUsers' => $championshipUsers,
         ]);
     }
 
