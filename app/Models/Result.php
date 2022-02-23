@@ -26,4 +26,14 @@ class Result extends Model
     {
         return $this->hasOne(Deck::class, 'id', 'deck_id');
     }
+
+    public function match()
+    {
+        return $this->hasOne(Matchs::class, 'id', 'match_id');
+    }
+
+    public function kills()
+    {
+        return $this->belongsTo(Kill::class);
+    }
 }

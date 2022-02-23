@@ -11,6 +11,16 @@ class Kill extends Model
 
     protected $fillable = [
         'result_id',
-        'player_killed_id',
+        'user_killed_id',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_killed_id');
+    }
+
+    public function result()
+    {
+        return $this->hasOne(Result::class, 'id', 'result_id');
+    }
 }

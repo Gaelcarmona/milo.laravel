@@ -20,4 +20,9 @@ class Matchs extends Model
         return $this->hasOne(Championship::class, 'id', 'championship_id');
     }
 
+    public function results()
+    {
+        return $this->belongsTo(Result::class);
+    }
+
 }

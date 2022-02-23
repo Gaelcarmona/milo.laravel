@@ -51,13 +51,19 @@
                 </thead>
                 <tbody>
                 @foreach($results as $result)
-                    {{--                                        @dd($result->user)--}}
                     <tr>
                         <td>{{$result->id}}</td>
                         <td>{{$result->place}}</td>
                         <td>{{ $result->user->pseudo }}</td>
                         <td>{{ $result->deck->title }}</td>
                         <td>
+                            @foreach($killed_players as $killed_player)
+                                @if($killed_player->result_id === $result->id)
+{{--                                    @dd($killed_player->user->pseudo);--}}
+                                    <a href="{{ route('delete.kill', [ 'result_id'=> $result->id, 'user_killed_id' => $killed_player->user->id] ) }}">{{ $killed_player->user->pseudo }}</a>
+                                    <br>
+                                @endif
+                            @endforeach
                             <a href="{{ route('form.kill',[ 'result_id'=> $result->id, 'match_id' => $match->id ]) }}">+</a>
                         </td>
                         <td>{{$result->score}}</td>

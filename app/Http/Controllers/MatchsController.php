@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Result;
 use Illuminate\Http\Request;
 use App\Models\Matchs;
+use App\Models\Kill;
 use App\Models\Championship;
 use App\Models\User;
 use \App\Http\Requests\CreateAndEditMatchRequest;
@@ -38,13 +39,22 @@ class MatchsController extends Controller
     public function displayMatchProfile($id)
     {
         $results = Result::query()->where('match_id', '=', $id)->get();
+
         $match = Matchs::where('id', $id)->first();
 
+        $ids = [];
+        foreach ($results as $result){
+            $ids[] = $result->id;
+        }
+
+        $killed_players = Kill::whereIn('result_id', $ids)->get();
+//        dd($killed_players);
 
         return view('/match', [
             'id' => $id,
             'match' => $match,
             'results' => $results,
+            'killed_players' => $killed_players,
         ]);
     }
 

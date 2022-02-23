@@ -64,5 +64,10 @@ class User extends Authenticatable
         return $this->belongsTo(Associate_User::class);
     }
 
+    public function kills()
+    {
+        return $this->belongsTo(Kill::class);
+    }
+
 
 }

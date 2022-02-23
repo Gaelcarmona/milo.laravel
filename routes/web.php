@@ -187,15 +187,9 @@ Route::get('/create-kill/{result_id}/{match_id}',[KillController::class, 'killFo
 
 ////création de kill par un user
 Route::post('/kill/insert', [KillController::class, 'insert'])->name('insert.kill');
-//
-////Formulaire d'édition d'un kill
-//Route::get('/kill/edit/{id}/{user_id}',[KillController::class, 'editKillForm'])->name('editForm.result');
-//
-////Update d'un kill
-//Route::post('/kill/update',[KillController::class, 'killUpdate'])->name('update.kill');
-//
-////Delete d'un kill
-//Route::get('/kill/delete/{id}',[KillController::class, 'delete'])->name('delete.kill');
+
+//Delete d'un kill
+Route::get('/kill/delete/{result_id}/{user_killed_id}',[KillController::class, 'delete'])->name('delete.kill');
 
 
 

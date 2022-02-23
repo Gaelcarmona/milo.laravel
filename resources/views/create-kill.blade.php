@@ -28,17 +28,17 @@
         </header>
         <body>
         <main>
-            <form action="{{route('insert.kill')}}" class='mx-5 mt-5' method='post'>
+            <form action="{{ route( 'insert.kill' ) }}" class='mx-5 mt-5' method='post'>
                 @csrf
                 <div class='mb-3'>
-                    <label for="user_killed_id " class="form-label">Joueur éliminé <span
+                    <label for="user_killed_id" class="form-label">Joueur éliminé<span
                             class="small text-secondary">(Obligatoire)</span></label>
                     <select
-                        id="user_killed_id "
-                        name="user_killed_id ">
+                        id="user_killed_id"
+                        name="user_killed_id">
                         <option value="">Choisis un joueur</option>
                         @foreach($resultMatchUsers as $resultMatchUser)
-                            <option value="{{$resultMatchUser->id}}">
+                            <option value="{{$resultMatchUser->user->id}}">
                                 {{ $resultMatchUser->user->pseudo}}
                             </option>
                         @endforeach
