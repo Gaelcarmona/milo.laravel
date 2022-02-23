@@ -35,6 +35,7 @@ class KillController extends Controller
         $kill->user_killed_id = $request->input('user_killed_id');
 
         $kill->save();
+        $this->addScore($kill->result_id);
 
         return redirect()->route('championships');
 
@@ -44,8 +45,24 @@ class KillController extends Controller
     public function delete($result_id, $user_killed_id)
     {
         Kill::where('result_id', $result_id)
-            ->where('user_killed_id', $user_killed_id )
+            ->where('user_killed_id', $user_killed_id)
             ->delete();
+        $this->reduceScore($result_id);
         return redirect('/championships');
+    }
+
+    public function addScore($id)
+    {
+        $result = Result::where('id', $id)->first();
+        $result->score += 1;
+        $result->save();
+    }
+
+    public function reduceScore($id)
+    {
+        $result = Result::where('id', $id)->first();
+        $result->score -= 1;
+        $result->save();
+
     }
 }
