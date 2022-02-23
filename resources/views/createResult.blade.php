@@ -37,7 +37,6 @@
                         id="user_id"
                         name="user_id">
                         <option value="">Choisis un joueur</option>
-
                         @foreach($users as $user)
                             <option data-url="{{ route('select.deck', ['user' => $user->id]) }}" value="{{$user->id}}">
                                 {{ $user->pseudo}}

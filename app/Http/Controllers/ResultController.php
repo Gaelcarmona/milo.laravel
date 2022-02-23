@@ -19,15 +19,11 @@ class ResultController extends Controller
         $players = Championship_User::query()->where('championship_id', '=', $championshipId)->get();
 
         $users = [];
-
         foreach ($players as $player) {
             $user = User::where('id', $player->user_id)->first();
             $users[] = $user;
 
         }
-
-//        $decksUser = Deck::query()->whereIn('user_id', collect($users)->pluck('id'))->get();
-//        dd($decks);
 
         return view('/createResult'
             , [
@@ -35,7 +31,6 @@ class ResultController extends Controller
                 'users' => $users,
                 'match_id' => $match_id,
                 'players' => $players,
-//                'decksUser'=> $decksUser,
             ]);
     }
 
@@ -43,9 +38,8 @@ class ResultController extends Controller
     //Insertion d'un résultat pour un joueur
     public function insert(CreateAndEditResultRequest $request)
     {
-//        dd($request);
         $result = new Result();
-//dd($result);
+
         $result->user_id = $request->input('user_id');
         $result->deck_id = $request->input('deck_id');
         $result->match_id = $request->input('match_id');
@@ -87,11 +81,9 @@ class ResultController extends Controller
     //Update d'un résultat
     public function resultUpdate(CreateAndEditResultRequest $request)
     {
-//        dd($request);
-//        dd($request->request);
-//        $result = Deck::query()->where('id', '=', $id)->get();
+
         $result = Result::where('id', $request->request->get('id'))->first();
-//        dd($result);
+
         $result->deck_id = $request->input('deck_id');
         $result->place = $request->input('place');
 
