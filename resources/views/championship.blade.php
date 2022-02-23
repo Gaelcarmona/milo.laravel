@@ -34,8 +34,8 @@
             <p>j'ai été créé le {{ $championship->created_at }}</p>
             <p>mon propriétaire a pour id le n° {{ $championship->user_id }}</p>
 
-            <table>
-                <thead>
+            <table class='col-12 bg-main'>
+                <thead class='text-white bg-dark'>
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Modifier</th>
@@ -56,8 +56,8 @@
             </table>
             <a href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
 
-            <table>
-                <thead>
+            <table class='col-12 bg-main'>
+                <thead class='text-white bg-dark'>
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Supprimer</th>

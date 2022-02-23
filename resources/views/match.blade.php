@@ -38,8 +38,8 @@
             <p></p>
 
 
-            <table>
-                <thead>
+            <table class='col-12 bg-main'>
+                <thead class='text-white bg-dark'>
                 <th>ID</th>
                 <th>Place</th>
                 <th>Joueur</th>

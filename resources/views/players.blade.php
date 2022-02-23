@@ -28,8 +28,8 @@
     </header>
     <body>
     <main>
-        <table>
-            <thead>
+        <table class='col-12 bg-main'>
+            <thead class='text-white bg-dark'>
                 <th>ID</th>
                 <th>Pseudo</th>
                 <th>Modifier</th>

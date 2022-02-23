@@ -41,8 +41,8 @@
             <h1>Les decks de {{ $player->pseudo }}</h1>
             {{--@dd($decks);--}}
 
-            <table>
-                <thead>
+            <table class='col-12 bg-main'>
+                <thead class='text-white bg-dark'>
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Modifier</th>
@@ -58,7 +58,7 @@
                     </tr>
                 @endforeach
                 </tbody>
-            </table>
+            </table class='col-12 bg-main'>
 
             <a href="{{ route('form.deck', ['id' => $player->id]) }}">Créer un deck</a>
 
