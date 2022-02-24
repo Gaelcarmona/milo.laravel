@@ -61,7 +61,9 @@
                         <td>{{$deck->id}}</td>
                         <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ $deck->title}}</a></td>
                         <td><a href="{{ route('editForm.deck', $deck->id) }}"> modifier</a></td>
-                        <td><a href="{{ route('delete.deck', $deck->id) }}">supprimer</a></td>
+                        <td><a href="{{ route('delete.deck', $deck->id) }}"onclick="
+                        var result = alert('Vous ne pouvez pas supprimer ce deck alors que des résultats lui sont associés');return false">supprimer</a></td>
+
                     </tr>
                 @endforeach
                 </tbody>

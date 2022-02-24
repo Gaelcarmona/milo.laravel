@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function matchs()
     {
-        return $this->belongsToMany(Matchs::class);
+        return $this->belongsTo(Matchs::class);
     }
 
     public function championshipUser()

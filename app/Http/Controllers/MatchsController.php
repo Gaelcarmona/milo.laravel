@@ -36,11 +36,11 @@ class MatchsController extends Controller
     }
 
     //Profil d'un match
-    public function displayMatchProfile($id)
+    public function displayMatchProfile($match_id)
     {
-        $results = Result::query()->where('match_id', '=', $id)->get();
+        $results = Result::query()->where('match_id', '=', $match_id)->get();
 
-        $match = Matchs::where('id', $id)->first();
+        $match = Matchs::where('id', $match_id)->first();
 
         $ids = [];
         foreach ($results as $result) {
@@ -51,7 +51,7 @@ class MatchsController extends Controller
 //        dd($killed_players);
 
         return view('/match', [
-            'id' => $id,
+            'id' => $match_id,
             'match' => $match,
             'results' => $results,
             'killed_players' => $killed_players,
@@ -61,7 +61,7 @@ class MatchsController extends Controller
     //formulaire d'édition d'un championnat
     public function editMatchForm($id)
     {
-        $matchBread = Matchs::query()->where('id',$id)->first();
+        $matchBread = Matchs::query()->where('id', $id)->first();
 
         return view('matchEdit', [
             'id' => $id,
@@ -92,6 +92,18 @@ class MatchsController extends Controller
     public function delete($id)
     {
         $match = Matchs::query()->where('id', $id)->first();
+
+        // récupération des résultats en vue de les delete avant le match
+        $results = Result::query()->where('match_id', $id)->get();
+
+        foreach ($results as $result) {
+
+            //suppression des kills de chaque résultat
+            Kill::where('result_id', $result->id)->delete();
+
+            //suppression de chaque résultat du match
+            Result::where('id', $result->id)->delete();
+        }
 
         Matchs::where('id', $id)->delete();
 

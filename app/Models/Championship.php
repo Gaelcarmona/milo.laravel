@@ -19,4 +19,9 @@ class Championship extends Model
     {
         return $this->belongsTo(Matchs::class);
     }
+
+        public function users()
+    {
+        return $this->belongsToMany(User::class, 'championship_user', 'championship_id','user_id');
+    }
 }

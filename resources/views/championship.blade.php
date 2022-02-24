@@ -56,7 +56,9 @@
                             <a href="{{ route('displayMatchProfile', $match->id) }}">{{ $match->title}}</a>
                         </td>
                         <td><a href="{{ route('editForm.match', $match->id) }}"> modifier</a></td>
-                        <td><a href="{{ route('delete.match', $match->id) }}">supprimer</a></td>
+                        <td><a href="{{ route('delete.match', $match->id) }}"
+                               onclick=" var result = confirm('Êtes vous sur de vouloir supprimer le match ? Tous les résultats associés seront supprimés');return result">supprimer</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -75,7 +77,7 @@
                         <td>{{$championshipUser->user->id}}</td>
                         <td>{{$championshipUser->user->pseudo}}</td>
                         <td>
-                            <a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->user->id ,'championship_id' => $championship->id]) }}">supprimer</a>
+                            <a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->user->id ,'championship_id' => $championship->id]) }}" onclick=" var championshipUserDelete = confirm('Êtes vous sur de vouloir supprimer ce joueur du championnat ? Tous les résultats associés seront supprimés');return championshipUserDelete">supprimer</a>
                         </td>
                     </tr>
                 @endforeach

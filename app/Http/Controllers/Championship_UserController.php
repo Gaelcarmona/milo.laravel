@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Championship;
+use App\Models\Matchs;
+use App\Models\Result;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Championship_User;
@@ -33,7 +36,7 @@ class Championship_UserController extends Controller
     {
         $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
 //    dd($associateUsers);
-        $championshipBread = Championship::query()->where('id',$championship_id)->first();
+        $championshipBread = Championship::query()->where('id', $championship_id)->first();
 
         return view('/form-player-in-championship', [
             'associateUsers' => $associateUsers,
@@ -60,9 +63,54 @@ class Championship_UserController extends Controller
 
     public function delete($user_id, $championship_id)
     {
-        Championship_User::where('user_id', $user_id)
-            ->where('championship_id', $championship_id)
-            ->delete();
+
+        DB::beginTransaction();
+
+        try {
+            $matchs = Matchs::query()->where('championship_id', $championship_id)->get();
+            $results = Result::query()->whereIn('match_id', $matchs->pluck('id')->toArray())->get();
+            foreach ($results as $result)
+            {
+            $result->kills()->where('user_killed_id', $user_id)->delete();
+            $result->where('user_id', $user_id)->delete();
+
+            }
+            Championship_User::where('user_id', $user_id)
+                ->where('championship_id', $championship_id)
+                ->delete();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd("On est pas good", $e->getMessage());
+        }
+        DB::commit();
+
+
+        dd(
+            "On est good"
+
+        );
+
+
+//        $results = Result::query()->where('user_id',$user_id)->get();
+
+//        $championship = Championship::query()->where('id', '=', $championship_id)->get();
+
+//        $results = Result::query()->where('user_id', '=', $user_id)
+//            ->get();
+//        dd($results);
+//        foreach ($results as $result) {
+//
+////            suppression des kills de chaque résultat
+//            Kill::where('result_id', $result->id)->delete();
+//
+////            suppression de chaque résultat du match
+//            Result::where('id', $result->id)->delete();
+//
+//        }
+//
+//        Championship_User::where('user_id', $user_id)
+//            ->where('championship_id', $championship_id)
+//            ->delete();
 
         return redirect()->route('displayChampionshipProfile', ['id' => $championship_id]);
         return redirect('/championships');

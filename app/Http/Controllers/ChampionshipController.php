@@ -40,22 +40,24 @@ class ChampionshipController extends Controller
         $championship->user_id = Auth::id();
         $championship->save();
 
-        $this->championshipUserInsert();
+        $this->championshipUserInsert($request, $championship);
 
         return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
     }
 
-    public function championshipUserInsert()
+    public function championshipUserInsert(Resquest $request,Championship $championship)
     {
-        foreach ($_POST['player'] as $player) {
+        foreach ($request->input('player') as $player) {
 
-            $championship = DB::table('championships')->latest('id')->first();
-            $championshipUser = new Championship_User();
+            $championship->users()->sync('')
 
-            $championshipUser->user_id = $player;
-            $championshipUser->championship_id = $championship->id;
 
-            $championshipUser->save();
+//            $championshipUser = new Championship_User();
+//
+//            $championshipUser->user_id = $player;
+//            $championshipUser->championship_id = $championship->id;
+//
+//            $championshipUser->save();
         }
 
 
