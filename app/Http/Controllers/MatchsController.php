@@ -61,7 +61,12 @@ class MatchsController extends Controller
     //formulaire d'édition d'un championnat
     public function editMatchForm($id)
     {
-        return view('matchEdit', ['id' => $id]);
+        $matchBread = Matchs::query()->where('id',$id)->first();
+
+        return view('matchEdit', [
+            'id' => $id,
+            'matchBread' => $matchBread,
+        ]);
     }
 
 

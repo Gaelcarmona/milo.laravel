@@ -9,3 +9,10 @@
 .breadcrumb li:first-child::before {
     content: "";
 }
+.padding-right{
+    padding-right: 0;
+}
+
+.padding-left{
+    padding-left: 0;
+}

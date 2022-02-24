@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <x-slot name="header">
 
 
@@ -28,6 +29,17 @@
         </header>
         <body>
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('championships') }}">Mes championnats</a></li>
+                    <li>
+                        <a href="{{ route('displayChampionshipProfile', $resultBread->match->championship_id) }}">{{ $resultBread->match->championship->title }}</a>
+                    </li>
+                    <li><a href="{{ route('displayMatchProfile',$resultBread->match->id ) }}">{{ $resultBread->match->title }}</a></li>
+                    <li><span aria-current="page">Entrer un joueur éliminé par{{ $resultBread->user->pseudo }}</span></li>
+                </ul>
+            </nav>
             <form action="{{ route( 'insert.kill' ) }}" class='mx-5 mt-5' method='post'>
                 @csrf
                 <div class='mb-3'>
@@ -49,7 +61,6 @@
                         value="{{$result_id}}"
                     >
                 </div>
-
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
             </form>
         </main>
@@ -57,6 +68,7 @@
         <footer class='footer navbar bottom bg-dark  text-white py-3'>
             <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>
         </footer>
+
     </x-slot>
 
 </x-app-layout>

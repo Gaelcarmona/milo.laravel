@@ -84,7 +84,12 @@ class UserController extends Controller
     //formulaire d'édition d'un player
     public function editPlayerForm($id)
     {
-        return view('playerEdit', ['id' => $id]);
+        $playerBread = User::query()->where('id',$id)->first();
+
+        return view('playerEdit', [
+            'id' => $id,
+            'playerBread' => $playerBread,
+        ]);
     }
 
 

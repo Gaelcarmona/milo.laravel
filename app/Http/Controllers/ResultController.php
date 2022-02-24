@@ -19,11 +19,13 @@ class ResultController extends Controller
     {
         $players = Championship_User::query()->where('championship_id', '=', $championshipId)->get();
 
+        $matchBread =Matchs::query()->where('id', '=', $match_id)->first();
+
         $users = [];
+
         foreach ($players as $player) {
             $user = User::where('id', $player->user_id)->first();
             $users[] = $user;
-
         }
 
         return view('/createResult'
@@ -32,6 +34,7 @@ class ResultController extends Controller
                 'users' => $users,
                 'match_id' => $match_id,
                 'players' => $players,
+                'matchBread' => $matchBread,
             ]);
     }
 
@@ -71,7 +74,9 @@ class ResultController extends Controller
 //        dd($id);
         $decksUser = Deck::query()->where('user_id', '=', $user_id)->get();
         $match_id = Matchs::query()->where('id', '=', $id)->get();
-//        dd($match_id);
+
+        $resultBread =Result::query()->where('id', '=', $id)->first();
+//        dd($resultBread);
 //        $result = Result::query()->where('match_id', '=', $id)
 //            ->where('user_id', '=', $user_id)
 //            ->get();
@@ -81,6 +86,7 @@ class ResultController extends Controller
             'decksUser' => $decksUser,
             'user_id' => $user_id,
             'match_id' => $match_id,
+            'resultBread' => $resultBread,
         ]);
     }
 

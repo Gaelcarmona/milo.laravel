@@ -28,6 +28,13 @@
         </header>
         <body>
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('players') }}">Mes joueurs</a></li>
+                    <li><span aria-current="page">{{ $player->pseudo }}</span></li>
+                </ul>
+            </nav>
             <p>hello</p>
             <p>Coucou je m'appelle {{ $player->pseudo }}</p>
             <p>Mon id est le {{ $player->id }}</p>

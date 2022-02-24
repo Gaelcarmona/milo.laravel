@@ -28,6 +28,20 @@
         </header>
         <body id="test">
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('championships') }}">Mes championnats</a></li>
+                    <li>
+                        <a href="{{ route('displayChampionshipProfile', $matchBread->championship_id) }}">{{ $matchBread->championship->title }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('displayMatchProfile',$matchBread->id ) }}">{{ $matchBread->title }}</a>
+                    </li>
+                    <li><span aria-current="page">Entrer un résultat</span>
+                    </li>
+                </ul>
+            </nav>
             <form action="{{route('insert.result')}}" class='mx-5 mt-5' method='post'>
                 @csrf
                 <div>

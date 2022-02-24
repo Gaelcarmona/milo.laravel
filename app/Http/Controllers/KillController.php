@@ -18,11 +18,17 @@ class KillController extends Controller
             ->where('id', '!=', $result_id)
             ->get();
 
+        $resultBread = Result::query()->where('match_id', $match_id)
+            ->where('id', '!=', $result_id)
+            ->first();
+
+//        dd($resultBread->match->title);
         return view('/create-kill'
             , [
                 'match_id' => $match_id,
                 'result_id' => $result_id,
                 'resultMatchUsers' => $resultMatchUsers,
+                'resultBread' => $resultBread,
             ]);
     }
 

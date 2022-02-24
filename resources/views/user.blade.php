@@ -36,36 +36,36 @@
         <main>
             <div>
                 <div class="statistiques row">
-                    <div class="col-6">
+                    <div class="col-6 padding-right">
                         <figure>
-                            <img src="images/accueilwallpaper.jpg">
+                            <img src="images/statistiques.jpeg">
                         </figure>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 padding-left">
                         <h1 class="text-center">Mes statistiques</h1>
                     </div>
                 </div>
                 <div class="joueurs row">
-                    <div class="col-6">
+                    <div class="col-6 padding-right">
                         <h1 class="text-center">Mes joueurs</h1>
                         <div>
                             <a href="{{ route('createplayer') }}">Créer un joueur</a>
                             <a href="{{ route('players') }}">Voir mes joueurs</a>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 padding-left">
                         <figure>
-                            <img src="images/accueilwallpaper.jpg">
+                            <img src="images/players.jpg">
                         </figure>
                     </div>
                 </div>
                 <div class="championnats row">
-                    <div class="col-6">
+                    <div class="col-6 padding-right">
                         <figure>
-                            <img src="images/accueilwallpaper.jpg">
+                            <img src="images/championships.jpg">
                         </figure>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 padding-left">
                         <h1 class="text-center">Mes championnats</h1>
                         <div>
                             <a href="{{route('create.championship')}}">Créer un championnat</a>

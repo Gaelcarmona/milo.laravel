@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Championship;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Championship_User;
@@ -32,10 +33,12 @@ class Championship_UserController extends Controller
     {
         $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
 //    dd($associateUsers);
+        $championshipBread = Championship::query()->where('id',$championship_id)->first();
 
         return view('/form-player-in-championship', [
             'associateUsers' => $associateUsers,
             'championship_id' => $championship_id,
+            'championshipBread' => $championshipBread,
         ]);
 
     }

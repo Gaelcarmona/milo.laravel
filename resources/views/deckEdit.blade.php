@@ -28,6 +28,17 @@
         </header>
         <body>
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('players') }}">Mes joueurs</a></li>
+                    <li>
+                        <a href="{{ route('displayPlayerProfile', $deck->user_id) }}">{{ $deck->user->pseudo }}</a>
+                    </li>
+                    <li><span aria-current="page">Modification de {{ $deck->title }}</span>
+                    </li>
+                </ul>
+            </nav>
             <form action="{{route('update.deck')}}" class='mx-5 mt-5' method='post'>
                 @csrf
                 {{--        @dd($id);--}}

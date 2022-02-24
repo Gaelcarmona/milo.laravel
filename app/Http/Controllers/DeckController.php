@@ -43,7 +43,12 @@ class DeckController extends Controller
     //formulaire d'édition d'un championnat
     public function editDeckForm($id)
     {
-        return view('deckEdit', ['id' => $id]);
+        $deck = Deck::where('id', $id)->first();
+
+        return view('deckEdit', [
+            'id' => $id,
+            'deck' => $deck,
+        ]);
     }
 
     //Update d'un deck

@@ -20,4 +20,9 @@ class Deck extends Model
     {
         return $this->belongsTo(Result::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

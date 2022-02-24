@@ -28,6 +28,18 @@
         </header>
         <body>
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('championships') }}">Mes championnats</a></li>
+                    <li>
+                        <a href="{{ route('displayChampionshipProfile', $championship_id) }}">{{ $championshipBread->title }}</a>
+                    </li>
+
+                    <li><span aria-current="page">Ajouter un joueur au championnat</span>
+                    </li>
+                </ul>
+            </nav>
             <form action="{{route('insert.player.in.championship')}}"
                   class='mx-5 mt-5' method='post'>
                 @csrf
@@ -46,7 +58,7 @@
                         name="user_id">
                         <option value="">Choisis un joueur</option>
                         <option value="{{Auth::id()}}">{{Auth::user()->pseudo}}</option>
-{{--                            @dd($associateUsers);--}}
+                        {{--                            @dd($associateUsers);--}}
                         @foreach($associateUsers as $associateUser)
                             <option value="{{$associateUser->user_id}}">
                                 {{ $associateUser->user->pseudo}}

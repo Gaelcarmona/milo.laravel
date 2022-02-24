@@ -69,5 +69,10 @@ class User extends Authenticatable
         return $this->belongsTo(Kill::class);
     }
 
+    public function decks()
+    {
+        return $this->belongsTo(Deck::class);
+    }
+
 
 }

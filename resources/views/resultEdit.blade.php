@@ -28,11 +28,20 @@
         </header>
         <body id="test">
         <main>
-            {{--            @dd($match_id);--}}
-            <p>Modification de résultat pour {{ \App\Models\User::where('id',$user_id)->first()->pseudo }} </p>
-{{--            <p>Modification de résultat pour {{ \App\Models\User::where('id',$user_id)->first()->pseudo }} </p>--}}
-{{--            <p>dans le match {{ \App\Models\Matchs::where('id',$match_id[0]->id)->first()->title }}</p>--}}
-            {{--            <p>{{ $match_id[0]->id }}</p>--}}
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('championships') }}">Mes championnats</a></li>
+                    <li>
+                        <a href="{{ route('displayChampionshipProfile', $resultBread->match->championship_id) }}">{{ $resultBread->match->championship->title }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('displayMatchProfile',$resultBread->id ) }}">{{ $resultBread->match->title }}</a>
+                    </li>
+                    <li><span aria-current="page">Modification d'un résultat (celui de {{ $resultBread->user->pseudo }})</span>
+                    </li>
+                </ul>
+            </nav>
             <form action="{{route('update.result')}}" class='mx-5 mt-5' method='post'>
                 @csrf
 
