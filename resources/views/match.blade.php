@@ -28,6 +28,14 @@
         </header>
         <body>
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('championships') }}">Mes championnats</a></li>
+                    <li><a href="{{ route('displayChampionshipProfile', $match->championship_id) }}">{{ $match->championship->title }}</a></li>
+                    <li><span aria-current="page">{{ $match->title }}</span></li>
+                </ul>
+            </nav>
             <p>hello</p>
             <p>Coucou je suis le match "{{ $match->title }}"</p>
             <p>Mon id est le {{ $match->id }}</p>
@@ -59,7 +67,7 @@
                         <td>
                             @foreach($killed_players as $killed_player)
                                 @if($killed_player->result_id === $result->id)
-{{--                                    @dd($killed_player->user->pseudo);--}}
+                                    {{--                                    @dd($killed_player->user->pseudo);--}}
                                     <a href="{{ route('delete.kill', [ 'result_id'=> $result->id, 'user_killed_id' => $killed_player->user->id] ) }}">{{ $killed_player->user->pseudo }}</a>
                                     <br>
                                 @endif

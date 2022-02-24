@@ -48,8 +48,10 @@ class Championship_UserController extends Controller
         $championshipUser->championship_id = $request->input('championship_id');
 
         $championshipUser->save();
+        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
 
-        return redirect('/championships');
+        return redirect()->route('displayChampionshipProfile', ['id' => $championshipUser->championship_id]);
+
 
     }
 
@@ -58,6 +60,8 @@ class Championship_UserController extends Controller
         Championship_User::where('user_id', $user_id)
             ->where('championship_id', $championship_id)
             ->delete();
+
+        return redirect()->route('displayChampionshipProfile', ['id' => $championship_id]);
         return redirect('/championships');
     }
 

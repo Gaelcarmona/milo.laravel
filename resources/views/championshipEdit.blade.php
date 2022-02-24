@@ -28,6 +28,16 @@
         </header>
         <body>
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('championships') }}">Mes championnats</a></li>
+                    <li>
+                        <a href="{{ route('displayChampionshipProfile', $match->championship_id) }}">{{ $match->championship->title }}</a>
+                    </li>
+                    <li><span aria-current="page">{{ $match->title }}</span></li>
+                </ul>
+            </nav>
             <form action="{{route('update.championship')}}" class='mx-5 mt-5' method='post'>
                 @csrf
                 {{--        @dd($id);--}}

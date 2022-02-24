@@ -35,7 +35,7 @@ Route::get('/dashboard', function () {
 //vers le profil utilisateur
 Route::get('/user', function () {
     return view('user');
-});
+})->name('user');
 
 
 

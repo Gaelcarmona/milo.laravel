@@ -53,10 +53,10 @@
                     <label for="player[]">{{Auth::user()->pseudo}}</label>
                     @foreach($associateUsers as $associateUser)
                         <input type="checkbox" value="{{$associateUser->user_id}}"
-                               id="{{ \App\Models\User::where('id',$associateUser->user_id)->first()->pseudo}}"
+                               id="{{$associateUser->user->pseudo}}"
                                name="player[]">
                         <label
-                            for="player[]">{{ \App\Models\User::where('id',$associateUser->user_id)->first()->pseudo}}</label>
+                            for="player[]">{{ $associateUser->user->pseudo}}</label>
                     @endforeach
                 </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>

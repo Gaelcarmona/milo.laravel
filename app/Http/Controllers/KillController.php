@@ -34,11 +34,12 @@ class KillController extends Controller
         $kill->result_id = $request->input('result_id');
         $kill->user_killed_id = $request->input('user_killed_id');
 
+        $result = Result::query()->where('id', $kill->result_id)->first();
+
         $kill->save();
         $this->addScore($kill->result_id);
 
-        return redirect()->route('championships');
-
+        return redirect()->route('displayMatchProfile', ['id' => $result->match_id]);
     }
 
     //suppression d'un kill
@@ -48,7 +49,11 @@ class KillController extends Controller
             ->where('user_killed_id', $user_killed_id)
             ->delete();
         $this->reduceScore($result_id);
-        return redirect('/championships');
+
+        $result = Result::query()->where('id', $result_id)->first();
+
+        return redirect()->route('displayMatchProfile', ['id' => $result->match_id]);
+
     }
 
     public function addScore($id)

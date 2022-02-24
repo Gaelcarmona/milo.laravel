@@ -54,14 +54,17 @@ class DeckController extends Controller
         $deck->title = $request->request->get('title');
         $deck->save();
 
-
-        return redirect('/players');
+        return redirect()->route('displayPlayerProfile', ['id' => $deck->user_id]);
+//        return redirect('/players');
     }
 
     public function delete($id)
     {
+        $deck = Deck::query()->where('id', $id)->first();
+
         Deck::where('id', $id)->delete();
-        return redirect('/players');
+
+        return redirect()->route('displayPlayerProfile', ['id' => $deck->user_id]);
     }
 
     public function decksUser(User $user)

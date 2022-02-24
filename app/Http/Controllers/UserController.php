@@ -29,7 +29,6 @@ class UserController extends Controller
 
     public function update(CreateAndEditUserRequest $request, $id)
     {
-
         User::where('id', $id)->update([
 
             'pseudo' => $request->input('pseudo'),
@@ -42,7 +41,11 @@ class UserController extends Controller
     public function delete($id)
     {
         User::where('id', $id)->delete();
-        return view('/user');
+
+        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
+
+        return view('/players', ['associateUsers' => $associateUsers]);
+//        return view('/user');
     }
 
     public function playerInsert(CreateAndEditPlayerRequest $request)
@@ -53,18 +56,19 @@ class UserController extends Controller
         $user->save();
         $this->associateUserInsert();
 
+        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
 
-//        dd('coucou');
-        return view('/user');
-
+        return view('/players', ['associateUsers' => $associateUsers]);
     }
 
     public function associateUserInsert()
     {
         $user = DB::table('users')->latest('id')->first();
+
         $associateUser = new Associate_User();
         $associateUser->creator_id = Auth::id();
         $associateUser->user_id = $user->id;
+
         $associateUser->save();
     }
 
@@ -91,8 +95,9 @@ class UserController extends Controller
         $user->pseudo = $request->request->get('pseudo');
         $user->save();
 
+        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
 
-        return view('/user');
+        return view('/players', ['associateUsers' => $associateUsers]);
     }
 
     public function displayPlayerProfile($id)
@@ -103,7 +108,7 @@ class UserController extends Controller
         return view('/player', [
             'id' => $id,
             'player' => $player,
-            'decks'=> $decks,
+            'decks' => $decks,
         ]);
     }
 

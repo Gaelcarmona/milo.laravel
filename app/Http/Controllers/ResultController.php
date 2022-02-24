@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deck;
+use App\Models\Kill;
 use App\Models\Matchs;
 use App\Http\Controllers\Championship_UserController;
 use App\Models\Championship_User;
@@ -67,8 +68,14 @@ class ResultController extends Controller
     //formulaire d'édition d'un résultat
     public function editResultForm($id, $user_id)
     {
+//        dd($id);
         $decksUser = Deck::query()->where('user_id', '=', $user_id)->get();
         $match_id = Matchs::query()->where('id', '=', $id)->get();
+//        dd($match_id);
+//        $result = Result::query()->where('match_id', '=', $id)
+//            ->where('user_id', '=', $user_id)
+//            ->get();
+
         return view('resultEdit', [
             'id' => $id,
             'decksUser' => $decksUser,
@@ -98,18 +105,28 @@ class ResultController extends Controller
             ];
             $result->score = $scorePlaceEquivalence[$request->input('place')];
         }
+        $this->deleteAllKills($result->id);
 
         $result->save();
-
-        return redirect('/championships');
+        return redirect()->route('displayMatchProfile', ['id' => $result->match_id]);
     }
 
 
     //suppression d'un résultat
     public function delete($id)
     {
+        $result = Result::query()->where('id', $id)->first();
+
+        $this->deleteAllKills($result->id);
+
         Result::where('id', $id)->delete();
-        return redirect('/championships');
+
+        return redirect()->route('displayMatchProfile', ['id' => $result->match_id]);
+    }
+
+    public function deleteAllKills($id)
+    {
+        Kill::where('result_id', $id)->delete();
     }
 
 

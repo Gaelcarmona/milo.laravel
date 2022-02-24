@@ -43,7 +43,7 @@ class MatchsController extends Controller
         $match = Matchs::where('id', $id)->first();
 
         $ids = [];
-        foreach ($results as $result){
+        foreach ($results as $result) {
             $ids[] = $result->id;
         }
 
@@ -71,7 +71,7 @@ class MatchsController extends Controller
 
 
         $match = Matchs::where('id', $request->request->get('id'))->first();
-        dd($request);
+//        dd($request);
 
         $match->title = $request->request->get('title');
 //        $match->championship_id = $request->request->get('championship_id');
@@ -79,16 +79,17 @@ class MatchsController extends Controller
         $match->save();
 
 
-        return redirect('/championships');
+        return redirect()->route('displayChampionshipProfile', ['id' => $match->championship_id]);
     }
-
-
 
 
     //suppression d'un match
     public function delete($id)
     {
+        $match = Matchs::query()->where('id', $id)->first();
+
         Matchs::where('id', $id)->delete();
-        return redirect('/championships');
+
+        return redirect()->route('displayChampionshipProfile', ['id' => $match->championship_id]);
     }
 }

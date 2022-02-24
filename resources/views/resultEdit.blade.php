@@ -30,7 +30,8 @@
         <main>
             {{--            @dd($match_id);--}}
             <p>Modification de résultat pour {{ \App\Models\User::where('id',$user_id)->first()->pseudo }} </p>
-            <p>dans le match {{ \App\Models\Matchs::where('id',$match_id[0]->id)->first()->title }}</p>
+{{--            <p>Modification de résultat pour {{ \App\Models\User::where('id',$user_id)->first()->pseudo }} </p>--}}
+{{--            <p>dans le match {{ \App\Models\Matchs::where('id',$match_id[0]->id)->first()->title }}</p>--}}
             {{--            <p>{{ $match_id[0]->id }}</p>--}}
             <form action="{{route('update.result')}}" class='mx-5 mt-5' method='post'>
                 @csrf

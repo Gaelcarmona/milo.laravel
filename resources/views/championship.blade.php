@@ -28,6 +28,13 @@
         </header>
         <body>
         <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('championships') }}">Mes championnats</a></li>
+                    <li><span aria-current="page">{{ $championship->title }}</span></li>
+                </ul>
+            </nav>
             <p>hello</p>
             <p>Coucou je suis le championnat "{{ $championship->title }}"</p>
             <p>Mon id est le {{ $championship->id }}</p>
@@ -46,7 +53,7 @@
                     <tr>
                         <td>{{$match->id}}</td>
                         <td>
-                            <a href="{{ route('displayMatchProfile', $match->id) }}">{{ \App\Models\Matchs::where('id',$match->id)->first()->title}}</a>
+                            <a href="{{ route('displayMatchProfile', $match->id) }}">{{ $match->title}}</a>
                         </td>
                         <td><a href="{{ route('editForm.match', $match->id) }}"> modifier</a></td>
                         <td><a href="{{ route('delete.match', $match->id) }}">supprimer</a></td>
@@ -67,13 +74,15 @@
                     <tr>
                         <td>{{$championshipUser->user->id}}</td>
                         <td>{{$championshipUser->user->pseudo}}</td>
-                        <td><a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->user->id ,'championship_id' => $championship->id]) }}">supprimer</a></td>
+                        <td>
+                            <a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->user->id ,'championship_id' => $championship->id]) }}">supprimer</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-            <a href="{{ route('form.player.in.championship', ['championship_id' => $championship->id]) }}">Ajouter un joueur au championnat</a>
-
+            <a href="{{ route('form.player.in.championship', ['championship_id' => $championship->id]) }}">Ajouter un
+                joueur au championnat</a>
 
 
         </main>

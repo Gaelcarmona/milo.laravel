@@ -37,17 +37,12 @@ class ChampionshipController extends Controller
         $championship = new Championship();
 
         $championship->title = $request->input('title');
-//        $user->creator_id = $request->input(Auth::id());
         $championship->user_id = Auth::id();
         $championship->save();
 
         $this->championshipUserInsert();
 
-
-//        dd($users);
-//        dd('coucou');
-        return redirect('/championships');
-
+        return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
     }
 
     public function championshipUserInsert()
@@ -101,16 +96,19 @@ class ChampionshipController extends Controller
     public function championshipUpdate(CreateAndEditChampionshipRequest $request)
     {
         $this->isAuth();
+
         $championship = Championship::where([
             'id' => $request->request->get('id'),
             'user_id' => $this->user_id
         ])->first();
+
         if ($championship === null)
             return redirect('/user?not_exists');
+
         $championship->title = $request->request->get('title');
         $championship->save();
 
-        return redirect('/user');
+        return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
     }
 
     public function delete($id)

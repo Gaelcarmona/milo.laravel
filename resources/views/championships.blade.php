@@ -39,7 +39,7 @@
                 @foreach($championships as $championship)
                     <tr>
                         <td>{{ $championship->id }}</td>
-                        <td><a href="{{ route('displayChampionshipProfile', $championship->id) }}">{{ \App\Models\Championship::where('id',$championship->id)->first()->title}}</a></td>
+                        <td><a href="{{ route('displayChampionshipProfile', $championship->id) }}">{{ $championship->title}}</a></td>
                         <td><a href="{{ route('editChampionship', $championship->id) }}"> modifier</a></td>
                         <td><a href="{{ route('championship.delete', $championship->id) }}">supprimer</a></td>
                     </tr>

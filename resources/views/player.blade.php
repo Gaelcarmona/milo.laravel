@@ -52,7 +52,7 @@
                 @foreach($decks as $deck)
                     <tr>
                         <td>{{$deck->id}}</td>
-                        <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ \App\Models\Deck::where('id',$deck->id)->first()->title}}</a></td>
+                        <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ $deck->title}}</a></td>
                         <td><a href="{{ route('editForm.deck', $deck->id) }}"> modifier</a></td>
                         <td><a href="{{ route('delete.deck', $deck->id) }}">supprimer</a></td>
                     </tr>

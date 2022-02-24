@@ -59,7 +59,7 @@ class User extends Authenticatable
         return $this->belongsTo(Championship_User::class);
     }
 
-    public function associateUser()
+    public function associateUsers()
     {
         return $this->belongsTo(Associate_User::class);
     }
