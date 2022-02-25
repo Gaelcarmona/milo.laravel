@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Associate_User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Championship;
@@ -45,11 +46,13 @@ class ChampionshipController extends Controller
         return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
     }
 
-    public function championshipUserInsert(Resquest $request,Championship $championship)
+    public function championshipUserInsert(Request $request,Championship $championship)
     {
-        foreach ($request->input('player') as $player) {
 
-            $championship->users()->sync('')
+//        dd($championship);
+            $championship->users()->sync($request->input('player'));
+//        foreach ($request->input('player') as $player) {
+
 
 
 //            $championshipUser = new Championship_User();
@@ -58,7 +61,7 @@ class ChampionshipController extends Controller
 //            $championshipUser->championship_id = $championship->id;
 //
 //            $championshipUser->save();
-        }
+//        }
 
 
     }

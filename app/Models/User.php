@@ -74,5 +74,15 @@ class User extends Authenticatable
         return $this->belongsTo(Deck::class);
     }
 
+    public function championships()
+    {
+        return $this->belongsToMany(Championship::class, 'championship_user', 'user_id', 'championship_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'associate_user', 'user_id', 'creator_id');
+    }
+
 
 }

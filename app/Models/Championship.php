@@ -20,8 +20,8 @@ class Championship extends Model
         return $this->belongsTo(Matchs::class);
     }
 
-        public function users()
+    public function users()
     {
-        return $this->belongsToMany(User::class, 'championship_user', 'championship_id','user_id');
+        return $this->belongsToMany(User::class, 'championship_user', 'championship_id', 'user_id');
     }
 }

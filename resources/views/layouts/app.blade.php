@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
@@ -27,22 +28,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased container">
 <div class="min-h-screen bg-gray-100">
-@include('layouts.navigation')
+{{--@include('layouts.navigation')--}}
 
 <!-- Page Heading -->
     <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            {{ $header }}
+        <div class="">
+            <header class='header bg-dark py-3 text-white'>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <figure>
+                                <img src="../../images/frame57.svg">
+                            </figure>
+                        </div>
+                        <div class="col-9">
+                            <nav class='navbar navbar-expand-lg d-flex justify-content-end'>
+                                <ul class='navbar-nav me-right  mb-2 mb-lg-0'>
+                                    <li class='nav-item'>
+                                        <a class='nav-link'>Statistiques</a>
+                                    </li>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href="{{ route('players') }}">Mes joueurs</a>
+                                    </li>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href="{{ route('championships') }}">Mes championnats</a>
+                                    </li>
+{{--                                    <li class="nav-item dropdown">--}}
+{{--                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"--}}
+{{--                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon--}}
+{{--                                            compte</a>--}}
+{{--                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
+{{--                                            <a class="dropdown-item" href="{{ route('user') }}">Action</a>--}}
+{{--                                            <a class="dropdown-item" href="#">Another action</a>--}}
+{{--                                            <a class="dropdown-item" href="#">Something else here</a>--}}
+{{--                                        </div>--}}
+{{--                                    </li>--}}
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </header>
         </div>
 
     </header>
 
     <!-- Page Content -->
     <main>
-        {{ $slot }}
+        <div class="container">
+            {{ $slot }}
+        </div>
     </main>
+    {{--    Page footer--}}
+    <footer class='footer navbar bottom bg-dark  text-white py-3'>
+        <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>
+    </footer>
+
 </div>
 </body>
 </html>

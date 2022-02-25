@@ -54,22 +54,16 @@ class UserController extends Controller
 
         $user->pseudo = $request->input('pseudo');
         $user->save();
-        $this->associateUserInsert();
+        $this->associateUserInsert($user);
 
         $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
 
         return view('/players', ['associateUsers' => $associateUsers]);
     }
 
-    public function associateUserInsert()
+    public function associateUserInsert(User $user)
     {
-        $user = DB::table('users')->latest('id')->first();
-
-        $associateUser = new Associate_User();
-        $associateUser->creator_id = Auth::id();
-        $associateUser->user_id = $user->id;
-
-        $associateUser->save();
+        $user->users()->syncWithoutDetaching(Auth::id());
     }
 
     //affichage des joueurs créés par l'user
@@ -84,7 +78,7 @@ class UserController extends Controller
     //formulaire d'édition d'un player
     public function editPlayerForm($id)
     {
-        $playerBread = User::query()->where('id',$id)->first();
+        $playerBread = User::query()->where('id', $id)->first();
 
         return view('playerEdit', [
             'id' => $id,

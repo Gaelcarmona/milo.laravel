@@ -15,23 +15,6 @@ use \App\Http\Requests\CreateChampionshipUserRequest;
 
 class Championship_UserController extends Controller
 {
-    public function championshipUserInsert(CreateChampionshipUserRequest $request)
-    {
-
-        foreach ($_POST['player'] as $player) {
-
-            $championship = DB::table('championships')->latest('id')->first();
-            $championshipUser = new Championship_User();
-
-            $championshipUser->user_id = $request->input('player');
-            $championshipUser->championship_id = $championship->id;
-
-            $championshipUser->save();
-        }
-
-
-    }
-
     public function formPlayerInChampionship($championship_id)
     {
         $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
@@ -48,15 +31,12 @@ class Championship_UserController extends Controller
 
     public function insert(CreateChampionshipUserRequest $request)
     {
-        $championshipUser = new Championship_User();
 
-        $championshipUser->user_id = $request->input('user_id');
-        $championshipUser->championship_id = $request->input('championship_id');
+        $championship = Championship::query()->where('id',$request->input('championship_id'))->first();
 
-        $championshipUser->save();
-        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
+        $championship->users()->syncWithoutDetaching($request->input('user_id'));
 
-        return redirect()->route('displayChampionshipProfile', ['id' => $championshipUser->championship_id]);
+        return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
 
 
     }
@@ -89,28 +69,6 @@ class Championship_UserController extends Controller
             "On est good"
 
         );
-
-
-//        $results = Result::query()->where('user_id',$user_id)->get();
-
-//        $championship = Championship::query()->where('id', '=', $championship_id)->get();
-
-//        $results = Result::query()->where('user_id', '=', $user_id)
-//            ->get();
-//        dd($results);
-//        foreach ($results as $result) {
-//
-////            suppression des kills de chaque résultat
-//            Kill::where('result_id', $result->id)->delete();
-//
-////            suppression de chaque résultat du match
-//            Result::where('id', $result->id)->delete();
-//
-//        }
-//
-//        Championship_User::where('user_id', $user_id)
-//            ->where('championship_id', $championship_id)
-//            ->delete();
 
         return redirect()->route('displayChampionshipProfile', ['id' => $championship_id]);
         return redirect('/championships');
