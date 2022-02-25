@@ -41,10 +41,10 @@
             <tbody>
             @foreach($championshipUsers as $championshipUser)
                 <tr>
-                    <td>{{$championshipUser->user->id}}</td>
-                    <td>{{$championshipUser->user->pseudo}}</td>
+                    <td>{{$championshipUser->id}}</td>
+                    <td>{{$championshipUser->pseudo}}</td>
                     <td>
-                        <a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->user->id ,'championship_id' => $championship->id]) }}"
+                        <a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->id ,'championship_id' => $championship->id]) }}"
                            onclick=" var championshipUserDelete = confirm('Êtes vous sur de vouloir supprimer ce joueur du championnat ? Tous les résultats associés seront supprimés');return championshipUserDelete">supprimer</a>
                     </td>
                 </tr>

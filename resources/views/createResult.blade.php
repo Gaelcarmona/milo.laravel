@@ -62,5 +62,6 @@
             </div>
             <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
         </form>
+        <script src="{{ asset('js/createResults.js') }}"></script>
     </main>
 </x-app-layout>

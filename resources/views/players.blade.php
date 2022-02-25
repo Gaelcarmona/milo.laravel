@@ -24,12 +24,12 @@
                 </tr>
                 @foreach($associateUsers as $associateUser)
                     <tr>
-                        <td>{{$associateUser->user_id}}</td>
+                        <td>{{$associateUser->id}}</td>
                         <td>
-                            <a href="{{ route('displayPlayerProfile', $associateUser->user_id) }}">{{ $associateUser->user->pseudo}}</a>
+                            <a href="{{ route('displayPlayerProfile', $associateUser->id) }}">{{ $associateUser->pseudo}}</a>
                         </td>
-                        <td><a href="{{ route('editPlayer', $associateUser->user_id) }}"> modifier</a></td>
-                        <td><a href="{{ route('player.delete', $associateUser->user_id) }}">supprimer</a></td>
+                        <td><a href="{{ route('editPlayer', $associateUser->id) }}"> modifier</a></td>
+                        <td><a href="{{ route('player.delete', $associateUser->id) }}">supprimer</a></td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -34,8 +34,8 @@
                     <option value="{{Auth::id()}}">{{Auth::user()->pseudo}}</option>
                     {{--                            @dd($associateUsers);--}}
                     @foreach($associateUsers as $associateUser)
-                        <option value="{{$associateUser->user_id}}">
-                            {{ $associateUser->user->pseudo}}
+                        <option value="{{$associateUser->id}}">
+                            {{ $associateUser->pseudo}}
                         </option>
                     @endforeach
                 </select>

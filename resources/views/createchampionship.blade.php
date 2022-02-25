@@ -34,11 +34,11 @@
                     <input type="checkbox" value="{{Auth::id()}}" id="{{Auth::user()->pseudo}}" name="player[]">
                     <label for="player[]">{{Auth::user()->pseudo}}</label>
                     @foreach($associateUsers as $associateUser)
-                        <input type="checkbox" value="{{$associateUser->user_id}}"
-                               id="{{$associateUser->user->pseudo}}"
+                        <input type="checkbox" value="{{$associateUser->id}}"
+                               id="{{$associateUser->pseudo}}"
                                name="player[]">
                         <label
-                            for="player[]">{{ $associateUser->user->pseudo}}</label>
+                            for="player[]">{{ $associateUser->pseudo}}</label>
                     @endforeach
                 </div>
                 <button type='submit' class='btn btn-primary my-3'>Envoyer</button>

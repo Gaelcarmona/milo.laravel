@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Championship;
 use App\Models\Deck;
 use App\Models\Kill;
 use App\Models\Matchs;
@@ -17,14 +18,17 @@ class ResultController extends Controller
     //vers le formulaire de création de match par un user
     public function resultForm($match_id, $championshipId)
     {
-        $players = Championship_User::query()->where('championship_id', '=', $championshipId)->get();
+        //fil d'ariane
+        $matchBread = Matchs::query()->where('id', '=', $match_id)->first();
 
-        $matchBread =Matchs::query()->where('id', '=', $match_id)->first();
+        $championship = Championship::query()->where('id', '=', $championshipId)->first();
+        $players = $championship->users()->get();
 
         $users = [];
 
         foreach ($players as $player) {
-            $user = User::where('id', $player->user_id)->first();
+            $user = User::where('id', $player->id)->first();
+//            dd($user->id);
             $users[] = $user;
         }
 
@@ -75,7 +79,7 @@ class ResultController extends Controller
         $decksUser = Deck::query()->where('user_id', '=', $user_id)->get();
         $match_id = Matchs::query()->where('id', '=', $id)->get();
 
-        $resultBread =Result::query()->where('id', '=', $id)->first();
+        $resultBread = Result::query()->where('id', '=', $id)->first();
 //        dd($resultBread);
 //        $result = Result::query()->where('match_id', '=', $id)
 //            ->where('user_id', '=', $user_id)

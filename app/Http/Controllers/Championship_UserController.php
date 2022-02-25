@@ -17,9 +17,12 @@ class Championship_UserController extends Controller
 {
     public function formPlayerInChampionship($championship_id)
     {
-        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
-//    dd($associateUsers);
+        //fil d'ariane
         $championshipBread = Championship::query()->where('id', $championship_id)->first();
+
+        $user = User::query()->where('id','=', Auth::id())->first();
+        $associateUsers = $user->user()->get();
+
 
         return view('/form-player-in-championship', [
             'associateUsers' => $associateUsers,

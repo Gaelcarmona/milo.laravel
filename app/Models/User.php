@@ -84,5 +84,10 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'associate_user', 'user_id', 'creator_id');
     }
 
+        public function user()
+    {
+        return $this->belongsToMany(User::class, 'associate_user', 'creator_id', 'user_id');
+    }
+
 
 }

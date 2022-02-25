@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Associate_User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,8 +27,8 @@ class ChampionshipController extends Controller
 
     public function championshipForm()
     {
-
-        $associateUsers = Associate_User::query()->where('creator_id', '=', Auth::id())->get();
+        $user = User::query()->where('id', '=', Auth::id())->first();
+        $associateUsers = $user->user()->get();
 
         return view('/createchampionship', ['associateUsers' => $associateUsers]);
     }
@@ -46,32 +47,16 @@ class ChampionshipController extends Controller
         return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
     }
 
-    public function championshipUserInsert(Request $request,Championship $championship)
+    public function championshipUserInsert(Request $request, Championship $championship)
     {
-
-//        dd($championship);
-            $championship->users()->sync($request->input('player'));
-//        foreach ($request->input('player') as $player) {
-
-
-
-//            $championshipUser = new Championship_User();
-//
-//            $championshipUser->user_id = $player;
-//            $championshipUser->championship_id = $championship->id;
-//
-//            $championshipUser->save();
-//        }
-
-
+        $championship->users()->sync($request->input('player'));
     }
 
     //affichage des championnats créés par l'user
     public function displayChampionships()
     {
-
         $championships = Championship::query()->where('user_id', '=', Auth::id())->get();
-//        dd($championships);
+
         return view('/championships', ['championships' => $championships]);
     }
 
@@ -79,9 +64,9 @@ class ChampionshipController extends Controller
     public function displayChampionshipProfile($id)
     {
         $matchs = Matchs::query()->where('championship_id', '=', $id)->get();
+
         $championship = Championship::where('id', $id)->first();
-        $championshipUsers = Championship_User::where('championship_id', $id)->get();
-//        dd($championshipUsers);
+        $championshipUsers = $championship->users()->get();
 
         return view('/championship', [
             'id' => $id,
