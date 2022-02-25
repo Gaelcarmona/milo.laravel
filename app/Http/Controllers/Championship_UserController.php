@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Championship;
+use App\Models\Kill;
 use App\Models\Matchs;
 use App\Models\Result;
 use App\Models\User;
@@ -20,7 +21,7 @@ class Championship_UserController extends Controller
         //fil d'ariane
         $championshipBread = Championship::query()->where('id', $championship_id)->first();
 
-        $user = User::query()->where('id','=', Auth::id())->first();
+        $user = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user->user()->get();
 
 
@@ -35,7 +36,7 @@ class Championship_UserController extends Controller
     public function insert(CreateChampionshipUserRequest $request)
     {
 
-        $championship = Championship::query()->where('id',$request->input('championship_id'))->first();
+        $championship = Championship::query()->where('id', $request->input('championship_id'))->first();
 
         $championship->users()->syncWithoutDetaching($request->input('user_id'));
 
@@ -47,34 +48,26 @@ class Championship_UserController extends Controller
     public function delete($user_id, $championship_id)
     {
 
-        DB::beginTransaction();
-
-        try {
             $matchs = Matchs::query()->where('championship_id', $championship_id)->get();
-            $results = Result::query()->whereIn('match_id', $matchs->pluck('id')->toArray())->get();
-            foreach ($results as $result)
-            {
-            $result->kills()->where('user_killed_id', $user_id)->delete();
-            $result->where('user_id', $user_id)->delete();
+            $results = Result::query()
+                ->whereIn('match_id', $matchs->pluck('id')->toArray())
+                ->get();
 
+            foreach ($results as $result) {
+                $kills = $result->kills()->where('user_killed_id', $user_id);
+                $result->score = $result->score - $kills->count();
+                $result->save();
+                $kills->delete();
+
+                if ($result->user_id == $user_id) {
+                    $result->kills()->delete();
+                    $result->delete();
+                }
             }
-            Championship_User::where('user_id', $user_id)
-                ->where('championship_id', $championship_id)
-                ->delete();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            dd("On est pas good", $e->getMessage());
-        }
-        DB::commit();
-
-
-        dd(
-            "On est good"
-
-        );
+            $championship = Championship::where('id', $championship_id)->first();
+            $championship->users()->detach($user_id);
 
         return redirect()->route('displayChampionshipProfile', ['id' => $championship_id]);
-        return redirect('/championships');
     }
 
 }

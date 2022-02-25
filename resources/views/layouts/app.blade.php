@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-3">
                             <figure>
-                                <img src="../../images/frame57.svg">
+                                <a href="{{ route('user') }}"><img src="../../images/frame57.svg"></a>
                             </figure>
                         </div>
                         <div class="col-9">

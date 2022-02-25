@@ -43,11 +43,10 @@ class UserController extends Controller
         $user_creator = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user_creator->user()->get();
 
-        User::where('id', $id)->delete();
-
+       $associateUserToDelete = DB::raw("DELETE FROM associate_user WHERE user_id = $id");
+       DB::statement($associateUserToDelete);
 
         return view('/players', ['associateUsers' => $associateUsers]);
-//        return view('/user');
     }
 
     public function playerInsert(CreateAndEditPlayerRequest $request)

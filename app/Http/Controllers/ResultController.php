@@ -26,10 +26,20 @@ class ResultController extends Controller
 
         $users = [];
 
+//            dd($players);
         foreach ($players as $player) {
             $user = User::where('id', $player->id)->first();
-//            dd($user->id);
+
+            $playerHasMatch = Result::query()
+                ->where('match_id', $match_id)
+                ->where('user_id', $player->id)
+                ->first();
+//            dump($player,$playerHasMatch);
+            if (!$playerHasMatch){
+
             $users[] = $user;
+            }
+
         }
 
         return view('/createResult'

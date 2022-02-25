@@ -9,13 +9,13 @@ class Result extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'deck_id',
-        'match_id',
-        'place',
-        'score',
-    ];
+//    protected $fillable = [
+//        'user_id',
+//        'deck_id',
+//        'match_id',
+//        'place',
+//        'score',
+//    ];
 
     public function user()
     {
@@ -34,6 +34,6 @@ class Result extends Model
 
     public function kills()
     {
-        return $this->belongsTo(Kill::class);
+        return $this->hasMany(Kill::class, 'result_id','id');
     }
 }
