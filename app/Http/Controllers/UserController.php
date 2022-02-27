@@ -40,6 +40,9 @@ class UserController extends Controller
 
     public function delete($id)
     {
+
+        $test = Associate_User::query()->where('creator_id', Auth::id())->get();
+
         $user_creator = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user_creator->user()->get();
 

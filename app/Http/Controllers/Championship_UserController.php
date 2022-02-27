@@ -24,11 +24,29 @@ class Championship_UserController extends Controller
         $user = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user->user()->get();
 
+        $users = [];
+
+        foreach ($associateUsers as $associateUser) {
+            $user = User::where('id', $associateUser->id)->first();
+
+            $championship = Championship::query()->where('id', $championship_id)->first();
+            $userHasChampionship = $championship->users()
+            ->where('id', $associateUser->id)
+            ->first();
+            // dump($userHasChampionship);
+            if (!$userHasChampionship){
+
+                $users[] = $user;
+                }
+            # code...
+        }
+
 
         return view('/form-player-in-championship', [
             'associateUsers' => $associateUsers,
             'championship_id' => $championship_id,
             'championshipBread' => $championshipBread,
+            'users' => $users,
         ]);
 
     }

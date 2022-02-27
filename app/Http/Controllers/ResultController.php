@@ -26,7 +26,6 @@ class ResultController extends Controller
 
         $users = [];
 
-//            dd($players);
         foreach ($players as $player) {
             $user = User::where('id', $player->id)->first();
 
@@ -49,6 +48,7 @@ class ResultController extends Controller
                 'match_id' => $match_id,
                 'players' => $players,
                 'matchBread' => $matchBread,
+                
             ]);
     }
 
