@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Associate_User;
 use App\Models\Deck;
+use App\Models\Result;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -46,8 +47,8 @@ class UserController extends Controller
         $user_creator = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user_creator->user()->get();
 
-       $associateUserToDelete = DB::raw("DELETE FROM associate_user WHERE user_id = $id");
-       DB::statement($associateUserToDelete);
+        $associateUserToDelete = DB::raw("DELETE FROM associate_user WHERE user_id = $id");
+        DB::statement($associateUserToDelete);
 
         return view('/players', ['associateUsers' => $associateUsers]);
     }
@@ -111,6 +112,8 @@ class UserController extends Controller
         $decks = Deck::query()->where('user_id', '=', $id)->get();
         $player = User::where('id', $id)->first();
 
+        $this->avgPointsByMatch($id);
+
         return view('/player', [
             'id' => $id,
             'player' => $player,
@@ -118,9 +121,67 @@ class UserController extends Controller
         ]);
     }
 
+    public function averagePointsByMatchByChampionship($championshipId)
+    {
 
+        //Connexion
+        $pdo = connect();
 
+        $query = $pdo->prepare('
 
+        SELECT AVG( r_score ) AS avg_score
+        FROM milo_results
+        INNER JOIN milo_matchs  ON milo_results.m_id = milo_matchs.m_id
+        INNER JOIN milo_championships  ON milo_championships.c_id = milo_matchs.c_id
+        WHERE milo_results.u_id = :userId AND milo_matchs.c_id = :championshipId
+            ');
+        $query->execute([
+                ':userId' => self::getId(),
+                ':championshipId' => $championshipId
+            ]
+        );
+        $aData = $query->fetch(\PDO::FETCH_ASSOC);
+        if ($aData) {
+
+            return round($aData['avg_score'], 2);
+
+        }
+        return null;
+    }
+
+    	public function averagePointsByMatch(){
+
+        //Connexion
+        $pdo = connect();
+
+        $query = $pdo->prepare('
+
+        SELECT AVG( score ) AS avg_score
+        FROM results
+        WHERE results.user_id = :userId
+        ');
+		$query -> execute([
+			':userId' =>  self::getId()
+		]
+		);
+		$aData = $query->fetch(\PDO::FETCH_ASSOC);
+		if ($aData) {
+			return round($aData['avg_score'],2);
+		}
+		return null;
+    }
+
+    public function avgPointsByMatch($id)
+    {
+        $userMatchs = Result::query()->where('user_id', $id)->get();
+        $userMatchs->selectRaw
+        dd($userMatchs);
+    }0000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000O00000000000000000000000000000000000000SD0000Q0S0D0000SQ00000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000200000000000000000032010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QS000D00SQ00D00SQ0000000000000000A000000Z000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+0                   000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 
 

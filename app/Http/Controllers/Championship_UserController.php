@@ -31,13 +31,15 @@ class Championship_UserController extends Controller
 
             $championship = Championship::query()->where('id', $championship_id)->first();
             $userHasChampionship = $championship->users()
-            ->where('id', $associateUser->id)
-            ->first();
+                ->where('id', $associateUser->id)
+                ->first();
             // dump($userHasChampionship);
-            if (!$userHasChampionship){
+            if (!$userHasChampionship) {
 
                 $users[] = $user;
-                }
+            }
+//            $championship = Championship::where('id', $id)->first();
+//            $championshipUsers = $championship->users()->get();
             # code...
         }
 
@@ -66,24 +68,24 @@ class Championship_UserController extends Controller
     public function delete($user_id, $championship_id)
     {
 
-            $matchs = Matchs::query()->where('championship_id', $championship_id)->get();
-            $results = Result::query()
-                ->whereIn('match_id', $matchs->pluck('id')->toArray())
-                ->get();
+        $matchs = Matchs::query()->where('championship_id', $championship_id)->get();
+        $results = Result::query()
+            ->whereIn('match_id', $matchs->pluck('id')->toArray())
+            ->get();
 
-            foreach ($results as $result) {
-                $kills = $result->kills()->where('user_killed_id', $user_id);
-                $result->score = $result->score - $kills->count();
-                $result->save();
-                $kills->delete();
+        foreach ($results as $result) {
+            $kills = $result->kills()->where('user_killed_id', $user_id);
+            $result->score = $result->score - $kills->count();
+            $result->save();
+            $kills->delete();
 
-                if ($result->user_id == $user_id) {
-                    $result->kills()->delete();
-                    $result->delete();
-                }
+            if ($result->user_id == $user_id) {
+                $result->kills()->delete();
+                $result->delete();
             }
-            $championship = Championship::where('id', $championship_id)->first();
-            $championship->users()->detach($user_id);
+        }
+        $championship = Championship::where('id', $championship_id)->first();
+        $championship->users()->detach($user_id);
 
         return redirect()->route('displayChampionshipProfile', ['id' => $championship_id]);
     }

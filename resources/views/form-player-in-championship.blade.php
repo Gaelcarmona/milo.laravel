@@ -31,8 +31,10 @@
                     id="user_id"
                     name="user_id">
                     <option value="">Choisis un joueur</option>
+
                     <option value="{{Auth::id()}}">{{Auth::user()->pseudo}}</option>
-                    {{--                            @dd($associateUsers);--}}
+
+                        {{--                            @dd($associateUsers);--}}
                     @foreach($users as $associateUser)
                         <option value="{{$associateUser->id}}">
                             {{ $associateUser->pseudo}}
