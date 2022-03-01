@@ -60,7 +60,7 @@
                             Nombre total de kills : {{ $results_for_player->pluck('kills')->flatten()->count() }}<br>
 
                             Classement kills :<br>
-
+//test
                             Cibles favorites :<br>
 {{--                            @if($user_creator->id != $player->id)--}}
 {{--                                <p>{{ $user_creator->pseudo }} :</p>--}}
