@@ -66,7 +66,7 @@ class UserController extends Controller
         $user->save();
         $this->associateUserInsert($user);
 
-return redirect()->route('players', ['associateUsers' => $associateUsers]);
+        return redirect()->route('players', ['associateUsers' => $associateUsers]);
 //        return view('/players', ['associateUsers' => $associateUsers]);
     }
 
@@ -117,22 +117,24 @@ return redirect()->route('players', ['associateUsers' => $associateUsers]);
     {
         $decks = Deck::query()->where('user_id', '=', $id)->get();
         $player = User::query()
-            ->with('championships.matchs.results.kills')
+            ->with([
+                'championships.matchs.results.kills.user',
+                'championships.users',
+            ])
             ->where('id', $id)
             ->first();
 
 //        $user = User::query()->where('id', $user_id)->first();
-        $userChampionships = $player->championships;
+        $championships = $player->championships;
 
         $results_for_player = $player->championships
             ->pluck('matchs')->flatten()
             ->pluck('results')->flatten()
-//            ->pluck('kills')->flatten()
             ->where('user_id', $player->id);
 
-//        dump(
-//            $results_for_player->pluck('kills')->flatten()->count() / $results_for_player->count(),
-//        );
+
+        $user_creator = User::query()->where('id', '=', Auth::id())->first();
+        $associateUsers = $user_creator->user()->get();
 
         //Pourcentage de victoire
         $percentWin = $this->percentWin($id);
@@ -140,18 +142,33 @@ return redirect()->route('players', ['associateUsers' => $associateUsers]);
         //Pourcentage de participation
         $percentParticipation = $this->percentParticipation($id);
 
+        $results = $player->championships
+            ->pluck('matchs')->flatten()
+            ->pluck('results')->flatten()
+            ->where('user_id', '!=', $id);
+        $hasBeenKilled = $results->pluck('kills')->flatten()->where('user_killed_id', $id)->count();
+
+
+        dump( $hasBeenKilled
+//            $results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id'),
+//            $championships->pluck('users'),
+//            $associateUsers,
+        );
 
         return view('/player', [
             'id' => $id,
             'player' => $player,
             'decks' => $decks,
-            'userChampionships' => $userChampionships,
+            'userChampionships' => $championships,
             'percentWin' => $percentWin,
             'percentParticipation' => $percentParticipation,
             'results_for_player' => $results_for_player,
+            'associateUsers' => $associateUsers,
+            'user_creator' => $user_creator,
+            'results' => $results,
+            'hasBeenKilled' => $hasBeenKilled,
         ]);
     }
-
 
 
     /**

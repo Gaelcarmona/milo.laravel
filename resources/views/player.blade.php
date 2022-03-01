@@ -26,6 +26,7 @@
                                 data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
                                 aria-selected="true">Statistiques générales
                         </button>
+
                         @foreach($userChampionships as $userChampionship)
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-profile" type="button" role="tab"
@@ -36,7 +37,9 @@
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                              aria-labelledby="v-pills-home-tab">
-                            ELO : {{ ($results_for_player->where('place', 1)->count('place') + $results_for_player->pluck('kills')->flatten()->count()) + ($results_for_player->where('place', 2)->count('place') / 2) + ($results_for_player->where('place', 3)->count('place') / 3) / $percentParticipation}}<br>
+                            ELO
+                            : {{ ($results_for_player->where('place', 1)->count('place') + $results_for_player->pluck('kills')->flatten()->count()) + ($results_for_player->where('place', 2)->count('place') / 2) + ($results_for_player->where('place', 3)->count('place') / 3) / $percentParticipation}}
+                            <br>
                             Score moyen : {{round($results_for_player->avg('score'),2) }}<br>
                             Pourcentage de victoire : {{ $percentWin }}%<br>
                             Pourcentage de participation : {{ $percentParticipation }}%<br>
@@ -51,26 +54,42 @@
                             Place moyenne : {{ round($results_for_player->avg('place'),2) }}<br>
                             Nombre total de points : {{ $results_for_player->sum('score') }}<br>
 
-                            Nombre de kills par partie : {{ round($results_for_player->pluck('kills')->flatten()->count() / $results_for_player->count(),2) }} <br>
+                            Nombre de kills par partie
+                            : {{ round($results_for_player->pluck('kills')->flatten()->count() / $results_for_player->count(),2) }}
+                            <br>
                             Nombre total de kills : {{ $results_for_player->pluck('kills')->flatten()->count() }}<br>
 
                             Classement kills :<br>
 
                             Cibles favorites :<br>
+{{--                            @if($user_creator->id != $player->id)--}}
+{{--                                <p>{{ $user_creator->pseudo }} :</p>--}}
+{{--                            @endif--}}
+{{--                            @foreach($associateUsers as $associateUser)--}}
+{{--                                @if($associateUser->id != $player->id)--}}
+{{--                                    <p>{{ $associateUser->pseudo }} : {{  $results_for_player->pluck('kills')--}}
+{{--                                    ->where('user_killed_id', $associateUser->id)--}}
+{{--                                    ->flatten()--}}
+{{--                                    ->count() }}</p>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
 
-                            Joueur 3 :<br>
-                            Joueur 5 :<br>
-                            Joueur 2 :<br>
-                            Joueur 6 :<br>
-                            Joueur 4 :<br>
 
+                            @foreach($results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id') as $enemy_id => $kills)
+                                @if($enemy_id != $player->id)
+                                    <p>{{ $kills->first()->user->pseudo }} : {{  $kills->count() }}</p>
+                                @endif
+                            @endforeach
+                            Nombre total de morts : {{ $hasBeenKilled }} <br>
                             Meilleurs ennemis :<br>
-
-                            Joueur 4 :<br>
-                            Joueur 2 :<br>
-                            Joueur 6 :<br>
-                            Joueur 3 :<br>
-                            Joueur 5 :<br>
+                            @if($user_creator->id != $player->id)
+                                <p>{{ $user_creator->pseudo }} :</p>
+                            @endif
+                            @foreach($associateUsers as $associateUser)
+                                @if($associateUser->id != $player->id)
+                                    <p>{{ $associateUser->pseudo }} :</p>
+                                @endif
+                            @endforeach
 
 
                         </div>
