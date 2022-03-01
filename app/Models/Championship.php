@@ -17,7 +17,7 @@ class Championship extends Model
 
     public function matchs()
     {
-        return $this->belongsTo(Matchs::class);
+        return $this->hasMany(Matchs::class, 'championship_id', 'id');
     }
 
     public function users()

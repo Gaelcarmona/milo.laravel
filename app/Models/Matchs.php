@@ -22,7 +22,7 @@ class Matchs extends Model
 
     public function results()
     {
-        return $this->belongsTo(Result::class);
+        return $this->hasMany(Result::class, 'match_id', 'id');
     }
 
 }

@@ -36,23 +36,23 @@
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                              aria-labelledby="v-pills-home-tab">
-                            ELO : <br>
-                            Score moyen : {{ $avgPointsByMatch[0]->score }}<br>
-                            Pourcentage de victoire : : <br>
-                            Pourcentage de participation : <br>
-                            Nombre de victoires : {{ $totalWins[0]->totalWins }}<br>
-                            Nombre de parties jouées : {{ $totalMatchsPlayed[0]->totalMatchsPlayed }}<br>
-                            2èmes places : {{ $totalSecondPlace[0]->totalSecondPlace }}<br>
-                            3èmes places : {{ $totalThirdPlace[0]->totalThirdPlace }}<br>
-                            4èmes places : {{ $totalFourthPlace[0]->totalFourthPlace }}<br>
-                            5èmes places : {{ $totalFifthPlace[0]->totalFifthPlace }}<br>
-                            6èmes places : {{ $totalSixthPlace[0]->totalSixthPlace }}<br>
+                            ELO : {{ ($results_for_player->where('place', 1)->count('place') + $results_for_player->pluck('kills')->flatten()->count()) + ($results_for_player->where('place', 2)->count('place') / 2) + ($results_for_player->where('place', 3)->count('place') / 3) / $percentParticipation}}<br>
+                            Score moyen : {{round($results_for_player->avg('score'),2) }}<br>
+                            Pourcentage de victoire : {{ $percentWin }}%<br>
+                            Pourcentage de participation : {{ $percentParticipation }}%<br>
+                            Nombre de victoires : {{ $results_for_player->where('place', 1)->count('place') }}<br>
+                            Nombre de parties jouées : {{ $results_for_player->count('*') }}<br>
+                            2èmes places : {{ $results_for_player->where('place', 2)->count('place') }}<br>
+                            3èmes places : {{ $results_for_player->where('place', 3)->count('place') }}<br>
+                            4èmes places : {{ $results_for_player->where('place', 4)->count('place') }}<br>
+                            5èmes places : {{ $results_for_player->where('place', 5)->count('place') }}<br>
+                            6èmes places : {{ $results_for_player->where('place', 6)->count('place') }}<br>
 
-                            Place moyenne : {{ $avgPlaceByMatch[0]->place }}<br>
-                            Nombre total de points : {{ $sumPoints[0]->totalScore }}<br>
+                            Place moyenne : {{ round($results_for_player->avg('place'),2) }}<br>
+                            Nombre total de points : {{ $results_for_player->sum('score') }}<br>
 
-                            Nombre de kills par partie :<br>
-                            Nombre total de kills :<br>
+                            Nombre de kills par partie : {{ round($results_for_player->pluck('kills')->flatten()->count() / $results_for_player->count(),2) }} <br>
+                            Nombre total de kills : {{ $results_for_player->pluck('kills')->flatten()->count() }}<br>
 
                             Classement kills :<br>
 

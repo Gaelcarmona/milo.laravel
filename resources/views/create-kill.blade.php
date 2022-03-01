@@ -12,7 +12,7 @@
                 <li>
                     <a href="{{ route('displayMatchProfile',$resultBread->match->id ) }}">{{ $resultBread->match->title }}</a>
                 </li>
-                <li><span aria-current="page">Entrer un joueur éliminé par {{ $resultBread->user->pseudo }}</span></li>
+                <li><span aria-current="page">Entrer un joueur éliminé </span></li>
             </ul>
         </nav>
         <form action="{{ route( 'insert.kill' ) }}" class='mx-5 mt-5' method='post'>

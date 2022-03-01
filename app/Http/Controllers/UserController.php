@@ -9,6 +9,7 @@ use App\Models\Result;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use \App\Http\Requests\CreateAndEditUserRequest;
@@ -51,7 +52,7 @@ class UserController extends Controller
         $associateUserToDelete = DB::raw("DELETE FROM associate_user WHERE user_id = $id");
         DB::statement($associateUserToDelete);
 
-        return view('/players', ['associateUsers' => $associateUsers]);
+        return redirect()->route('players', ['associateUsers' => $associateUsers]);
     }
 
     public function playerInsert(CreateAndEditPlayerRequest $request)
@@ -65,8 +66,8 @@ class UserController extends Controller
         $user->save();
         $this->associateUserInsert($user);
 
-
-        return view('/players', ['associateUsers' => $associateUsers]);
+return redirect()->route('players', ['associateUsers' => $associateUsers]);
+//        return view('/players', ['associateUsers' => $associateUsers]);
     }
 
     public function associateUserInsert(User $user)
@@ -80,7 +81,10 @@ class UserController extends Controller
         $user_creator = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user_creator->user()->get();
 
-        return view('/players', ['associateUsers' => $associateUsers]);
+        return view('/players', [
+            'associateUsers' => $associateUsers,
+            'user_creator' => $user_creator,
+        ]);
     }
 
     //formulaire d'édition d'un player
@@ -112,278 +116,132 @@ class UserController extends Controller
     public function displayPlayerProfile($id)
     {
         $decks = Deck::query()->where('user_id', '=', $id)->get();
-        $player = User::where('id', $id)->first();
+        $player = User::query()
+            ->with('championships.matchs.results.kills')
+            ->where('id', $id)
+            ->first();
 
 //        $user = User::query()->where('id', $user_id)->first();
-        $userChampionships = $player->championships()->get();
+        $userChampionships = $player->championships;
 
-        //Score moyen
-        $avgPointsByMatch = $this->avgPointsByMatch($id);
-        //Place moyenne
-        $avgPlaceByMatch = $this->avgPlaceByMatch($id);
-        //Total points
-        $sumPoints = $this->sumPoints($id);
-        //Nombre de victoires
-        $totalWins = $this->totalWins($id);
-        //Total des matchs joués
-        $totalMatchsPlayed = $this->totalMatchsPlayed($id);
-        //Total seconde place
-        $totalSecondPlace = $this->totalSecondPlace($id);
-        //Total troisième place
-        $totalThirdPlace = $this->totalThirdPlace($id);
-        //Total quatrième place
-        $totalFourthPlace = $this->totalFourthPlace($id);
-        //Total cinquième place
-        $totalFifthPlace = $this->totalFifthPlace($id);
-        //Total sixième place
-        $totalSixthPlace = $this->totalSixthPlace($id);
+        $results_for_player = $player->championships
+            ->pluck('matchs')->flatten()
+            ->pluck('results')->flatten()
+//            ->pluck('kills')->flatten()
+            ->where('user_id', $player->id);
+
+//        dump(
+//            $results_for_player->pluck('kills')->flatten()->count() / $results_for_player->count(),
+//        );
 
         //Pourcentage de victoire
-//        $percentWin = ($totalWins/$totalMatchsPlayed)*100;
+        $percentWin = $this->percentWin($id);
+
+        //Pourcentage de participation
+        $percentParticipation = $this->percentParticipation($id);
 
 
-        $averagePointsByMatchByChampionship = $this->averagePointsByMatchByChampionship($id);
-
-//      dump($userChampionships);
         return view('/player', [
             'id' => $id,
             'player' => $player,
             'decks' => $decks,
-            'avgPointsByMatch' => $avgPointsByMatch,
-            'averagePointsByMatchByChampionship' => $averagePointsByMatchByChampionship,
             'userChampionships' => $userChampionships,
-            'avgPlaceByMatch' => $avgPlaceByMatch,
-            'sumPoints' => $sumPoints,
-            'totalWins' => $totalWins,
-            'totalMatchsPlayed' => $totalMatchsPlayed,
-            'totalSecondPlace' => $totalSecondPlace,
-            'totalThirdPlace' => $totalThirdPlace,
-            'totalFourthPlace' => $totalFourthPlace,
-            'totalFifthPlace' => $totalFifthPlace,
-            'totalSixthPlace' => $totalSixthPlace,
+            'percentWin' => $percentWin,
+            'percentParticipation' => $percentParticipation,
+            'results_for_player' => $results_for_player,
         ]);
     }
 
-//    public function averagePointsByMatchByChampionship($championshipId)
-//    {
-//
-//        //Connexion
-//        $pdo = connect();
-//
-//        $query = $pdo->prepare('
-//
-//        SELECT AVG( r_score ) AS avg_score
-//        FROM milo_results
-//        INNER JOIN milo_matchs  ON milo_results.m_id = milo_matchs.m_id
-//        INNER JOIN milo_championships  ON milo_championships.c_id = milo_matchs.c_id
-//        WHERE milo_results.u_id = :userId AND milo_matchs.c_id = :championshipId
-//            ');
-//        $query->execute([
-//                ':userId' => self::getId(),
-//                ':championshipId' => $championshipId
-//            ]
-//        );
-//        $aData = $query->fetch(\PDO::FETCH_ASSOC);
-//        if ($aData) {
-//
-//            return round($aData['avg_score'], 2);
-//
-//        }
-//        return null;
-//    }
 
-    public function averagePointsByMatchByChampionship($user_id)
+
+    /**
+     * Pourcentage de victoire
+     *
+     * @param $id
+     * @return float
+     */
+    public function percentWin($id)
     {
-        $user = User::query()->where('id', $user_id)->first();
-        $userChampionships = $user->championships()->get();
-
-        $results = [];
-        foreach ($userChampionships as $userChampionship) {
-            $matchs = Matchs::query()->where('championship_id', $userChampionship->id)->get();
-            $result = Result::query()
-                ->where('user_id', $user_id)
-                ->whereIn('match_id', $matchs->pluck('id')->toArray())
-                ->selectRaw('avg(score)')
-                ->get();
-
-            $results[] = $result;
-
-
-        }
-//            dd($results);
-//
-//
-//        $championship = Championship::where('id', $championship_id)->first();
-//        $championshipUsers = $championship->users()->get();
-//
-//        $query = $pdo->prepare('
-//
-//        SELECT AVG( r_score ) AS avg_score
-//        FROM milo_results
-//        INNER JOIN milo_matchs  ON milo_results.m_id = milo_matchs.m_id
-//        INNER JOIN milo_championships  ON milo_championships.c_id = milo_matchs.c_id
-//        WHERE milo_results.u_id = :userId AND milo_matchs.c_id = :championshipId
-//            ');
-//        $query->execute([
-//                ':userId' => self::getId(),
-//                ':championshipId' => $championshipId
-//            ]
-//        );
-        return $userChampionships;
-    }
-
-    public function avgPointsByMatch($id)
-    {
-        $userMatchs = Result::query()->where('user_id', $id)
-            ->selectRaw('avg(score) as score')
-            ->get();
-        return $userMatchs;
-    }
-
-    public function sumPoints($id)
-    {
-        $userMatchs = Result::query()->where('user_id', $id)
-            ->selectRaw('sum(score) as totalScore')
-            ->get();
-        return $userMatchs;
-    }
-
-    public function totalWins($id)
-    {
-        $userMatchs = Result::query()
+        $totalWins = Result::query()
             ->where('user_id', $id)
             ->where('place', 1)
             ->selectRaw('count(place) as totalWins')
             ->get();
-        return $userMatchs;
-    }
-
-    public function totalSecondPlace($id)
-    {
-        $userMatchs = Result::query()
-            ->where('user_id', $id)
-            ->where('place', 2)
-            ->selectRaw('count(place) as totalSecondPlace')
-            ->get();
-        return $userMatchs;
-    }
-
-//
-    public function totalThirdPlace($id)
-    {
-        $userMatchs = Result::query()
-            ->where('user_id', $id)
-            ->where('place', 3)
-            ->selectRaw('count(place) as totalThirdPlace')
-            ->get();
-        return $userMatchs;
-    }
-
-    public function totalFourthPlace($id)
-    {
-        $userMatchs = Result::query()
-            ->where('user_id', $id)
-            ->where('place', 4)
-            ->selectRaw('count(place) as totalFourthPlace')
-            ->get();
-        return $userMatchs;
-    }
-
-    public function totalFifthPlace($id)
-    {
-        $userMatchs = Result::query()
-            ->where('user_id', $id)
-            ->where('place', 5)
-            ->selectRaw('count(place) as totalFifthPlace')
-            ->get();
-        return $userMatchs;
-    }
-
-    public function totalSixthPlace($id)
-    {
-        $userMatchs = Result::query()
-            ->where('user_id', $id)
-            ->where('place', 6)
-            ->selectRaw('count(place) as totalSixthPlace')
-            ->get();
-        return $userMatchs;
-    }
-
-
-    public function totalMatchsPlayed($id)
-    {
-        $userMatchs = Result::query()
+        $totalMatchsPlayed = Result::query()
             ->where('user_id', $id)
             ->selectRaw('count(*) as totalMatchsPlayed')
             ->get();
-        return $userMatchs;
+
+        $percentWin = round(($totalWins[0]->totalWins / $totalMatchsPlayed[0]->totalMatchsPlayed) * 100, 1);
+
+        return $percentWin;
     }
 
-    public function avgPlaceByMatch($id)
+    //Pourcentage de participation
+
+    /**
+     *
+     *
+     * @param $id
+     * @return float
+     */
+    public function percentParticipation($id): float
     {
-        $userMatchs = Result::query()->where('user_id', $id)
-            ->selectRaw('avg(place) as place')
+        $totalMatchs = Matchs::query()
+            ->selectRaw('count(*) as totalMatchs')
             ->get();
-        return $userMatchs;
+        $totalMatchsPlayed = Result::query()
+            ->where('user_id', $id)
+            ->selectRaw('count(*) as totalMatchsPlayed')
+            ->get();
+
+        $percentParticipation = round(($totalMatchsPlayed[0]->totalMatchsPlayed / $totalMatchs[0]->totalMatchs) * 100, 1);
+
+        return $percentParticipation;
     }
 
+    //Calcul ELO : (nombreDeVictoires + totalDeKills)+(nombreDeDeuxiemePlace /2 ) +(nombreDeTroisiemePlace /3 )/pourcentageDeParticipation
+    //LES KILLS
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public function login(){
+//    public function averagePointsByMatchByChampionship($user_id)
+//    {
+//        $user = User::query()->where('id', $user_id)->first();
+//        $userChampionships = $user->championships()->get();
 //
-//        if (!empty ( $_POST ) )  {
-//            $oUser =  app\Models\User::find($_POST['pseudo']);
+//        $results = [];
+//        foreach ($userChampionships as $userChampionship) {
+//            $matchs = Matchs::query()->where('championship_id', $userChampionship->id)->get();
+//            $result = Result::query()
+//                ->where('user_id', $user_id)
+//                ->whereIn('match_id', $matchs->pluck('id')->toArray())
+//                ->selectRaw('avg(score)')
+//                ->get();
 //
-//            if ($oUser == NULL) {
-//                return view('/login');
-//            }
+//            $results[] = $result;
 //
-//            if (password_verify($_POST['password'], $oUser->getPass())) {
-//                $_SESSION['username'] = $oUser->getPseudo();
-//                $_SESSION['id'] = $oUser->getId();
-//                return view('/login/{id}');
-//            }
+//
 //        }
+////            dd($results);
+////
+////
+////        $championship = Championship::where('id', $championship_id)->first();
+////        $championshipUsers = $championship->users()->get();
+////
+////        $query = $pdo->prepare('
+////
+////        SELECT AVG( r_score ) AS avg_score
+////        FROM milo_results
+////        INNER JOIN milo_matchs  ON milo_results.m_id = milo_matchs.m_id
+////        INNER JOIN milo_championships  ON milo_championships.c_id = milo_matchs.c_id
+////        WHERE milo_results.u_id = :userId AND milo_matchs.c_id = :championshipId
+////            ');
+////        $query->execute([
+////                ':userId' => self::getId(),
+////                ':championshipId' => $championshipId
+////            ]
+////        );
+//        return $userChampionships;
 //    }
+
 }
