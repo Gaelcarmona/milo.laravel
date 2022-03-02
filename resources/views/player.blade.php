@@ -182,7 +182,7 @@
                                     @if($championshipUser->id != $player->id && isset($totalKillsByKillerInChampionship[$championshipUser->id]))
                                         <p>Nombre de fois tué par {{ $championshipUser->pseudo }}
                                             : {{ $totalKillsByKillerInChampionship[$championshipUser->id] }}</p>
-                                        @dd($totalKillsByKillerInChampionship[$championshipUser->id])
+{{--                                        @dd($totalKillsByKillerInChampionship[$championshipUser->id])--}}
 
                                     @endif
                                 @endforeach
