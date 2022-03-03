@@ -11,32 +11,43 @@
 
             <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Launch demo modal
+                    Modification de l'image du joueur
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Sélectionne une image pour ce joueur</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-{{--                                <form action="{{route('insert.user.image')}}" class='mx-5 mt-5' method='post'>--}}
-{{--                                    @csrf--}}
-                                    @foreach($images as $image)
-                                        <img src="{{ asset( 'images/small') }}/{{ $image->url }}">
-                                    @endforeach
-{{--                                    <button type='submit' class='btn btn-primary my-3'>Envoyer</button>--}}
-{{--                                </form>--}}
+                                <form action="{{route('insert.image.player')}}" class='mx-5 mt-5' method='post'>
+                                    @csrf
+                                    <div class="row">
+                                        @foreach($images as $image)
+                                            <div class="col-4">
+                                                <label>
+                                                <input
+                                                    type="radio"
+                                                    name='image_id'
+                                                    required
+                                                >
+                                                <img value="{{ $image->id }}" src="{{ asset( 'images/small') }}/{{ $image->url }}">
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
+                                </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                            {{--                            <div class="modal-footer">--}}
+                            {{--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
+                            {{--                                <button type="button" class="btn btn-primary">Save changes</button>--}}
+                            {{--                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -57,8 +68,11 @@
                             : {{ ($results_for_player->where('place', 1)->count('place') + $results_for_player->pluck('kills')->flatten()->count()) + ($results_for_player->where('place', 2)->count('place') / 2) + ($results_for_player->where('place', 3)->count('place') / 3) / round(($results_for_player->count('*') / $totalMatch) * 100, 1) }}
                             <br>
                             Score moyen : {{round($results_for_player->avg('score'),2) }}<br>
-                            Pourcentage de victoire : {{ round(($results_for_player->where('place', 1)->count('place') / $results_for_player->count('*')) * 100, 1) }}%<br>
-                            Pourcentage de participation : {{ round(($results_for_player->count('*') / $totalMatch) * 100, 1) }}%<br>
+                            Pourcentage de victoire
+                            : {{ round(($results_for_player->where('place', 1)->count('place') / $results_for_player->count('*')) * 100, 1) }}
+                            %<br>
+                            Pourcentage de participation
+                            : {{ round(($results_for_player->count('*') / $totalMatch) * 100, 1) }}%<br>
                             Nombre de victoires : {{ $results_for_player->where('place', 1)->count('place') }}<br>
                             Nombre de parties jouées : {{ $results_for_player->count('*') }}<br>
                             2èmes places : {{ $results_for_player->where('place', 2)->count('place') }}<br>

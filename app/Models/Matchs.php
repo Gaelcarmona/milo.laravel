@@ -25,4 +25,9 @@ class Matchs extends Model
         return $this->hasMany(Result::class, 'match_id', 'id');
     }
 
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'id', 'image_id');
+    }
+
 }

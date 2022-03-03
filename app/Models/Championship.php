@@ -24,4 +24,9 @@ class Championship extends Model
     {
         return $this->belongsToMany(User::class, 'championship_user', 'championship_id', 'user_id');
     }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'id', 'image_id');
+    }
 }

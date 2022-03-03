@@ -169,6 +169,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/kill/delete/{result_id}/{user_killed_id}', [KillController::class, 'delete'])->name('delete.kill');
 
 
+
+
+    //Les images
+////attribution d'une image pour un joueur
+    Route::post('/player', [UserController::class, 'insertImagePlayer'])->name('insert.image.player');
+
+
+
+
+
 });
 
 //Gestion des stats

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InsertUserImageRequest;
 use App\Models\Associate_User;
 use App\Models\Championship;
 use App\Models\Deck;
@@ -31,6 +32,16 @@ class UserController extends Controller
         $user->save();
 
         return view('/login');
+    }
+
+    public function insertImagePlayer(InsertUserImageRequest $request, $id)
+    {
+        User::where('id', $id)->update([
+
+            'image_id' => $request->input('image_id')]);
+
+        return redirect()->route('displayPlayerProfile', ['id' => $id]);
+        return view('/players');
     }
 
     public function update(CreateAndEditUserRequest $request, $id)
