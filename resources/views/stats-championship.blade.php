@@ -8,6 +8,38 @@
                 <li><span aria-current="page">{{ $championship->title }}</span></li>
             </ul>
         </nav>
+        <div>
+            <table>
+                <thead>
+                    <th>Nom</th>
+                    <th>Elo</th>
+                    <th>Pourcentage de victoire</th>
+                    <th>Nombre de victoires</th>
+                    <th>Points par partie</th>
+                    <th>Kills par partie</th>
+                    <th>Total de kills</th>
+                    <th>Total de morts</th>
+                    <th>Taux de morts par partie</th>
+                    <th>Total de points</th>
+                </thead>
+                <tbody>
+                    {{-- @foreach ( as )
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                
+                        
+                    @endforeach --}}
+                </tbody>
+            </table>
+        </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             @foreach ($players as $player)
 {{--                @dd($player)--}}

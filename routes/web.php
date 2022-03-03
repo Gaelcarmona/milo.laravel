@@ -173,7 +173,7 @@ Route::middleware('auth')->group(function () {
 
     //Les images
 ////attribution d'une image pour un joueur
-    Route::post('/player', [UserController::class, 'insertImagePlayer'])->name('insert.image.player');
+    Route::post('/player/{id}', [UserController::class, 'insertImagePlayer'])->name('insert.image.player');
 
 
 

@@ -114,6 +114,8 @@ class StatisticController extends Controller
 //        dd($championship->users()->get());
 
 
+
+
         return view('/stats-championship', [
             'players' => $players,
             'championship' => $championship,
