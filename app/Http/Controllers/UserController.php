@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Associate_User;
 use App\Models\Championship;
 use App\Models\Deck;
+use App\Models\Image;
 use App\Models\Matchs;
 use App\Models\Result;
 use App\Models\User;
@@ -133,7 +134,6 @@ class UserController extends Controller
 
         $championships = $player->championships;
 
-
         $championshipsResults = $player->championships
             ->pluck('matchs')->flatten()
             ->pluck('results')->flatten();
@@ -144,18 +144,11 @@ class UserController extends Controller
         $resultsOthersPlayers = $championshipsResults
             ->where('user_id', '!=', $player_id);
 
-        //Pourcentage de victoire
-        $percentWin = $this->percentWin($player_id);
-
-        //Pourcentage de participation
-        $percentParticipation = $this->percentParticipation($player_id);
-
         //Total des fois ou un autre player a tué notre player, 2 versions
         $totalKillsByKiller = array_count_values($resultsOthersPlayers->pluck('kills')->flatten()
             ->where('user_killed_id', $player->id)
             ->pluck('result.user_id')
             ->toArray());
-
 
         //classement des players par nombre de kills
         $totalKills = $championshipsResults
@@ -172,47 +165,9 @@ class UserController extends Controller
 
         $killRank = array_search($player_id, array_keys($totalKills)) + 1;
 
-
-        //Stats par championnat
-        foreach ($championships as $championship) {
-            $championshipResults = $player->championships
-                ->where('id', $championship->id)
-                ->pluck('matchs')->flatten()
-                ->pluck('results')->flatten();
-
-            $results_for_player_in_championship = $championshipResults
-                ->where('user_id', $player->id);
-
-            //classement des players par nombre de kills
-            $totalKillsByChampionship = $championshipResults
-                ->groupBy(function (Result $result) {
-                    return $result->user->id;
-                })
-                ->sortByDesc(function (Collection $collection) {
-                    return $collection->pluck('kills')->flatten()->count();
-                })
-                ->map(function (Collection $collection, $pseudo) {
-                    return $collection->pluck('kills')->flatten()->count();
-                })
-                ->toArray();
-
-            $killRankByChampionship = array_search($player_id, array_keys($totalKillsByChampionship)) + 1;
-
-            $resultsOthersPlayersInChampionship = $championshipsResults
-                ->where('id', $championship->id)
-                ->where('user_id', '!=', $player_id);
-
-            $championship = Championship::query()->where('id', '=', $championship->id)->first();
-            $championshipUsers = $championship->users()->get();
-
-            //Total des fois ou un autre player a tué notre player dans un chmpionnat
-            $totalKillsByKillerInChampionship = array_count_values($resultsOthersPlayersInChampionship->pluck('kills')->flatten()
-                ->where('user_killed_id', $player->id)
-                ->pluck('result.user_id')
-                ->toArray());
-//            dd($championshipUsers);
-        }
-
+        $totalMatch = Matchs::query()
+            ->get()->count();
+        $images = Image::query()->get();
 
         return view('/player', [
             'id' => $player_id,
@@ -220,112 +175,19 @@ class UserController extends Controller
             'player' => $player,
             'decks' => $decks,
             'userChampionships' => $championships,
-            'percentWin' => $percentWin,
-            'percentParticipation' => $percentParticipation,
             'results_for_player' => $results_for_player,
             'associateUsers' => $associateUsers,
             'user_creator' => $user_creator,
             'results' => $resultsOthersPlayers,
             'totalKillsByKiller' => $totalKillsByKiller,
             'championshipsResults' => $championshipsResults,
-            'results_for_player_in_championship' => $results_for_player_in_championship,
-            'championshipResults' => $championshipResults,
-            'killRankByChampionship' => $killRankByChampionship,
-            'resultsOthersPlayersInChampionship' => $resultsOthersPlayersInChampionship,
-            'championshipUsers' => $championshipUsers,
-            'totalKillsByKillerInChampionship' => $totalKillsByKillerInChampionship,
+            'images' => $images,
+            'totalMatch' => $totalMatch,
         ]);
-    }
-
-
-    /**
-     * Pourcentage de victoire
-     *
-     * @param $id
-     * @return float
-     */
-    public function percentWin($id)
-    {
-        $totalWins = Result::query()
-            ->where('user_id', $id)
-            ->where('place', 1)
-            ->selectRaw('count(place) as totalWins')
-            ->get();
-        $totalMatchsPlayed = Result::query()
-            ->where('user_id', $id)
-            ->selectRaw('count(*) as totalMatchsPlayed')
-            ->get();
-
-        $percentWin = round(($totalWins[0]->totalWins / $totalMatchsPlayed[0]->totalMatchsPlayed) * 100, 1);
-
-        return $percentWin;
-    }
-
-    //Pourcentage de participation
-
-    /**
-     *
-     *
-     * @param $id
-     * @return float
-     */
-    public function percentParticipation($id): float
-    {
-        $totalMatchs = Matchs::query()
-            ->selectRaw('count(*) as totalMatchs')
-            ->get();
-        $totalMatchsPlayed = Result::query()
-            ->where('user_id', $id)
-            ->selectRaw('count(*) as totalMatchsPlayed')
-            ->get();
-
-        $percentParticipation = round(($totalMatchsPlayed[0]->totalMatchsPlayed / $totalMatchs[0]->totalMatchs) * 100, 1);
-
-        return $percentParticipation;
     }
 
     //Calcul ELO : (nombreDeVictoires + totalDeKills)+(nombreDeDeuxiemePlace /2 ) +(nombreDeTroisiemePlace /3 )/pourcentageDeParticipation
     //LES KILLS
 
-
-//    public function averagePointsByMatchByChampionship($user_id)
-//    {
-//        $user = User::query()->where('id', $user_id)->first();
-//        $userChampionships = $user->championships()->get();
-//
-//        $results = [];
-//        foreach ($userChampionships as $userChampionship) {
-//            $matchs = Matchs::query()->where('championship_id', $userChampionship->id)->get();
-//            $result = Result::query()
-//                ->where('user_id', $user_id)
-//                ->whereIn('match_id', $matchs->pluck('id')->toArray())
-//                ->selectRaw('avg(score)')
-//                ->get();
-//
-//            $results[] = $result;
-//
-//
-//        }
-////            dd($results);
-////
-////
-////        $championship = Championship::where('id', $championship_id)->first();
-////        $championshipUsers = $championship->users()->get();
-////
-////        $query = $pdo->prepare('
-////
-////        SELECT AVG( r_score ) AS avg_score
-////        FROM milo_results
-////        INNER JOIN milo_matchs  ON milo_results.m_id = milo_matchs.m_id
-////        INNER JOIN milo_championships  ON milo_championships.c_id = milo_matchs.c_id
-////        WHERE milo_results.u_id = :userId AND milo_matchs.c_id = :championshipId
-////            ');
-////        $query->execute([
-////                ':userId' => self::getId(),
-////                ':championshipId' => $championshipId
-////            ]
-////        );
-//        return $userChampionships;
-//    }
 
 }

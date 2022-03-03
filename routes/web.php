@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChampionshipController;
 use App\Http\Controllers\Championship_UserController;
@@ -170,5 +171,23 @@ Route::middleware('auth')->group(function () {
 
 });
 
+//Gestion des stats
+//Vers la page d'accueil des stats
+Route::get('/stats', [StatisticController::class, 'statisticHome'])->name('statistic.home');
+
+//Vers les joueurs
+Route::get('/stats-players', [StatisticController::class, 'displayPlayersStats'])->name('statistic.players');
+
+//Vers un joueur pour affichage stats globales
+Route::get('/stats-player/{user_id}', [StatisticController::class, 'displayPlayerStats'])->name('statistic.player');
+
+//Vers un joueur pour affichage stats par championnat
+Route::get('/stats-player-in-championship/{user_id}/{championship_id}', [StatisticController::class, 'displayPlayerStatsInChampionship'])->name('statistic.playerInChampionship');
+
+//Vers les championnats
+Route::get('/stats-championships', [StatisticController::class, 'displayChampionshipsStats'])->name('statistic.championships');
+
+//Vers un championnat
+Route::get('/stats-championship/{championship_id}', [StatisticController::class, 'displayChampionshipStats'])->name('statistic.championship');
 
 require __DIR__ . '/auth.php';

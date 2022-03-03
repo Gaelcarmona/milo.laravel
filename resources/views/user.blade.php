@@ -3,16 +3,7 @@
     </x-slot>
         <main>
             <div>
-                <div class="statistiques row">
-                    <div class="col-6 padding ">
-                        <figure>
-                            <img src="images/statistiques.jpeg">
-                        </figure>
-                    </div>
-                    <div class="col-6 padding d-flex align-items-center justify-content-center flex-column">
-                        <h1 class="text-center">Mes statistiques</h1>
-                    </div>
-                </div>
+
                 <div class="joueurs row">
                     <div class="col-6 padding d-flex align-items-center justify-content-center flex-column">
                         <h1 class="text-center pb-5">Mes joueurs</h1>
@@ -23,14 +14,14 @@
                     </div>
                     <div class="col-6 padding">
                         <figure>
-                            <img src="images/players.jpg">
+                            <img src="images/large/players.jpg">
                         </figure>
                     </div>
                 </div>
                 <div class="championnats row">
                     <div class="col-6 padding">
                         <figure>
-                            <img src="images/championships.jpg">
+                            <img src="images/large/championships.jpg">
                         </figure>
                     </div>
                     <div class="col-6 padding d-flex align-items-center justify-content-center flex-column">

@@ -48,7 +48,7 @@
                                 <nav class='navbar navbar-expand-lg d-flex justify-content-end'>
                                     <ul class='navbar-nav me-right  mb-2 mb-lg-0'>
                                         <li class='nav-item'>
-                                            <a class='nav-link'>Statistiques</a>
+                                            <a class='nav-link' href="{{ route('statistic.home') }}" >Statistiques</a>
                                         </li>
                                         {{-- <li class='nav-item'>
                                             <a class='nav-link' href="{{ route('players') }}">Mes joueurs</a>
@@ -61,13 +61,13 @@
                                             <!-- Authentication -->
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
-    
+
                                                 <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                             this.closest('form').submit();">
                                                     {{ __('Log Out') }}
                                                 </x-responsive-nav-link>
                                             </form>
-                                         
+
                                         </li> --}}
                                         {{-- <li class="nav-item dropdown"> --}}
                                         {{-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" --}}
