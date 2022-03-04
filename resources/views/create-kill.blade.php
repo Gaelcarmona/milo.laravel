@@ -36,7 +36,7 @@
                     value="{{$result_id}}"
                 >
             </div>
-            <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
+            <button type='submit' class='btn btn-primary bg-info my-3'>Envoyer</button>
         </form>
     </main>
 </x-app-layout>

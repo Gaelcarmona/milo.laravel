@@ -5,49 +5,52 @@
         <div class="row">
             <div class="col-6 padding">
                 {{-- <figure> --}}
-                    {{-- {$img = player->image->url ? player->image->url :'player.jpg';} --}}
+                {{-- {$img = player->image->url ? player->image->url :'player.jpg';} --}}
                 {{-- @if (isset($player->image->url))
                     <img src="{{ asset('images/large') }}/{{ $player->image->url }}" alt="">
                     @else
                     <img src="../images/large/players.jpg" alt="">
                     @endif --}}
-                    {{-- {{ player->image->url ?player->image->url  : 'player.jpg' }} --}}
-                    <img src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url  : 'players.jpg' }}" alt="">
-                {{-- </figure> --}}
+                {{-- {{ player->image->url ?player->image->url  : 'player.jpg' }} --}}
+                <img
+                    src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url  : 'players.jpg' }}"
+                    alt="">
+            {{-- </figure> --}}
 
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary bg-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Modification de l'image du joueur
                 </button>
 
                 <!-- Modal -->
                 <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                     aria-hidden="true">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Sélectionne une image pour ce joueur
                                 </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close bg-info" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('insert.image.player', ['id' => $player->id]) }}" class='mx-5 mt-5'
-                                    method='post'>
+                                <form action="{{ route('insert.image.player', ['id' => $player->id]) }}"
+                                      class='mx-5 mt-5'
+                                      method='post'>
                                     @csrf
                                     <div class="row">
                                         @foreach ($images as $image)
                                             <div class="col-4">
                                                 <label>
                                                     <input type="radio" name='image_id' required
-                                                        value="{{ $image->id }}">
+                                                           value="{{ $image->id }}">
                                                     <img src="{{ asset('images/small') }}/{{ $image->url }}">
                                                 </label>
                                             </div>
                                         @endforeach
                                     </div>
-                                    <button type='submit' class='btn btn-primary my-3'>Envoyer</button>
+                                    <button type='submit' class='btn btn-primary bg-info my-3'>Envoyer</button>
                                 </form>
                             </div>
                             {{-- <div class="modal-footer"> --}}
@@ -69,11 +72,13 @@
                 <div class="d-flex align-items-start">
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                            aria-labelledby="v-pills-home-tab">
+                             aria-labelledby="v-pills-home-tab">
                             ELO
                             :
+                            @if($totalMatch != 0)
                             {{ $results_for_player->where('place', 1)->count('place') +$results_for_player->pluck('kills')->flatten()->count() +$results_for_player->where('place', 2)->count('place') / 2 +$results_for_player->where('place', 3)->count('place') /3 /round(($results_for_player->count('*') / $totalMatch) * 100, 1) }}
-                            <br>
+                            @endif
+                                <br>
                             Score moyen : {{ round($results_for_player->avg('score'), 2) }}<br>
                             Pourcentage de victoire
                             :
@@ -145,27 +150,27 @@
                 <h1>Les decks de {{ $player->pseudo }}</h1>
                 <table class='col-12 bg-main'>
                     <thead class='text-white bg-dark'>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Modifier</th>
-                        <th>Supprimer</th>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
                     </thead>
                     <tbody>
-                        @foreach ($decks as $deck)
-                            <tr>
-                                <td>{{ $deck->id }}</td>
-                                <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ $deck->title }}</a>
-                                </td>
-                                <td><a href="{{ route('editForm.deck', $deck->id) }}"> modifier</a></td>
-                                <td><a href="{{ route('delete.deck', $deck->id) }}"
-                                        onclick="
+                    @foreach ($decks as $deck)
+                        <tr>
+                            <td>{{ $deck->id }}</td>
+                            <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ $deck->title }}</a>
+                            </td>
+                            <td><a href="{{ route('editForm.deck', $deck->id) }}"> modifier</a></td>
+                            <td><a href="{{ route('delete.deck', $deck->id) }}"
+                                   onclick="
                             var result = alert('Vous ne pouvez pas supprimer ce deck alors que des résultats lui sont associés');return false">supprimer</a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
-                <a href="{{ route('form.deck', ['id' => $player->id]) }}">Créer un deck</a>
+                <a class="btn btn-primary bg-info" href="{{ route('form.deck', ['id' => $player->id]) }}">Créer un deck</a>
             </div>
         </div>
     </main>

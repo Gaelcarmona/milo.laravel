@@ -12,7 +12,7 @@
             @foreach ($championships as $championship)
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{{ asset( 'images/small') }}/{{ "" }}" alt="">
+                        <img src="{{ asset('images/small') }}/{{ isset($championship->image->url) ? $championship->image->url  : 'championships.jpg' }}" alt="">
                         <div class="card-body">
                             <p class="card-text">{{ $championship->title }}</p>
                             <div class="d-flex justify-content-between align-items-center">

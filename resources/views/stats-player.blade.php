@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-6 padding">
                 {{-- <figure> --}}
-                <img src="../images/players.jpg" alt="">
+{{--                <img src="../images/players.jpg" alt="">--}}
+                <img src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url  : 'players.jpg' }}" alt="">
                 {{-- </figure> --}}
 
             </div>

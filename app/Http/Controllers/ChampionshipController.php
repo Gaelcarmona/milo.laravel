@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Associate_User;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +80,12 @@ class ChampionshipController extends Controller
     //formulaire d'édition d'un championnat
     public function editChampionshipForm($id)
     {
-        return view('championshipEdit', ['id' => $id]);
+        $images = Image::query()->get();
+
+        return view('championshipEdit', [
+            'id' => $id,
+            'images' => $images,
+            ]);
     }
 
     //Update d'un championnat
@@ -90,15 +96,18 @@ class ChampionshipController extends Controller
         $championship = Championship::where([
             'id' => $request->request->get('id'),
             'user_id' => $this->user_id
+
         ])->first();
 
         if ($championship === null)
             return redirect('/user?not_exists');
 
         $championship->title = $request->request->get('title');
+         $championship->image_id = $request->request->get('image_id');
         $championship->save();
 
-        return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
+        return redirect('/championships');
+//        return redirect()->route('displayChampionshipProfile', ['id' => $championship->id]);
     }
 
     public function delete($id)

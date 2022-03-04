@@ -12,7 +12,8 @@
             @foreach ($users as $user)
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="images/players.jpg" alt="">
+{{--                        <img src="images/players.jpg" alt="">--}}
+                        <img src="{{ asset('images/small') }}/{{ isset($user->image->url) ? $user->image->url  : 'players.jpg' }}" alt="">
                         <div class="card-body">
                             <p class="card-text">{{ $user->pseudo }}</p>
                             <div class="d-flex justify-content-between align-items-center">

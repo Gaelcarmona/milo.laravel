@@ -15,8 +15,8 @@
                     <li>Créer des matchs et rentrer des résultats</li>
                     <li>Profiter de toutes ces statistiques créées et envoyer le lien aux copains</li>
                 </ul>
-                <button><a href="{{ route('register') }}">Créer un compte</a></button>
-                <button><a href="{{ route('login') }}">Se connecter</a></button>
+                <button class="btn btn-primary bg-info"><a href="{{ route('register') }}">Créer un compte</a></button>
+                <button class="btn btn-primary bg-info"><a href="{{ route('login') }}">Se connecter</a></button>
             </div>
         </main>
 

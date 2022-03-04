@@ -3,6 +3,7 @@ body{
 }
 a{
     text-decoration: none;
+font-family: 'Comforter Brush', cursive;
     color: white;
 }
 li{
@@ -16,8 +17,8 @@ main a{
     /* background-color:grey; */
 }
 main{
-    height: 80vh;
-    background-image: url("../../public/images/accueilwallpaper.jpg");
+    /*height: 80vh;*/
+    /*background-image: url("../../public/images/accueilwallpaper.jpg");*/
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -42,4 +43,6 @@ em{
 .breadcrumb li:first-child::before {
     content: "";
 }
-
+.font{
+    font-family: 'Comforter Brush', cursive;
+}
