@@ -31,7 +31,7 @@
                 @endif
             </div>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary bg-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-primary mb-1 mt-1 bg-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Modification de l'image du joueur
             </button>
 
@@ -59,12 +59,12 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <button type='button' class='btn btn-primary bg-info my-3'>Envoyer</button>
+                                <button type='button' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
                         </div>
                     </div>
                 </div>
             </div>
-                        <button type='submit' class='btn btn-primary bg-info my-3'>Envoyer</button>
+                        <button type='submit' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
         </form>
     </main>
 

@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-3">
                                 <figure>
-                                    <a href="{{ route('accueil') }}"><img src="../../images/frame57.svg"></a>
+                                    <a href="{{ route('accueil') }}"><img src="{{ asset('images/frame57.svg') }}"></a>
                                 </figure>
                             </div>
                             <div class="col-9">

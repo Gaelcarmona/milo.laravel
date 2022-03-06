@@ -19,7 +19,7 @@
 
 
             <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary bg-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary mb-1 mt-1 bg-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Modification de l'image du joueur
                 </button>
 
@@ -50,12 +50,12 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <button type='submit' class='btn btn-primary bg-info my-3'>Envoyer</button>
+                                    <button type='submit' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
                                 </form>
                             </div>
                             {{-- <div class="modal-footer"> --}}
                             {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
-                            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                            {{-- <button type="button" class="btn btn-primary mb-1 mt-1">Save changes</button> --}}
                             {{-- </div> --}}
                         </div>
                     </div>
@@ -106,20 +106,7 @@
                             Classement kills : {{ $killRank }}ème<br><br>
                             Nombre total de kills de {{ $player->pseudo }}
                             : {{ $results_for_player->pluck('kills')->flatten()->count() }}<br>
-                            @if ($user_creator->id != $player->id)
-                                <p>Total des kills de {{ $user_creator->pseudo }}
-                                    :
-                                    {{ $championshipsResults->where('user_id', $user_creator->id)->pluck('kills')->flatten()->groupBy('result_id')->flatten()->count() }}
-                                </p>
-                            @endif
-                            @foreach ($associateUsers as $associateUser)
-                                @if ($associateUser->id != $player->id)
-                                    <p>Total des kills de {{ $associateUser->pseudo }}
-                                        :
-                                        {{ $championshipsResults->where('user_id', $associateUser->id)->pluck('kills')->flatten()->groupBy('result_id')->flatten()->count() }}
-                                    </p>
-                                @endif
-                            @endforeach
+
                             <br>
                             @foreach ($results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id')
     as $enemy_id => $kills)
@@ -139,7 +126,7 @@
                             @endif
                             @foreach ($associateUsers as $associateUser)
                                 @if ($associateUser->id != $player->id && isset($totalKillsByKiller[$associateUser->id]))
-                                    <p>Nombre de fois tué par {{ $associateUser->pseudo }}
+                                    <p>Par {{ $associateUser->pseudo }}
                                         : {{ $totalKillsByKiller[$associateUser->id] }}</p>
                                 @endif
                             @endforeach
@@ -170,7 +157,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <a class="btn btn-primary bg-info" href="{{ route('form.deck', ['id' => $player->id]) }}">Créer un deck</a>
+                <a class="btn btn-primary mb-1 mt-1 bg-info mb-1" href="{{ route('form.deck', ['id' => $player->id]) }}">Créer un deck</a>
             </div>
         </div>
     </main>

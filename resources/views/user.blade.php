@@ -1,14 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <main>
+        <main class="">
             <div>
 
                 <div class="joueurs row">
                     <div class="col-6 padding d-flex align-items-center justify-content-center flex-column">
-                        <h1 class="text-center pb-5 font">Mes joueurs</h1>
                         <div>
-                            <a href="{{ route('createplayer') }}" class="btn btn-primary ">Créer un joueur</a>
+                            <a href="{{ route('createplayer') }}" class="btn btn-primary mb-1 mt-1 ">Créer un joueur</a>
                             <a href="{{ route('players') }}" class="btn btn-info text-white">Voir mes joueurs</a>
                         </div>
                     </div>
@@ -25,9 +24,8 @@
                         </figure>
                     </div>
                     <div class="col-6 padding d-flex align-items-center justify-content-center flex-column">
-                        <h1 class="text-center pb-5">Mes championnats</h1>
                         <div>
-                            <a href="{{route('create.championship')}}" class="btn btn-primary">Créer un championnat</a>
+                            <a href="{{route('create.championship')}}" class="btn btn-primary mb-1 mt-1">Créer un championnat</a>
                             <a href="{{ route('championships') }}" class="btn btn-info text-white">Voir mes championnats</a>
                         </div>
                     </div>

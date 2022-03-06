@@ -51,7 +51,7 @@
             @endforeach
             </tbody>
         </table>
-        <a class="btn btn-primary bg-info" href="{{ route('form.result', ['match_id' => $match->id, 'championship_id'=> $match->championship_id]) }}">Entrer
+        <a class="btn btn-primary mb-1 mt-1 bg-info" href="{{ route('form.result', ['match_id' => $match->id, 'championship_id'=> $match->championship_id]) }}">Entrer
             un résultat</a>
     </main>
 </x-app-layout>

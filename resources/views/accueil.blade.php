@@ -1,7 +1,7 @@
-{{-- <x-app-layout>
+<x-app-layout>
     <x-slot name="header">
-    </x-slot> --}}
-<x-guest-layout>
+    </x-slot>
+{{-- <x-guest-layout> --}}
 
         <main>
             <div class="container accueil">
@@ -15,8 +15,8 @@
                     <li>Créer des matchs et rentrer des résultats</li>
                     <li>Profiter de toutes ces statistiques créées et envoyer le lien aux copains</li>
                 </ul>
-                <button class="btn btn-primary bg-info"><a href="{{ route('register') }}">Créer un compte</a></button>
-                <button class="btn btn-primary bg-info"><a href="{{ route('login') }}">Se connecter</a></button>
+                <button class="btn btn-primary mb-1 mt-1 bg-info"><a href="{{ route('register') }}">Créer un compte</a></button>
+                <button class="btn btn-primary mb-1 mt-1 bg-info"><a href="{{ route('login') }}">Se connecter</a></button>
             </div>
         </main>
 
@@ -24,5 +24,5 @@
 
         {{-- </x-slot> --}}
 
-</x-guest-layout>
-{{-- </x-app-layout> --}}
+{{-- </x-guest-layout> --}}
+</x-app-layout>

@@ -31,7 +31,7 @@
             @endforeach
             </tbody>
         </table>
-        <a  class="btn btn-primary bg-info" href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
+        <a  class="btn btn-primary mb-1 mt-1 bg-info" href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
         <table class='col-12 bg-main'>
             <thead class='text-white bg-dark'>
             <th>Id</th>
@@ -51,7 +51,7 @@
             @endforeach
             </tbody>
         </table>
-        <a class="btn btn-primary bg-info" href="{{ route('form.player.in.championship', ['championship_id' => $championship->id]) }}">Ajouter un
+        <a class="btn btn-primary mb-1 mt-1 bg-info" href="{{ route('form.player.in.championship', ['championship_id' => $championship->id]) }}">Ajouter un
             joueur au championnat</a>
     </main>
 </x-app-layout>

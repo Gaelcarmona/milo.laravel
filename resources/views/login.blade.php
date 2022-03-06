@@ -22,7 +22,7 @@
                     name='password'
                     value=''>
             </div>
-            <button type='submit' class='btn btn-primary bg-info my-3'>Envoyer</button>
+            <button type='submit' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
         </form>
     </main>
 </x-app-layout>
