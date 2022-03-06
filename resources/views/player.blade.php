@@ -1,28 +1,22 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <div class="row">
-            <div class="col-6 padding">
-                {{-- <figure> --}}
-                {{-- {$img = player->image->url ? player->image->url :'player.jpg';} --}}
-                {{-- @if (isset($player->image->url))
-                    <img src="{{ asset('images/large') }}/{{ $player->image->url }}" alt="">
-                    @else
-                    <img src="../images/large/players.jpg" alt="">
-                    @endif --}}
-                {{-- {{ player->image->url ?player->image->url  : 'player.jpg' }} --}}
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('user') }}">Accueil</a></li>
+                    <li><a href="{{ route('players') }}">Mes joueurs</a></li>
+                    <li><span aria-current="page">{{ $player->pseudo }}</span></li>
+                </ul>
+            </nav>
+            <div class="col-md-6 col-12 padding">
                 <img
                     src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url  : 'players.jpg' }}"
                     alt="">
-            {{-- </figure> --}}
-
-
             <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary mb-1 mt-1 bg-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Modification de l'image du joueur
                 </button>
-
                 <!-- Modal -->
                 <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -53,22 +47,11 @@
                                     <button type='submit' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
                                 </form>
                             </div>
-                            {{-- <div class="modal-footer"> --}}
-                            {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
-                            {{-- <button type="button" class="btn btn-primary mb-1 mt-1">Save changes</button> --}}
-                            {{-- </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <nav aria-label="Breadcrumb" class="breadcrumb">
-                    <ul>
-                        <li><a href="{{ route('user') }}">Accueil</a></li>
-                        <li><a href="{{ route('players') }}">Mes joueurs</a></li>
-                        <li><span aria-current="page">{{ $player->pseudo }}</span></li>
-                    </ul>
-                </nav>
                 <div class="d-flex align-items-start">
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
@@ -108,10 +91,9 @@
                             : {{ $results_for_player->pluck('kills')->flatten()->count() }}<br>
 
                             <br>
-                            @foreach ($results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id')
-    as $enemy_id => $kills)
+                            @foreach ($results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id') as $enemy_id => $kills)
                                 @if ($enemy_id != $player->id)
-                                    <p>{{ $kills->first()->user->pseudo }} : {{ $kills->count() }}</p>
+                                    <p>{{ $kills->first()->user->pseudo }} : {{ $kills->count() }} fois</p>
                                 @endif
                             @endforeach
                             <br>
@@ -137,7 +119,6 @@
                 <h1>Les decks de {{ $player->pseudo }}</h1>
                 <table class='col-12 bg-main'>
                     <thead class='text-white bg-dark'>
-                    <th>ID</th>
                     <th>Nom</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
@@ -145,7 +126,6 @@
                     <tbody>
                     @foreach ($decks as $deck)
                         <tr>
-                            <td>{{ $deck->id }}</td>
                             <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ $deck->title }}</a>
                             </td>
                             <td><a href="{{ route('editForm.deck', $deck->id) }}"> modifier</a></td>
@@ -160,5 +140,4 @@
                 <a class="btn btn-primary mb-1 mt-1 bg-info mb-1" href="{{ route('form.deck', ['id' => $player->id]) }}">Créer un deck</a>
             </div>
         </div>
-    </main>
 </x-app-layout>

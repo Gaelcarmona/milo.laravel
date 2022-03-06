@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <nav aria-label="Breadcrumb" class="breadcrumb">
             <ul>
                 <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
@@ -12,7 +11,6 @@
             @foreach ($users as $user)
                 <div class="col">
                     <div class="card shadow-sm">
-{{--                        <img src="images/players.jpg" alt="">--}}
                         <img src="{{ asset('images/small') }}/{{ isset($user->image->url) ? $user->image->url  : 'players.jpg' }}" alt="">
                         <div class="card-body">
                             <p class="card-text">{{ $user->pseudo }}</p>
@@ -27,6 +25,4 @@
                 </div>
             @endforeach
         </div>
-
-    </main>
 </x-app-layout>

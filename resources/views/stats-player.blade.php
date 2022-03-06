@@ -1,23 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <div class="row">
-            <div class="col-6 padding">
-                {{-- <figure> --}}
-{{--                <img src="../images/players.jpg" alt="">--}}
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
+                    <li><a href="{{ route('statistic.players') }}">Les joueurs</a></li>
+                    <li><span aria-current="page">{{ $player->pseudo }}</span></li>
+                </ul>
+            </nav>
+            <div class="col-md-6 col-12 padding">
                 <img src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url  : 'players.jpg' }}" alt="">
-                {{-- </figure> --}}
-
             </div>
             <div class="col-6">
-                <nav aria-label="Breadcrumb" class="breadcrumb">
-                    <ul>
-                        <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
-                        <li><a href="{{ route('statistic.players') }}">Les joueurs</a></li>
-                        <li><span aria-current="page">{{ $player->pseudo }}</span></li>
-                    </ul>
-                </nav>
                 <div class="d-flex align-items-start">
                     <div class="tab-content" id="v-pills-tabContent">
                         <div>
@@ -49,7 +44,7 @@
                             <br>
                             @foreach($results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id') as $enemy_id => $kills)
                                 @if($enemy_id != $player->id)
-                                    <p>{{ $kills->first()->user->pseudo }} : {{  $kills->count() }}</p>
+                                    <p>{{ $kills->first()->user->pseudo }} : {{  $kills->count() }} fois</p>
                                 @endif
                             @endforeach
                             <br>
@@ -60,7 +55,7 @@
                             : {{ $results->pluck('kills')->flatten()->where('user_killed_id', $id)->count() }} <br>
                             @foreach($Users as $User)
                                 @if($User->id != $player->id && isset($totalKillsByKiller[$User->id]))
-                                    <p>Nombre de fois tué par {{ $User->pseudo }}
+                                    <p>Par {{ $User->pseudo }}
                                         : {{ $totalKillsByKiller[$User->id] }}</p>
                                 @endif
                             @endforeach
@@ -82,6 +77,4 @@
                 </table>
             </div>
         </div>
-        </div>
-    </main>
 </x-app-layout>

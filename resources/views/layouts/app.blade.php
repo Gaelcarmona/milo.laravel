@@ -40,16 +40,18 @@
         <!-- Page Heading -->
         <header class="bg-white shadow">
             <div class="">
-                <header class='header bg-primary py-3 text-white'>
+                <header class='header bg-primary py-2 text-white'>
                     <div class="container">
                         <div class="row">
                             <div class="col-3">
                                 @if (Auth::user() != null)
+
                                 <a href="{{ route('user') }}"><img src="{{ asset('images/frame57.svg') }}"></a>
                                 
                                 @else
                                 
                                 <a href="{{ route('accueil') }}"><img src="{{ asset('images/frame57.svg') }}"></a>
+
                                 @endif
                                 <figure>
                                 </figure>

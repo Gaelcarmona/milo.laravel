@@ -1,25 +1,24 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <div class="row">
-            <div class="col-6 padding">
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ul>
+                    <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
+                    <li><a href="{{ route('statistic.championships') }}">Les championnats</a></li>
+                    <li><a href="{{ route('statistic.championship', $championship->id) }}">{{ $championship->title }}</a></li>
+            
+            {{--                        <li><a href="{{ route('statistic.playerInChampionship') }}">Les joueurs</a></li>--}}
+                    <li><span aria-current="page">{{ $player->pseudo }}</span></li>
+                </ul>
+            </nav>
+            <div class="col-md-6 col-12  padding">
 
 {{--                <img src="../../images/players.jpg" alt="">--}}
                 <img src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url  : 'players.jpg' }}" alt="">
 
             </div>
             <div class="col-6">
-                <nav aria-label="Breadcrumb" class="breadcrumb">
-                    <ul>
-                        <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
-                        <li><a href="{{ route('statistic.championships') }}">Les championnats</a></li>
-                        <li><a href="{{ route('statistic.championship', $championship->id) }}">{{ $championship->title }}</a></li>
-
-{{--                        <li><a href="{{ route('statistic.playerInChampionship') }}">Les joueurs</a></li>--}}
-                        <li><span aria-current="page">{{ $player->pseudo }}</span></li>
-                    </ul>
-                </nav>
                 <div class="d-flex align-items-start">
 
 
@@ -55,7 +54,7 @@
                             <br>
                             @foreach($results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id') as $enemy_id => $kills)
                                 @if($enemy_id != $player->id)
-                                    <p>{{ $kills->first()->user->pseudo }} : {{  $kills->count() }}</p>
+                                    <p>{{ $kills->first()->user->pseudo }} : {{  $kills->count() }} fois</p>
                                 @endif
                             @endforeach
                             <br>
@@ -67,7 +66,7 @@
 
                             @foreach($Users as $User)
                                 @if($User->id != $player->id && isset($totalKillsByKiller[$User->id]))
-                                    <p>Nombre de fois tué par {{ $User->pseudo }}
+                                    <p>Par {{ $User->pseudo }}
                                         : {{ $totalKillsByKiller[$User->id] }}</p>
                                 @endif
                             @endforeach
@@ -79,5 +78,4 @@
 
             </div>
         </div>
-    </main>
 </x-app-layout>

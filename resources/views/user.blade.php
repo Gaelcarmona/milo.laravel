@@ -1,9 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <main class="">
-            <div>
-
                 <div class="joueurs row">
                     <div class="col-6 padding d-flex align-items-center justify-content-center flex-column">
                         <div>
@@ -30,6 +27,4 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
 </x-app-layout>
