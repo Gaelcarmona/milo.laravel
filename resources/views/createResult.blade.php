@@ -21,7 +21,7 @@
                 <label for="user_id" class="form-label">Nom du joueur <span
                         class="small text-secondary">(Obligatoire)</span></label>
                 <select
-                    id="user_id"
+                    id="user"
                     name="user_id">
                     <option value="">Choisis un joueur</option>
                     @foreach($users as $user)
@@ -54,7 +54,7 @@
                 <label for="deck_id" class="form-label">Nom du deck <span
                         class="small text-secondary">(Obligatoire)</span></label>
                 <select
-                    id="deck_id"
+                    id="deck"
                     name="deck_id">
                     <option value="">Choisis un deck</option>
                 </select>
