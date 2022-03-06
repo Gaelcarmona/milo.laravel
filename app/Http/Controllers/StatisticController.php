@@ -113,12 +113,41 @@ class StatisticController extends Controller
         $players = $championship->users()->get();
 //        dd($championship->users()->get());
 
+$results_for_players = [];
+$resultsOthersPlayers = [];
 
+    foreach($players as $player){
 
+        $championshipResults = $player->championships
+        ->where('id', $championship_id)
+            ->pluck('matchs')->flatten()
+            ->pluck('results')->flatten();
+            
+        $results_for_player = $championshipResults
+        ->where('user_id', $player->id);
+
+        $results_for_players[] = $results_for_player;
+        
+        // $resultsPlayers = $championshipResults
+        // ->where('user_id', '!=', $player->id);
+        
+        // $resultsOthersPlayers[] = $resultsPlayers;
+
+        }
+
+        $count = -1;
+
+        $totalMatch = Matchs::query()
+        ->where('championship_id', $championship_id)
+        ->get()->count();
 
         return view('/stats-championship', [
             'players' => $players,
             'championship' => $championship,
+            'results_for_players' => $results_for_players,
+            'count' => $count,
+            'totalMatch' => $totalMatch,
+            'championshipResults' => $championshipResults,
         ]);
     }
 
