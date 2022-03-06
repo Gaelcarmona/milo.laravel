@@ -29,7 +29,7 @@
                     @endphp
                     <tr>
                         <td>{{ $player->pseudo }}</td>
-                        <td>{{ ($results_for_players[$count]->where('place', 1)->count('place') + $results_for_players[$count]->pluck('kills')->flatten()->count()) + ($results_for_players[$count]->where('place', 2)->count('place') / 2) + ($results_for_players[$count]->where('place', 3)->count('place') / 3) / round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1)}}</td>
+                        <td>{{ round(($results_for_players[$count]->where('place', 1)->count('place') + $results_for_players[$count]->pluck('kills')->flatten()->count()) + ($results_for_players[$count]->where('place', 2)->count('place') / 2) + ($results_for_players[$count]->where('place', 3)->count('place') / 3) / round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1),2)}}</td>
                         <td>{{ round(($results_for_players[$count]->where('place', 1)->count('place') / $results_for_players[$count]->count('*')) * 100, 2) }}%</td>
                         <td>{{ $results_for_players[$count]->where('place', 1)->count('place') }}</td>
                         <td> {{round($results_for_players[$count]->avg('score'),2) }}</td>
