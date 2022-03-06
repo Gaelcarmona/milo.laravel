@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <nav aria-label="Breadcrumb" class="breadcrumb">
             <ul>
                 <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
@@ -60,6 +59,4 @@
                 </div>
             @endforeach
         </div>
-
-    </main>
 </x-app-layout>

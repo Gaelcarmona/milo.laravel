@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <nav aria-label="Breadcrumb" class="breadcrumb">
             <ul>
                 <li><a href="{{ route('user') }}">Accueil</a></li>
@@ -36,5 +35,4 @@
             </div>
             <button type='submit' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
         </form>
-    </main>
 </x-app-layout>

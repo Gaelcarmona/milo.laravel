@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <nav aria-label="Breadcrumb" class="breadcrumb">
             <ul>
                 <li><a href="{{ route('user') }}">Accueil</a></li>
@@ -18,5 +17,4 @@
         <p>Mon id est le {{ $deck->id }}</p>
         <p>j'ai été créé le {{ $deck->created_at }}</p>
         <p>mon propriétaire a pour id le n° {{ $deck->user_id }}</p>
-    </main>
 </x-app-layout>

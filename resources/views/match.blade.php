@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <nav aria-label="Breadcrumb" class="breadcrumb">
             <ul>
                 <li><a href="{{ route('user') }}">Accueil</a></li>
@@ -53,5 +52,4 @@
         </table>
         <a class="btn btn-primary mb-1 mt-1 bg-info" href="{{ route('form.result', ['match_id' => $match->id, 'championship_id'=> $match->championship_id]) }}">Entrer
             un résultat</a>
-    </main>
 </x-app-layout>

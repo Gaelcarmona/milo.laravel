@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <main>
         <form action="{{route('insert.user')}}" class='mx-5 mt-5' method='post'>
             @csrf
             <div class='mb-3'>
@@ -56,5 +55,4 @@
             </div>
             <button type='submit' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
         </form>
-    </main>
 </x-app-layout>

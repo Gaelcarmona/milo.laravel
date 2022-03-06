@@ -1,9 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-{{-- <x-guest-layout> --}}
-
-        <main>
             <div class="container accueil">
                 <h1>Bienvenue</h1>
                 <p>Ce site te permet d'organiser des tournois de carte Magic entre amis.</p>
@@ -18,11 +15,4 @@
                 <button class="btn btn-primary mb-1 mt-1 bg-info"><a href="{{ route('register') }}">Créer un compte</a></button>
                 <button class="btn btn-primary mb-1 mt-1 bg-info"><a href="{{ route('login') }}">Se connecter</a></button>
             </div>
-        </main>
-
-
-
-        {{-- </x-slot> --}}
-
-{{-- </x-guest-layout> --}}
 </x-app-layout>
