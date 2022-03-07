@@ -7,6 +7,7 @@ use App\Models\Associate_User;
 use App\Models\Championship;
 use App\Models\Deck;
 use App\Models\Image;
+use App\Models\Kill;
 use App\Models\Matchs;
 use App\Models\Result;
 use App\Models\User;
@@ -55,19 +56,82 @@ class UserController extends Controller
         return view('/admin');
     }
 
-    public function delete($id)
-    {
+//    public function delete($id)
+//    {
+//
+//        $test = Associate_User::query()->where('creator_id', Auth::id())->get();
+//
+//        $user_creator = User::query()->where('id', '=', Auth::id())->first();
+//        $associateUsers = $user_creator->user()->get();
+//
+//
+//        $associateUserToDelete = DB::raw("DELETE FROM associate_user WHERE user_id = $id");
+//        DB::statement($associateUserToDelete);
+//
+//        return redirect()->route('players', ['associateUsers' => $associateUsers]);
+//    }
 
-        $test = Associate_User::query()->where('creator_id', Auth::id())->get();
+    public function delete($user_id)
+    {
+        //Suppression des kills et des résultats
+        $results = Result::query()->where('user_id', $user_id)->get();
+
+        foreach ($results as $result) {
+            Kill::where('result_id', $result->id)->delete();
+            $result->delete();
+        }
+
+        //Suppression des morts et réduction des scores des tueurs
+        $otherResults = Result::query()
+            ->with([
+                'kills.result',
+            ])
+            ->where('user_id', '!=', $user_id)
+            ->get();
+
+        $deaths = $otherResults
+            ->pluck('kills')->flatten()
+            ->where('user_killed_id', $user_id);
+
+        foreach ($deaths as $death) {
+
+            //Réduction des scores des tueurs
+            $resultsWhereDeathOfUser = $death->result()->first();
+            $resultsWhereDeathOfUser->score -= 1;
+            $resultsWhereDeathOfUser->save();
+
+            //Suppression des morts
+            DB::statement(DB::raw('delete from kills where user_killed_id = '.$user_id));
+
+        }
+
+        //Supprimer la présence dans les championnats
+        $championships = Championship::query()->get();
+        foreach ($championships as $championship)
+        {
+        $championship->users()->detach($user_id);
+        }
+
+        //Supprimer les decks
+        $decks = Deck::query()->where('user_id', $user_id)->get();
+        foreach ($decks as $deck)
+        {
+            $deck->delete();
+        }
+
+        //Supprimer l'association à un créateur
+        DB::statement(DB::raw('delete from associate_user where user_id = '.$user_id));
+
+        //Supprimer le joueur
+        $user = User::query()->where('id',$user_id);
+        $user->delete();
 
         $user_creator = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user_creator->user()->get();
 
-        $associateUserToDelete = DB::raw("DELETE FROM associate_user WHERE user_id = $id");
-        DB::statement($associateUserToDelete);
-
         return redirect()->route('players', ['associateUsers' => $associateUsers]);
     }
+
 
     public function playerInsert(CreateAndEditPlayerRequest $request)
     {
@@ -123,7 +187,8 @@ class UserController extends Controller
         $user_creator = User::query()->where('id', '=', Auth::id())->first();
         $associateUsers = $user_creator->user()->get();
 
-        return view('/players', ['associateUsers' => $associateUsers]);
+        return redirect()->route('players', ['associateUsers' => $associateUsers]);
+
     }
 
 

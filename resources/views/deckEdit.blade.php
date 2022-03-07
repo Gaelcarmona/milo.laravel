@@ -21,7 +21,7 @@
                     type='text'
                     name='title'
                     required
-                    value=""
+                    value="{{ $deck->title }}"
                 >
                 <input
                     type='hidden'

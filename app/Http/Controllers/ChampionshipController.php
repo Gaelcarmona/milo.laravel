@@ -82,9 +82,12 @@ class ChampionshipController extends Controller
     {
         $images = Image::query()->get();
 
+        $championship = Championship::query()->where('id',$id)->first();
+
         return view('championshipEdit', [
             'id' => $id,
             'images' => $images,
+            'championship' => $championship,
             ]);
     }
 

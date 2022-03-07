@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 01 mars 2022 à 14:45
+-- Généré le : lun. 07 mars 2022 à 09:05
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.1.2
 
@@ -43,7 +43,8 @@ INSERT INTO `associate_user` (`creator_id`, `user_id`, `created_at`, `updated_at
 (1, 30, NULL, NULL),
 (1, 31, NULL, NULL),
 (1, 32, NULL, NULL),
-(1, 33, NULL, NULL);
+(1, 33, NULL, NULL),
+(1, 35, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,9 @@ CREATE TABLE `championships` (
 --
 
 INSERT INTO `championships` (`id`, `title`, `user_id`, `image_id`, `created_at`, `updated_at`) VALUES
-(45, 'Championnat de milo', 1, NULL, '2022-03-01 12:28:37', '2022-03-01 12:28:37');
+(45, 'Championnat de milo', 1, 24, '2022-03-01 12:28:37', '2022-03-04 07:51:16'),
+(47, 'test image', 1, 4, '2022-03-03 07:41:08', '2022-03-04 07:45:57'),
+(48, 'test division par 0', 1, NULL, '2022-03-07 07:13:43', '2022-03-07 07:13:43');
 
 -- --------------------------------------------------------
 
@@ -90,7 +93,19 @@ INSERT INTO `championship_user` (`user_id`, `championship_id`, `created_at`, `up
 (30, 45, NULL, NULL),
 (31, 45, NULL, NULL),
 (32, 45, NULL, NULL),
-(33, 45, NULL, NULL);
+(33, 45, NULL, NULL),
+(1, 47, NULL, NULL),
+(29, 47, NULL, NULL),
+(30, 47, NULL, NULL),
+(31, 47, NULL, NULL),
+(32, 47, NULL, NULL),
+(33, 47, NULL, NULL),
+(1, 48, NULL, NULL),
+(29, 48, NULL, NULL),
+(30, 48, NULL, NULL),
+(31, 48, NULL, NULL),
+(32, 48, NULL, NULL),
+(33, 48, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -143,11 +158,46 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `images` (
   `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `images`
+--
+
+INSERT INTO `images` (`id`, `url`, `created_at`, `updated_at`) VALUES
+(1, '6617.jpg', NULL, NULL),
+(2, '6814.jpg', NULL, NULL),
+(3, '11362.png', NULL, NULL),
+(4, '14065.png', NULL, NULL),
+(5, '17704.jpg', NULL, NULL),
+(6, '30692.jpg', NULL, NULL),
+(7, '46092.jpg', NULL, NULL),
+(8, '52929.jpg', NULL, NULL),
+(9, '67662.jpg', NULL, NULL),
+(10, '114446.jpg', NULL, NULL),
+(11, '120297.jpg', NULL, NULL),
+(12, '121452.jpg', NULL, NULL),
+(13, '122320.jpg', NULL, NULL),
+(14, '123828.jpg', NULL, NULL),
+(15, '123865.jpg', NULL, NULL),
+(16, '125092.jpg', NULL, NULL),
+(17, '132011.jpg', NULL, NULL),
+(18, '138798.jpg', NULL, NULL),
+(19, '144311.jpg', NULL, NULL),
+(20, '158926.jpg', NULL, NULL),
+(21, '165180.jpg', NULL, NULL),
+(22, '313687.jpg', NULL, NULL),
+(23, '474333.jpg', NULL, NULL),
+(24, '492493.jpg', NULL, NULL),
+(25, '536020.jpg', NULL, NULL),
+(26, '601189.jpg', NULL, NULL),
+(27, '665561.jpg', NULL, NULL),
+(28, 'championships.jpg', NULL, NULL),
+(29, 'players.jpg', NULL, NULL),
+(30, 'statistiques.jpg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -261,7 +311,8 @@ INSERT INTO `kills` (`result_id`, `user_killed_id`, `created_at`, `updated_at`) 
 (183, 1, '2022-03-01 13:40:46', '2022-03-01 13:40:46'),
 (180, 30, '2022-03-01 13:40:54', '2022-03-01 13:40:54'),
 (180, 33, '2022-03-01 13:40:58', '2022-03-01 13:40:58'),
-(185, 33, '2022-03-01 13:41:52', '2022-03-01 13:41:52');
+(185, 33, '2022-03-01 13:41:52', '2022-03-01 13:41:52'),
+(195, 1, '2022-03-03 07:43:25', '2022-03-03 07:43:25');
 
 -- --------------------------------------------------------
 
@@ -315,7 +366,9 @@ INSERT INTO `matchs` (`id`, `title`, `championship_id`, `image_id`, `created_at`
 (42, '25/07/2021 match 3', 45, NULL, '2022-03-01 13:34:35', '2022-03-01 13:34:45'),
 (43, '28/11/2021 match 1', 45, NULL, '2022-03-01 13:35:07', '2022-03-01 13:35:07'),
 (44, '28/11/2021 match 2', 45, NULL, '2022-03-01 13:35:11', '2022-03-01 13:35:11'),
-(45, '28/11/2021 match 3', 45, NULL, '2022-03-01 13:35:18', '2022-03-01 13:35:18');
+(45, '28/11/2021 match 3', 45, NULL, '2022-03-01 13:35:18', '2022-03-01 13:35:18'),
+(47, 'test match champ 2', 47, NULL, '2022-03-03 07:41:18', '2022-03-03 07:41:18'),
+(48, 'test 2', 47, NULL, '2022-03-07 07:13:04', '2022-03-07 07:13:04');
 
 -- --------------------------------------------------------
 
@@ -359,6 +412,13 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('milo@sfr.fr', '$2y$10$WUpFTpdXCcyMn9fH1S/4yuzeZ9hM4A5TuKFaXSrL2PvgIhxzvYZzq', '2022-03-04 09:35:46');
 
 -- --------------------------------------------------------
 
@@ -553,7 +613,13 @@ INSERT INTO `results` (`id`, `user_id`, `deck_id`, `match_id`, `place`, `score`,
 (184, 29, 23, 45, 2, 5, '2022-03-01 13:41:23', '2022-03-01 13:41:23'),
 (185, 30, 24, 45, 1, 8, '2022-03-01 13:41:28', '2022-03-01 13:41:52'),
 (186, 1, 22, 45, 3, 3, '2022-03-01 13:41:34', '2022-03-01 13:41:34'),
-(187, 33, 27, 45, 4, 2, '2022-03-01 13:41:42', '2022-03-01 13:41:42');
+(187, 33, 27, 45, 4, 2, '2022-03-01 13:41:42', '2022-03-01 13:41:42'),
+(192, 1, 22, 47, 1, 7, '2022-03-03 07:41:26', '2022-03-03 07:41:26'),
+(193, 29, 23, 47, 2, 5, '2022-03-03 07:41:31', '2022-03-03 07:41:31'),
+(194, 30, 24, 47, 3, 3, '2022-03-03 07:41:35', '2022-03-03 07:41:35'),
+(195, 31, 25, 47, 4, 3, '2022-03-03 07:41:40', '2022-03-03 07:43:25'),
+(196, 32, 26, 47, 5, 1, '2022-03-03 07:41:45', '2022-03-03 07:41:45'),
+(197, 33, 27, 47, 6, 0, '2022-03-03 07:41:50', '2022-03-03 07:41:50');
 
 -- --------------------------------------------------------
 
@@ -577,12 +643,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `pseudo`, `email`, `password`, `image_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'milo', 'milo@sfr.fr', '$2y$10$EMYJYOSqXLwbeHdP/l067OWDgveIETF0PaU4c2KOli.966aA3Lxay', NULL, NULL, '2022-02-16 13:23:12', '2022-02-16 13:23:12'),
-(29, 'Porthos', NULL, NULL, NULL, NULL, '2022-03-01 12:17:57', '2022-03-01 12:17:57'),
-(30, 'Helias', NULL, NULL, NULL, NULL, '2022-03-01 12:19:51', '2022-03-01 12:19:51'),
-(31, 'Buzz', NULL, NULL, NULL, NULL, '2022-03-01 12:20:13', '2022-03-01 12:20:13'),
-(32, 'Fab', NULL, NULL, NULL, NULL, '2022-03-01 12:20:24', '2022-03-01 12:20:24'),
-(33, 'Flo', NULL, NULL, NULL, NULL, '2022-03-01 12:20:32', '2022-03-01 12:20:32');
+(1, 'milo', 'milo@sfr.fr', '$2y$10$EMYJYOSqXLwbeHdP/l067OWDgveIETF0PaU4c2KOli.966aA3Lxay', 12, NULL, '2022-02-16 13:23:12', '2022-03-04 07:06:32'),
+(29, 'Porthos', NULL, NULL, 6, NULL, '2022-03-01 12:17:57', '2022-03-04 07:06:47'),
+(30, 'Helias', NULL, NULL, 8, NULL, '2022-03-01 12:19:51', '2022-03-04 07:07:00'),
+(31, 'Buzz', NULL, NULL, 15, NULL, '2022-03-01 12:20:13', '2022-03-04 07:07:11'),
+(32, 'Fab', NULL, NULL, 22, NULL, '2022-03-01 12:20:24', '2022-03-04 07:07:23'),
+(33, 'Flo', NULL, NULL, 25, NULL, '2022-03-01 12:20:32', '2022-03-04 07:07:37'),
+(34, 'skel', 'skel@sfr.fr', '$2y$10$uRisuc66dLyjgnlABC2FdemxnFjf.HJIU.GKiAi4.cE1z/uvTffWe', NULL, NULL, '2022-03-03 13:45:42', '2022-03-03 13:45:42'),
+(35, 'test div par 0', NULL, NULL, NULL, NULL, '2022-03-07 07:54:41', '2022-03-07 07:54:41');
 
 --
 -- Index pour les tables déchargées
@@ -691,7 +759,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `championships`
 --
 ALTER TABLE `championships`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT pour la table `decks`
@@ -709,13 +777,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `matchs`
 --
 ALTER TABLE `matchs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT pour la table `migrations`
@@ -733,13 +801,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT pour la table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Contraintes pour les tables déchargées

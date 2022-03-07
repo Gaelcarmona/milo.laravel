@@ -77,12 +77,14 @@ class Championship_UserController extends Controller
             $kills = $result->kills()->where('user_killed_id', $user_id);
             $result->score = $result->score - $kills->count();
             $result->save();
+
             $kills->delete();
 
             if ($result->user_id == $user_id) {
                 $result->kills()->delete();
                 $result->delete();
             }
+
         }
         $championship = Championship::where('id', $championship_id)->first();
         $championship->users()->detach($user_id);

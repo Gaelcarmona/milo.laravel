@@ -20,7 +20,7 @@
                         type='text'
                         name='title'
                         required
-                        value=""
+                        value="{{ $matchBread->title }}"
                     >
                     <input
                         type='hidden'

@@ -17,7 +17,7 @@
                     type='text'
                     name='pseudo'
                     required
-                    value=""
+                    value="{{ $playerBread->pseudo }}"
                 >
                 <input
                     type='hidden'

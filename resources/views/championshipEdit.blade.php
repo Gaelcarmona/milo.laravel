@@ -16,7 +16,7 @@
                     type='text'
                     name='title'
                     required
-                    value=""
+                    value="{{ $championship->title }}"
                 >
                 <input
                     type='hidden'
