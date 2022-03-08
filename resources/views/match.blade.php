@@ -11,7 +11,7 @@
                 <li><span aria-current="page">{{ $match->title }}</span></li>
             </ul>
         </nav>
-        <table class='col-12 bg-main'>
+        <table class='col-12 bg-main table'>
             <thead class='text-white bg-dark'>
             <th>ID</th>
             <th>Place</th>

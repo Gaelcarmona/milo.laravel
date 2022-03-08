@@ -21,13 +21,35 @@ class StatisticController extends Controller
     //affichage des joueurs
     public function displayPlayersStats()
     {
-        $users = User::query()->get();
-//        dd($users);
-//        $associateUsers = $user_creator->user()->get();
+        $creators = User::query()->where('email', '!=', null)->get();
+
+        $players = User::query()->get();
+
+
+        $results_for_players = [];
+
+        foreach ($players as $player) {
+
+            $results = Result::query()->get();
+
+            $results_for_player = $results
+                ->where('user_id', $player->id);
+
+            $results_for_players[] = $results_for_player;
+        }
+
+        $count = -1;
+
+        $totalMatch = Matchs::query()
+            ->get()->count();
 
         return view('/stats-players', [
-            'users' => $users,
-//            'user_creator' => $user_creator,
+            'players' => $players,
+            'results_for_players' => $results_for_players,
+            'count' => $count,
+            'totalMatch' => $totalMatch,
+            'results' => $results,
+            'creators' => $creators,
         ]);
     }
 
@@ -63,7 +85,6 @@ class StatisticController extends Controller
             ->where('user_killed_id', $player->id)
             ->pluck('result.user_id')
             ->toArray());
-
 
         //classement des players par nombre de kills
         $totalKills = $championshipsResults
@@ -111,43 +132,79 @@ class StatisticController extends Controller
 
         $championship = Championship::query()->where('id', $championship_id)->first();
         $players = $championship->users()->get();
-//        dd($championship->users()->get());
 
-$results_for_players = [];
-$resultsOthersPlayers = [];
+        $results_for_players = [];
 
-    foreach($players as $player){
+        foreach ($players as $player) {
 
-        $championshipResults = $player->championships
-        ->where('id', $championship_id)
-            ->pluck('matchs')->flatten()
-            ->pluck('results')->flatten();
-            
-        $results_for_player = $championshipResults
-        ->where('user_id', $player->id);
+            $championshipResults = $player->championships
+                ->where('id', $championship_id)
+                ->pluck('matchs')->flatten()
+                ->pluck('results')->flatten();
 
-        $results_for_players[] = $results_for_player;
-        
-        // $resultsPlayers = $championshipResults
-        // ->where('user_id', '!=', $player->id);
-        
-        // $resultsOthersPlayers[] = $resultsPlayers;
+            $results_for_player = $championshipResults
+                ->where('user_id', $player->id);
 
+            $results_for_players[] = $results_for_player;
         }
 
         $count = -1;
 
         $totalMatch = Matchs::query()
-        ->where('championship_id', $championship_id)
-        ->get()->count();
+            ->where('championship_id', $championship_id)
+            ->get()->count();
+
+        $collect = $championshipResults->groupBy('deck_id');
+
+        $decksId = $collect->keys()->toArray();
+        $decks = [];
+        foreach ($decksId as $deckId) {
+            $deck = Deck::query()->where('id', $deckId)->first();
+            $decks[] = $deck;
+        }
+
+
+        $results_for_decks = [];
+
+        foreach ($decks as $deck) {
+
+            $championships = $deck->user->championships;
+
+            $championshipResultsDeck = $deck->user->championships
+                ->where('id', $championship_id)
+                ->pluck('matchs')->flatten()
+                ->pluck('results')->flatten();
+
+            $results_for_deck = $championshipResultsDeck
+                ->where('deck_id', $deck->id);
+
+            $resultsOthersDecks = $championshipResultsDeck
+                ->where('deck_id', '!=', $deck->id);
+
+            $totalMatchInChampionship = Matchs::query()
+                ->where('championship_id', $championship_id)
+                ->get()->count();
+
+            $results_for_decks[] = $results_for_deck;
+
+        }
+
+        $countDeck = -1;
+
 
         return view('/stats-championship', [
             'players' => $players,
             'championship' => $championship,
             'results_for_players' => $results_for_players,
             'count' => $count,
+            'countDeck' => $countDeck,
             'totalMatch' => $totalMatch,
             'championshipResults' => $championshipResults,
+            'decks' => $decks,
+            'championshipResultsDeck' => $championshipResultsDeck,
+            'results_for_decks' => $results_for_decks,
+            'resultsOthersDecks' => $resultsOthersDecks,
+            'totalMatchInChampionship' => $totalMatchInChampionship,
         ]);
     }
 
@@ -164,7 +221,6 @@ $resultsOthersPlayers = [];
             ])
             ->where('id', $player_id)
             ->first();
-
 
         $Users = User::query()->get();
 
@@ -183,18 +239,11 @@ $resultsOthersPlayers = [];
         $resultsOthersPlayers = $championshipResults
             ->where('user_id', '!=', $player_id);
 
-//        //Pourcentage de victoire
-//        $percentWinInChampionship = $this->percentWinInChampionship($player_id, $championship_id);
-//
-//        //Pourcentage de participation
-//        $percentParticipationInChampionship = $this->percentParticipationInChampionship($player_id);
-
         //Total des fois ou un autre player a tué notre player, 2 versions
         $totalKillsByKiller = array_count_values($resultsOthersPlayers->pluck('kills')->flatten()
             ->where('user_killed_id', $player->id)
             ->pluck('result.user_id')
             ->toArray());
-
 
         //classement des players par nombre de kills
         $totalKills = $championshipResults
@@ -215,20 +264,143 @@ $resultsOthersPlayers = [];
             ->where('championship_id', $championship_id)
             ->get()->count();
 
-//        dd($totalMatchInChampionship);
-
         return view('/stats-player-in-championship', [
             'id' => $player_id,
             'killRank' => $killRank,
             'player' => $player,
             'decks' => $decks,
             'userChampionships' => $championships,
-//            'percentWinInChampionship' => $percentWinInChampionship,
-//            'percentParticipationInChampionship' => $percentParticipationInChampionship,
             'results_for_player' => $results_for_player,
             'Users' => $Users,
             'results' => $resultsOthersPlayers,
             'totalKillsByKiller' => $totalKillsByKiller,
+            'championshipResults' => $championshipResults,
+            'totalMatchInChampionship' => $totalMatchInChampionship,
+            'championship' => $championship,
+        ]);
+    }
+
+
+    //affichage des decks
+    public function displayDecksStats()
+    {
+        $decks = Deck::query()->get();
+
+        $results_for_decks = [];
+
+        foreach ($decks as $deck) {
+
+            $championshipResultsDeck = $deck->user->championships
+                ->pluck('matchs')->flatten()
+                ->pluck('results')->flatten();
+
+            $results_for_deck = $championshipResultsDeck
+                ->where('deck_id', $deck->id);
+
+            $totalMatch = Matchs::query()
+                ->get()->count();
+
+            $results_for_decks[] = $results_for_deck;
+//            dump($championshipsResultsDeck);
+
+        }
+
+        $countDeck = -1;
+
+        return view('/stats-decks', [
+            'decks' => $decks,
+            'results_for_decks' => $results_for_decks,
+            'totalMatch' => $totalMatch,
+            'countDeck' => $countDeck,
+            'championshipResultsDeck' => $championshipResultsDeck,
+        ]);
+    }
+
+
+    public function displayDeckStats($deck_id)
+    {
+
+        $deck = Deck::query()
+            ->with([
+                'user.championships.matchs.results.user',
+                'user.championships.matchs.results.kills.user',
+                'user.championships.matchs.results.kills.result',
+                'user.championships.users',
+            ])
+            ->where('id', $deck_id)
+            ->first();
+
+        $Decks = Deck::query()->get();
+
+        $championships = $deck->user->championships;
+
+        $championshipsResults = $deck->user->championships
+            ->pluck('matchs')->flatten()
+            ->pluck('results')->flatten();
+
+        $results_for_deck = $championshipsResults
+            ->where('deck_id', $deck->id);
+
+        $resultsOthersDecks = $championshipsResults
+            ->where('deck_id', '!=', $deck_id);
+
+        $totalMatch = Matchs::query()
+            ->get()->count();
+
+        return view('/stats-deck', [
+            'deck_id' => $deck_id,
+//            'killRank' => $killRank,
+            'deck' => $deck,
+            'userChampionships' => $championships,
+            'results_for_deck' => $results_for_deck,
+            'Decks' => $Decks,
+            'resultsOthersDecks' => $resultsOthersDecks,
+//            'totalKillsByKiller' => $totalKillsByKiller,
+            'championshipsResults' => $championshipsResults,
+            'totalMatch' => $totalMatch,
+        ]);
+    }
+
+    public function displayDeckStatsInChampionship($deck_id, $championship_id)
+    {
+        $deck = Deck::query()
+            ->with([
+                'user.championships.matchs.results.user',
+                'user.championships.matchs.results.kills.user',
+                'user.championships.matchs.results.kills.result',
+                'user.championships.users',
+            ])
+            ->where('id', $deck_id)
+            ->first();
+
+        $decks = Deck::query()->get();
+
+        $championships = $deck->user->championships;
+
+        $championship = $deck->user->championships->where('id', $championship_id)->first();
+
+        $championshipResults = $deck->user->championships
+            ->where('id', $championship_id)
+            ->pluck('matchs')->flatten()
+            ->pluck('results')->flatten();
+
+        $results_for_deck = $championshipResults
+            ->where('deck_id', $deck->id);
+
+        $resultsOthersDecks = $championshipResults
+            ->where('deck_id', '!=', $deck_id);
+
+        $totalMatchInChampionship = Matchs::query()
+            ->where('championship_id', $championship_id)
+            ->get()->count();
+
+        return view('/stats-deck-in-championship', [
+            'deck_id' => $deck_id,
+            'deck' => $deck,
+            'decks' => $decks,
+            'userChampionships' => $championships,
+            'results_for_deck' => $results_for_deck,
+            'resultsOthersDecks' => $resultsOthersDecks,
             'championshipResults' => $championshipResults,
             'totalMatchInChampionship' => $totalMatchInChampionship,
             'championship' => $championship,

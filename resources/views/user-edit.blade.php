@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <form action="{{ route('user.update', $user->id) }}" class='mx-5 mt-5' method='post'>
+        <form action="{{ "" }}" class='mx-5 mt-5' method='post'>
             @csrf
             <div class='mb-3'>
                 <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>

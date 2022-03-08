@@ -8,7 +8,7 @@
                 <li><span aria-current="page">{{ $championship->title }}</span></li>
             </ul>
         </nav>
-        <table class='col-12 bg-main'>
+        <table class='col-12 bg-main table'>
             <thead class='text-white bg-dark'>
             <th>ID</th>
             <th>Nom</th>
@@ -31,7 +31,7 @@
             </tbody>
         </table>
         <a  class="btn btn-primary mb-1 mt-1 bg-info" href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
-        <table class='col-12 bg-main'>
+        <table class='col-12 bg-main table'>
             <thead class='text-white bg-dark'>
             <th>Id</th>
             <th>Nom</th>

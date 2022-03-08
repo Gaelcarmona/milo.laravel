@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChampionshipController;
@@ -43,6 +44,12 @@ Route::middleware('auth')->group(function () {
 
 
 //Gestion des joueurs
+    //vers le formulaire de modification d'un user
+    Route::get('/user-edit/{id}', [UserController::class, 'formUpdateUser'])->name('form.update.user');
+
+    //vers le formulaire de modification d'un user
+    Route::get('/email', [UserController::class, 'formUpdateUser'])->name('form.update.user');
+
 //vers le formulaire de création de joueurs par un user
     Route::get('/createplayer', function () {
         return view('createplayer');
@@ -199,5 +206,22 @@ Route::get('/stats-championships', [StatisticController::class, 'displayChampion
 
 //Vers un championnat
 Route::get('/stats-championship/{championship_id}', [StatisticController::class, 'displayChampionshipStats'])->name('statistic.championship');
+
+//Vers les decks
+Route::get('/stats-decks', [StatisticController::class, 'displayDecksStats'])->name('statistic.decks');
+
+//Vers un deck pour affichage stats globales
+Route::get('/stats-deck/{deck_id}', [StatisticController::class, 'displayDeckStats'])->name('statistic.deck');
+
+//Vers un deck pour affichage stats par championnat
+Route::get('/stats-deck-in-championship/{user_id}/{championship_id}', [StatisticController::class, 'displayDeckStatsInChampionship'])->name('statistic.deck.in.championship');
+
+
+//Insertion d'images
+//vers le formulaire d'insertion
+Route::get('imageUpload', [ImageUploadController::class,'imageUpload'])->name('image.upload');
+//insertion
+Route::post('image-upload', 'ImageUploadController@imageUploadPost')->name('image.upload.post');
+
 
 require __DIR__ . '/auth.php';

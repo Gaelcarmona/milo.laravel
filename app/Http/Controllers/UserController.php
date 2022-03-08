@@ -101,29 +101,27 @@ class UserController extends Controller
             $resultsWhereDeathOfUser->save();
 
             //Suppression des morts
-            DB::statement(DB::raw('delete from kills where user_killed_id = '.$user_id));
+            DB::statement(DB::raw('delete from kills where user_killed_id = ' . $user_id));
 
         }
 
         //Supprimer la présence dans les championnats
         $championships = Championship::query()->get();
-        foreach ($championships as $championship)
-        {
-        $championship->users()->detach($user_id);
+        foreach ($championships as $championship) {
+            $championship->users()->detach($user_id);
         }
 
         //Supprimer les decks
         $decks = Deck::query()->where('user_id', $user_id)->get();
-        foreach ($decks as $deck)
-        {
+        foreach ($decks as $deck) {
             $deck->delete();
         }
 
         //Supprimer l'association à un créateur
-        DB::statement(DB::raw('delete from associate_user where user_id = '.$user_id));
+        DB::statement(DB::raw('delete from associate_user where user_id = ' . $user_id));
 
         //Supprimer le joueur
-        $user = User::query()->where('id',$user_id);
+        $user = User::query()->where('id', $user_id);
         $user->delete();
 
         $user_creator = User::query()->where('id', '=', Auth::id())->first();
@@ -173,6 +171,19 @@ class UserController extends Controller
         return view('playerEdit', [
             'id' => $id,
             'playerBread' => $playerBread,
+        ]);
+    }
+
+    public function formUpdateUser($id)
+    {
+        $playerBread = User::query()->where('id', $id)->first();
+        $user = User::query()->where('id', $id)->first();
+//        dd($user);
+
+        return view('/user-edit', [
+            'id' => $id,
+            'playerBread' => $playerBread,
+            'user' => $user,
         ]);
     }
 

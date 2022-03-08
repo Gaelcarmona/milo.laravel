@@ -123,7 +123,7 @@
             </div>
 
             <h1>Les decks de {{ $player->pseudo }}</h1>
-            <table class='col-12 bg-main'>
+            <table class='col-12 bg-main table'>
                 <thead class='text-white bg-dark'>
                 <th>Nom</th>
                 <th>Modifier</th>
