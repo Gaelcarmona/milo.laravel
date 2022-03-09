@@ -87,7 +87,7 @@
                 <tbody>
                 @foreach ($decks as $deck)
                     <tr>
-                        <td><a href="{{ route('displayDeckProfile', $deck->id) }}">{{ $deck->title }}</a></td>
+                        <td><a href="{{ route('statistic.deck', $deck->id) }}">{{ $deck->title }}</a></td>
                     </tr>
                 @endforeach
                 </tbody>

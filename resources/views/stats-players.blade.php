@@ -12,15 +12,15 @@
             <thead>
             <th>Nom</th>
             <th>Elo</th>
-            <th>Pourcentage de victoire</th>
-            <th>Nombre de victoires</th>
+            <th class="d-none d-md-table-cell">Pourcentage de victoire</th>
+            <th class="d-none d-md-table-cell">Nombre de victoires</th>
             <th>Points par partie</th>
             <th>Kills par partie</th>
-            <th>Total de kills</th>
-            <th>Total de morts</th>
+            <th class="d-none d-lg-table-cell">Total de kills</th>
+            <th class="d-none d-lg-table-cell">Total de morts</th>
             <th>Taux de mortalité</th>
-            <th>Total de points</th>
-            <th>Matchs joués</th>
+            <th class="d-none d-md-table-cell">Total de points</th>
+            <th class="d-none d-md-table-cell">Matchs joués</th>
 
             </thead>
             <tbody>
@@ -34,19 +34,19 @@
                     {{--                    $totalMatchInChampionship != 0 && $results_for_player != null--}}
                     @if($totalMatch != 0 && $results_for_players[$count]->count('*') != 0)
                         <td>{{ round(($results_for_players[$count]->where('place', 1)->count('place') + $results_for_players[$count]->pluck('kills')->flatten()->count()) + ($results_for_players[$count]->where('place', 2)->count('place') / 2) + ($results_for_players[$count]->where('place', 3)->count('place') / 3) / round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1),2)}}</td>
-                        <td>{{ round(($results_for_players[$count]->where('place', 1)->count('place') / $results_for_players[$count]->count('*')) * 100, 2) }}
+                        <td class="d-none d-md-table-cell">{{ round(($results_for_players[$count]->where('place', 1)->count('place') / $results_for_players[$count]->count('*')) * 100, 2) }}
                             %
                         </td>
-                        <td>{{ $results_for_players[$count]->where('place', 1)->count('place') }}</td>
+                        <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->where('place', 1)->count('place') }}</td>
                         <td> {{round($results_for_players[$count]->avg('score'),2) }}</td>
                         <td>{{ round($results_for_players[$count]->pluck('kills')->flatten()->count() / $results_for_players[$count]->count(),2) }}</td>
-                        <td>{{ $results_for_players[$count]->pluck('kills')->flatten()->count() }}</td>
-                        <td>{{ $results->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() }}</td>
+                        <td class="d-none d-lg-table-cell">{{ $results_for_players[$count]->pluck('kills')->flatten()->count() }}</td>
+                        <td class="d-none d-lg-table-cell">{{ $results->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() }}</td>
                         <td>{{ round($results->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() / $results_for_players[$count]->count('*') * 100, 2) }}
                             %
                         </td>
-                        <td>{{ $results_for_players[$count]->sum('score') }}</td>
-                        <td>{{ $results_for_players[$count]->count('*') }}</td>
+                        <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->sum('score') }}</td>
+                        <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->count('*') }}</td>
                     @endif
                 </tr>
 

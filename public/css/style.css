@@ -15,5 +15,13 @@
 }
 body{
     width: 100vh;
+    font-family: 'Abel', sans-serif !important;
+    font-size: 1.2em !important;
 }
+main a{
+    font-size: 1em !important;;
+}
+
+
+
 

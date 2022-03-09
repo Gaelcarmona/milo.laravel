@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
@@ -33,23 +34,31 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-//Route::get('/admin', function () {
-//    return view('admin');
-//});
-//
+//logout
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
 //vers le profil utilisateur
     Route::get('/user', function () {
         return view('user');
     })->name('user');
 
+    //vers le compte d'un utilisateur
+    Route::get('/account-user/{id}', [UserController::class, 'accountUser'])->name('account.user');
 
-//Gestion des joueurs
+
+    //Gestion des users
     //vers le formulaire de modification d'un user
     Route::get('/user-edit/{id}', [UserController::class, 'formUpdateUser'])->name('form.update.user');
 
-    //vers le formulaire de modification d'un user
-    Route::get('/email', [UserController::class, 'formUpdateUser'])->name('form.update.user');
+    //Update d'un user
+    Route::post('/user/update', [UserController::class, 'userUpdate'])->name('update.user');
 
+    //Delete d'un joueur
+    Route::get('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
+
+
+
+    //Gestion des joueurs
 //vers le formulaire de création de joueurs par un user
     Route::get('/createplayer', function () {
         return view('createplayer');
@@ -176,17 +185,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/kill/delete/{result_id}/{user_killed_id}', [KillController::class, 'delete'])->name('delete.kill');
 
 
-
-
     //Les images
 ////attribution d'une image pour un joueur
     Route::post('/player/{id}', [UserController::class, 'insertImagePlayer'])->name('insert.image.player');
-
-
-
+    //Insertion d'images
+//vers le formulaire d'insertion
+    Route::get('imageUpload', [ImageUploadController::class, 'imageUpload'])->name('image.upload');
+//insertion
+    Route::post('image-upload', 'ImageUploadController@imageUploadPost')->name('image.upload.post');
 
 
 });
+
 
 //Gestion des stats
 //Vers la page d'accueil des stats
@@ -215,13 +225,6 @@ Route::get('/stats-deck/{deck_id}', [StatisticController::class, 'displayDeckSta
 
 //Vers un deck pour affichage stats par championnat
 Route::get('/stats-deck-in-championship/{user_id}/{championship_id}', [StatisticController::class, 'displayDeckStatsInChampionship'])->name('statistic.deck.in.championship');
-
-
-//Insertion d'images
-//vers le formulaire d'insertion
-Route::get('imageUpload', [ImageUploadController::class,'imageUpload'])->name('image.upload');
-//insertion
-Route::post('image-upload', 'ImageUploadController@imageUploadPost')->name('image.upload.post');
 
 
 require __DIR__ . '/auth.php';
