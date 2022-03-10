@@ -19,7 +19,10 @@ body{
     font-size: 1.2em !important;
 }
 main a{
-    font-size: 1em !important;;
+    font-size: 1em !important;
+}
+button{
+    font-size: 1em !important;
 }
 
 

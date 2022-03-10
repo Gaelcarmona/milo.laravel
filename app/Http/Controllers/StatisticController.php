@@ -284,7 +284,20 @@ class StatisticController extends Controller
     //affichage des decks
     public function displayDecksStats()
     {
+
+        $players = User::query()->get();
         $decks = Deck::query()->get();
+
+        $usersDecks = [];
+        foreach ($players as $player) {
+            $userDecks = Deck::query()->where('user_id', $player->id)->get();
+            $usersDecks[] = $userDecks;
+        }
+//        dd($usersDecks[0]);
+        $countUserDecks = -1;
+
+
+
 
         $results_for_decks = [];
 
@@ -313,6 +326,9 @@ class StatisticController extends Controller
             'totalMatch' => $totalMatch,
             'countDeck' => $countDeck,
             'championshipResultsDeck' => $championshipResultsDeck,
+            'players' => $players,
+            'countUserDecks' => $countUserDecks,
+            'usersDecks' => $usersDecks,
         ]);
     }
 

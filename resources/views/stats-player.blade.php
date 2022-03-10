@@ -79,19 +79,51 @@
                     </div>
                 </div>
             </div>
-            <h1>Les decks de {{ $player->pseudo }}</h1>
-            <table class='col-12 bg-main table'>
-                <thead class='text-white bg-dark'>
-                <th>Nom</th>
-                </thead>
-                <tbody>
-                @foreach ($decks as $deck)
-                    <tr>
-                        <td><a href="{{ route('statistic.deck', $deck->id) }}">{{ $deck->title }}</a></td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+{{--            <h1>Les decks de {{ $player->pseudo }}</h1>--}}
+{{--            <table class='col-12 bg-main table'>--}}
+{{--                <thead class='text-white bg-dark'>--}}
+{{--                <th>Nom</th>--}}
+{{--                </thead>--}}
+{{--                <tbody>--}}
+{{--                @foreach ($decks as $deck)--}}
+{{--                    <tr>--}}
+{{--                        <td><a href="{{ route('statistic.deck', $deck->id) }}">{{ $deck->title }}</a></td>--}}
+{{--                    </tr>--}}
+{{--                @endforeach--}}
+{{--                </tbody>--}}
+{{--            </table>--}}
+        </div>
+                <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false"
+                        aria-controls="flush-collapseThree">
+                    Les decks
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <table class='col-12 bg-main table'>
+                        <thead class='text-white bg-dark'>
+                        <th>Nom</th>
+                        </thead>
+                        <tbody>
+                        @foreach ($decks as $deck)
+                            <tr>
+                                <td><a href="{{ route('statistic.deck', $deck->id) }}">{{ $deck->title }}</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary mb-1 mt-1 bg-info mb-1"
+                       href="{{ route('form.deck', ['id' => $player->id]) }}">Créer
+                        un deck</a>
+
+
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

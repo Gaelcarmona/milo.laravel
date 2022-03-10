@@ -27,7 +27,7 @@
                 @php
                     $countDeck += 1
                 @endphp
-{{--                @dd($championshipResultsDeck)--}}
+                {{--                @dd($championshipResultsDeck)--}}
                 <tr>
                     <td>{{ $deck->title }}</td>
                     @if($totalMatch != 0 && $results_for_decks[$countDeck]->count('*') != 0)
@@ -51,25 +51,46 @@
             </tbody>
         </table>
     </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        @foreach ($decks as $deck)
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img
-                        src="{{ asset('images/small') }}/{{ isset($deck->image->url) ? $deck->image->url  : 'players.jpg' }}"
-                        alt="">
-                    <div class="card-body">
-                        <p class="card-text">{{ $deck->title }}</p>
-                        <p class="card-text">{{ $deck->user->pseudo }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a role="button" href="{{ route('statistic.deck', $deck->id) }}"
-                                   class="btn btn-sm btn-outline-secondary">Voir</a>
+    @foreach($players as $player)
+        @php
+        $countUserDecks += 1
+        @endphp
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-heading{{$countUserDecks}}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapse{{$countUserDecks}}" aria-expanded="false" aria-controls="flush-collapse{{$countUserDecks}}">
+                Les decks de {{ $player->pseudo }}
+            </button>
+        </h2>
+        <div id="flush-collapse{{$countUserDecks}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{$countUserDecks}}"
+             data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    @foreach ($usersDecks[$countUserDecks] as $deck)
+                        {{-- @dd($deck) --}}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img
+                                    src="{{ asset('images/small') }}/{{ isset($deck->image->url) ? $deck->image->url : 'players.jpg' }}"
+                                    alt="">
+                                <div class="card-body">
+                                    <p class="card-text">{{ $deck->title }}</p>
+                                    <p class="card-text">{{ $deck->user->pseudo }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a role="button"
+                                            <a role="button" href="{{ route('statistic.deck', $deck->id) }}"
+                                               class="btn btn-sm btn-outline-secondary">Voir</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        @endforeach
+        </div>
     </div>
+    @endforeach
+
 </x-app-layout>
