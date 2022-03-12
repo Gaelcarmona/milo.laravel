@@ -1,3 +1,4 @@
+@section('title', 'Statistiques de '. $player->pseudo)
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

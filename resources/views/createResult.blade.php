@@ -1,3 +1,4 @@
+@section('title', 'Entrer un résultat')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

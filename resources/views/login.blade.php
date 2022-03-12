@@ -1,3 +1,4 @@
+@section('title', 'se connecter')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

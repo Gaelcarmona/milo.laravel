@@ -1,3 +1,4 @@
+@section('title', 'Modifier le nom du championnat')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

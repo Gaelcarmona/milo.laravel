@@ -1,3 +1,4 @@
+@section('title', 'Statistiques de '. $deck->title. ' dans '. $championship->title)
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
@@ -6,6 +7,8 @@
             <ul>
                 <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
                 <li><a href="{{ route('statistic.championships') }}">Les championnats</a></li>
+                <li><a href="{{ route('statistic.championship', $championship->id) }}">{{ $championship->title }}</a>
+                </li>
                 <li><span aria-current="page">{{ $deck->title }}</span></li>
             </ul>
         </nav>

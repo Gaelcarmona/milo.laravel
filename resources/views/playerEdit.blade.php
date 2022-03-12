@@ -1,3 +1,4 @@
+@section('title', 'Modifier '. $playerBread->pseudo)
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

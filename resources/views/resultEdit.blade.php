@@ -1,3 +1,4 @@
+@section('title', 'Modifier le résultat de '. $resultBread->user->pseudo)
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

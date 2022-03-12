@@ -1,3 +1,4 @@
+@section('title', 'Les decks')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

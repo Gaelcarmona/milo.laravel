@@ -1,3 +1,4 @@
+@section('title', 'Entrer un joueur éliminé')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

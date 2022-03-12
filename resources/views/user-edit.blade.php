@@ -1,3 +1,4 @@
+@section('title', 'Modifier le compte')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

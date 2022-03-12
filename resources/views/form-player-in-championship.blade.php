@@ -1,3 +1,4 @@
+@section('title', 'Ajouter un joueur au championnat')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

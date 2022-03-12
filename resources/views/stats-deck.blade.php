@@ -1,3 +1,4 @@
+@section('title', 'Statistiques de '. $deck->title)
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

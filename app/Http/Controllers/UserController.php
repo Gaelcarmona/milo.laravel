@@ -381,6 +381,8 @@ class UserController extends Controller
             ->get()->count();
         $images = Image::query()->get();
 
+        $siteTitle = $player->pseudo;
+
         return view('/player', [
             'id' => $player_id,
             'killRank' => $killRank,
@@ -395,6 +397,7 @@ class UserController extends Controller
             'championshipsResults' => $championshipsResults,
             'images' => $images,
             'totalMatch' => $totalMatch,
+            'siteTitle' => $siteTitle,
         ]);
     }
 

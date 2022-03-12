@@ -1,3 +1,4 @@
+@section('title', 'Créer un match')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
