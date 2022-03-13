@@ -10,19 +10,19 @@
         </ol>
       </nav>
     <div>
-        <table class="table">
+        <table id="sortTablePlayerInChampionship" class="table table-sm">
             <thead>
-                <th>Nom</th>
-                <th>Elo</th>
-                <th class="d-none d-md-table-cell">Pourcentage de victoire</th>
-                <th class="d-none d-md-table-cell">Nombre de victoires</th>
-                <th >Points par partie</th>
-                <th>Kills par partie</th>
-                <th class="d-none d-lg-table-cell">Total de kills</th>
-                <th class="d-none d-lg-table-cell">Total de morts</th>
-                <th>Taux de mortalité</th>
-                <th class="d-none d-md-table-cell">Total de points</th>
-                <th class="d-none d-md-table-cell">Matchs joués</th>
+                <th class="th-sm">Nom</th>
+                <th class="th-sm">Elo</th>
+                <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
+                <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
+                <th class="th-sm">Points par partie</th>
+                <th class="th-sm">Kills par partie</th>
+                <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
+                <th class="d-none d-lg-table-cell th-sm">Total de morts</th>
+                <th class="th-sm">Taux de mortalité</th>
+                <th class="d-none d-md-table-cell th-sm">Total de points</th>
+                <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
             </thead>
             <tbody>
                 @foreach ($players as $player)
@@ -70,19 +70,19 @@
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     <div>
-                        <table class="table">
+                        <table id="sortTableDeckInChampionship" class="table table-sm">
                             <thead>
-                                <th>Deck</th>
-                                <th>Elo</th>
-                                <th class="d-none d-md-table-cell">Pourcentage de victoire</th>
-                                <th class="d-none d-md-table-cell">Nombre de victoires</th>
-                                <th>Points par partie</th>
-                                <th>Kills par partie</th>
-                                <th class="d-none d-lg-table-cell">Total de kills</th>
-                                <th class="d-none d-lg-table-cell">Total de morts</th>
-                                <th>Taux de mortalité</th>
-                                <th class="d-none d-md-table-cell">Total de points</th>
-                                <th class="d-none d-md-table-cell">Matchs joués</th>
+                                <th class="th-sm" >Deck <i class="fa-regular fa-up-down"></i></th>
+                                <th class="th-sm">Elo</th>
+                                <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
+                                <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
+                                <th class="th-sm">Points par partie</th>
+                                <th class="th-sm">Kills par partie</th>
+                                <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
+                                <th class="d-none d-lg-table-cell th-sm">Total de morts</th>
+                                <th class="th-sm">Taux de mortalité</th>
+                                <th class="d-none d-md-table-cell th-sm">Total de points</th>
+                                <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
                             </thead>
                             <tbody>
                                 @foreach ($decks as $deck)
@@ -191,6 +191,6 @@
             </div>
         </div>
     </div>
-
-
+    <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+    <script src="{{ asset('js/createResults.js') }}"></script>
 </x-app-layout>

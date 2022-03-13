@@ -29,4 +29,9 @@ class Championship extends Model
     {
         return $this->hasOne(Image::class, 'id', 'image_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

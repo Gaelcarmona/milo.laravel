@@ -15,6 +15,7 @@
                         <img src="{{ asset('images/small') }}/{{ isset($championship->image->url) ? $championship->image->url  : 'championships.jpg' }}" alt="">
                         <div class="card-body">
                             <p class="card-text">{{ $championship->title }}</p>
+                            <p class="card-text">de {{ $championship->user->pseudo }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a role="button" href="{{ route('statistic.championship', $championship->id) }}"

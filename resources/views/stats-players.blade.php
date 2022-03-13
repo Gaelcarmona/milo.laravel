@@ -9,19 +9,19 @@
         </ol>
       </nav>
     <div>
-        <table class="table">
+        <table id="sortTablePlayer" class="table table-sm">
             <thead>
-            <th>Nom</th>
-            <th>Elo</th>
-            <th class="d-none d-md-table-cell">Pourcentage de victoire</th>
-            <th class="d-none d-md-table-cell">Nombre de victoires</th>
-            <th>Points par partie</th>
-            <th>Kills par partie</th>
-            <th class="d-none d-lg-table-cell">Total de kills</th>
-            <th class="d-none d-lg-table-cell">Total de morts</th>
-            <th>Taux de mortalité</th>
-            <th class="d-none d-md-table-cell">Total de points</th>
-            <th class="d-none d-md-table-cell">Matchs joués</th>
+            <th class="th-sm">Nom</th>
+            <th class="th-sm">Elo</th>
+            <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
+            <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
+            <th class="th-sm">Points par partie</th>
+            <th class="th-sm">Kills par partie</th>
+            <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
+            <th class="d-none d-lg-table-cell th-sm">Total de morts</th>
+            <th class="th-sm">Taux de mortalité</th>
+            <th class="d-none d-md-table-cell th-sm">Total de points</th>
+            <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
 
             </thead>
             <tbody>
@@ -32,7 +32,6 @@
                 @endphp
                 <tr>
                     <td>{{ $player->pseudo }}</td>
-                    {{--                    $totalMatchInChampionship != 0 && $results_for_player != null--}}
                     @if($totalMatch != 0 && $results_for_players[$count]->count('*') != 0)
                         <td>{{ round(($results_for_players[$count]->where('place', 1)->count('place') + $results_for_players[$count]->pluck('kills')->flatten()->count()) + ($results_for_players[$count]->where('place', 2)->count('place') / 2) + ($results_for_players[$count]->where('place', 3)->count('place') / 3) / round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1),2)}}</td>
                         <td class="d-none d-md-table-cell">{{ round(($results_for_players[$count]->where('place', 1)->count('place') / $results_for_players[$count]->count('*')) * 100, 2) }}
@@ -76,4 +75,6 @@
             </div>
         @endforeach
     </div>
+    <script src="{{ asset('js/createResults.js') }}"></script>
+    <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 </x-app-layout>

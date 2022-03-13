@@ -16,8 +16,8 @@
                 alt="">
             <div class=" padding d-flex align-items-center justify-content-center flex-column">
                 <div>
-                    <a href="{{ route('image.upload') }}" class="btn btn-primary mb-1 mt-1 bg-info">Insérer une
-                        image</a>
+                    {{-- <a href="{{ route('image.upload') }}" class="btn btn-primary mb-1 mt-1 bg-info">Insérer une
+                        image</a> --}}
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary mb-1 mt-1 bg-info" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">

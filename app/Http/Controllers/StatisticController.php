@@ -121,7 +121,11 @@ class StatisticController extends Controller
 
     public function displayChampionshipsStats()
     {
-        $championships = Championship::query()->get();
+        $championships = Championship::query()
+                    ->with([
+                'user',
+            ])
+        ->get();
         return view('/stats-championships', [
             'championships' => $championships,
         ]);
