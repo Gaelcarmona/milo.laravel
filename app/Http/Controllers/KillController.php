@@ -11,7 +11,7 @@ use \App\Http\Requests\CreateAndEditKillRequest;
 
 class KillController extends Controller
 {
-    //vers le formulaire de création de match par un user
+    //vers le formulaire de création de kill par un user
     public function killForm($result_id, $match_id)
     {
         $resultMatchUsers = Result::query()->where('match_id', $match_id)
@@ -22,17 +22,24 @@ class KillController extends Controller
             ->where('id', '!=', $result_id)
             ->first();
 
-//        dd($resultBread->match->title);
-        return view('/create-kill'
-            , [
+        $result = Result::query()->where('id', $result_id)->first();
+
+        $killer = User::query()->where('id', $result->user_id)->first();
+
+        //        dd($resultBread->match->title);
+        return view(
+            '/create-kill',
+            [
                 'match_id' => $match_id,
                 'result_id' => $result_id,
                 'resultMatchUsers' => $resultMatchUsers,
                 'resultBread' => $resultBread,
-            ]);
+                'killer' => $killer,
+            ]
+        );
     }
 
-    //Insertion d'un résultat pour un joueur
+    //Insertion d'un kill pour un joueur
     public function insert(CreateAndEditKillRequest $request)
     {
         $kill = new Kill();
@@ -59,7 +66,6 @@ class KillController extends Controller
         $result = Result::query()->where('id', $result_id)->first();
 
         return redirect()->route('displayMatchProfile', ['id' => $result->match_id]);
-
     }
 
     public function addScore($id)
@@ -74,6 +80,5 @@ class KillController extends Controller
         $result = Result::where('id', $id)->first();
         $result->score -= 1;
         $result->save();
-
     }
 }

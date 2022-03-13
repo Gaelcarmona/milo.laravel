@@ -2,13 +2,13 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ul>
-                <li><a href="{{ route('user') }}">Accueil</a></li>
-                <li><a href="{{ route('championships') }}">Mes championnats</a></li>
-                <li><span aria-current="page">Modifier le nom du championnat</span></li>
-            </ul>
-        </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('championships') }}">Mes championnats</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Modifier le nom du championnat</li>
+        </ol>
+      </nav>
         <form action="{{route('update.championship')}}" class='mx-5 mt-5' method='post'>
             @csrf
             <div class='mb-3'>

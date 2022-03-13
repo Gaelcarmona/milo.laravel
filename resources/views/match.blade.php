@@ -2,23 +2,20 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ul>
-                <li><a href="{{ route('user') }}">Accueil</a></li>
-                <li><a href="{{ route('championships') }}">Mes championnats</a></li>
-                <li>
-                    <a href="{{ route('displayChampionshipProfile', $match->championship_id) }}">{{ $match->championship->title }}</a>
-                </li>
-                <li><span aria-current="page">{{ $match->title }}</span></li>
-            </ul>
-        </nav>
-        <table class='col-12 bg-main table'>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('championships') }}">Mes championnats</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('displayChampionshipProfile', $match->championship_id) }}">{{ $match->championship->title }}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ $match->title }}</li>
+        </ol>
+      </nav>
+        <table class='col-12 bg-main table w-100'>
             <thead class='text-white bg-dark'>
-            <th>ID</th>
-            <th>Place</th>
+            <th class="d-none d-md-table-cell">Place</th>
             <th>Joueur</th>
-            <th>Deck</th>
-            <th>Joueurs éliminés</th>
+            <th class="d-none d-md-table-cell">Deck</th>
+            <th>a éliminé</th>
             <th>Score</th>
             <th>Modifier</th>
             <th>Supprimer</th>
@@ -26,10 +23,9 @@
             <tbody>
             @foreach($results as $result)
                 <tr>
-                    <td>{{$result->id}}</td>
-                    <td>{{$result->place}}</td>
+                    <td class="d-none d-md-table-cell">{{$result->place}}</td>
                     <td>{{ $result->user->pseudo }}</td>
-                    <td>{{ $result->deck->title }}</td>
+                    <td class="d-none d-md-table-cell">{{ $result->deck->title }}</td>
                     <td>
                         @foreach($killed_players as $killed_player)
                             @if($killed_player->result_id === $result->id)

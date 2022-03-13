@@ -2,19 +2,15 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ul>
-                <li><a href="{{ route('user') }}">Accueil</a></li>
-                <li><a href="{{ route('championships') }}">Mes championnats</a></li>
-                <li>
-                    <a href="{{ route('displayChampionshipProfile', $resultBread->match->championship_id) }}">{{ $resultBread->match->championship->title }}</a>
-                </li>
-                <li>
-                    <a href="{{ route('displayMatchProfile',$resultBread->match->id ) }}">{{ $resultBread->match->title }}</a>
-                </li>
-                <li><span aria-current="page">Entrer un joueur éliminé </span></li>
-            </ul>
-        </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('championships') }}">Mes championnats</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('displayChampionshipProfile', $resultBread->match->championship_id) }}">{{ $resultBread->match->championship->title }}</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('displayMatchProfile',$resultBread->match->id ) }}">{{ $resultBread->match->title }}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Entrer un joueur éliminé par {{ $killer->pseudo }} </li>
+        </ol>
+      </nav>
         <form action="{{ route( 'insert.kill' ) }}" class='mx-5 mt-5' method='post'>
             @csrf
             <div class='mb-3'>

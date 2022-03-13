@@ -2,14 +2,14 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ul>
-                <li><a href="{{ route('user') }}">Accueil</a></li>
-                <li><a href="{{ route('players') }}">Mes joueurs</a></li>
-                <li><a href="{{ route('displayPlayerProfile',$id) }}">{{ $playerBread->pseudo }}</a></li>
-                <li><span aria-current="page">Modification d'un joueur ({{ $playerBread->pseudo }})</span></li>
-            </ul>
-        </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('players') }}">Mes joueurs</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('displayPlayerProfile',$id) }}">{{ $playerBread->pseudo }}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Modification de {{ $playerBread->pseudo }}</li>
+        </ol>
+      </nav>
         <form action="{{route('update.player')}}" class='mx-5 mt-5' method='post'>
             @csrf
             <div class='mb-3'>

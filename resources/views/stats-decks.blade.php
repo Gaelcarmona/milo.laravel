@@ -2,12 +2,12 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <nav aria-label="Breadcrumb" class="breadcrumb">
-        <ul>
-            <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
-            <li><span aria-current="page">Les decks</span></li>
-        </ul>
-    </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('statistic.home') }}">Statistiques</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Les decks</li>
+        </ol>
+      </nav>
     <div>
         <table class="table">
             <thead>

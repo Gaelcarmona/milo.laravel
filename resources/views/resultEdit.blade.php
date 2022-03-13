@@ -2,21 +2,15 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ul>
-                <li><a href="{{ route('user') }}">Accueil</a></li>
-                <li><a href="{{ route('championships') }}">Mes championnats</a></li>
-                <li>
-                    <a href="{{ route('displayChampionshipProfile', $resultBread->match->championship_id) }}">{{ $resultBread->match->championship->title }}</a>
-                </li>
-                <li>
-                    <a href="{{ route('displayMatchProfile',$resultBread->id ) }}">{{ $resultBread->match->title }}</a>
-                </li>
-                <li><span
-                        aria-current="page">Modification d'un résultat (celui de {{ $resultBread->user->pseudo }})</span>
-                </li>
-            </ul>
-        </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('championships') }}">Mes championnats</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('displayChampionshipProfile', $resultBread->match->championship_id) }}">{{ $resultBread->match->championship->title }}</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('displayMatchProfile',$resultBread->id ) }}">{{ $resultBread->match->title }}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Modification du résultat de {{ $resultBread->user->pseudo }}</li>
+        </ol>
+      </nav>
         <form action="{{route('update.result')}}" class='mx-5 mt-5' method='post'>
             @csrf
             <input

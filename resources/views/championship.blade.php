@@ -2,16 +2,15 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ul>
-                <li><a href="{{ route('user') }}">Accueil</a></li>
-                <li><a href="{{ route('championships') }}">Mes championnats</a></li>
-                <li><span aria-current="page">{{ $championship->title }}</span></li>
-            </ul>
-        </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('championships') }}">Mes championnats</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ $championship->title }}</li>
+        </ol>
+      </nav>
         <table class='col-12 bg-main table'>
             <thead class='text-white bg-dark'>
-            <th>ID</th>
             <th>Nom</th>
             <th>Modifier</th>
             <th>Supprimer</th>
@@ -19,7 +18,6 @@
             <tbody>
             @foreach($matchs as $match)
                 <tr>
-                    <td>{{$match->id}}</td>
                     <td>
                         <a href="{{ route('displayMatchProfile', $match->id) }}">{{ $match->title}}</a>
                     </td>
@@ -34,14 +32,12 @@
         <a  class="btn btn-primary mb-1 mt-1 bg-info d-flex align-items-center justify-content-center" href="{{ route('form.match', ['id' => $championship->id]) }}">Créer un match</a>
         <table class='col-12 bg-main table'>
             <thead class='text-white bg-dark'>
-            <th>Id</th>
             <th>Nom</th>
             <th>Supprimer</th>
             </thead>
             <tbody>
             @foreach($championshipUsers as $championshipUser)
                 <tr>
-                    <td>{{$championshipUser->id}}</td>
                     <td>{{$championshipUser->pseudo}}</td>
                     <td>
                         <a href="{{ route('delete.player.in.championship', ['user_id' => $championshipUser->id ,'championship_id' => $championship->id]) }}"

@@ -24,6 +24,9 @@ main a{
 button{
     font-size: 1em !important;
 }
+td, th{
+    text-align: center;
+}
 
 
 

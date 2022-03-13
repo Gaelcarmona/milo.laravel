@@ -2,13 +2,13 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <nav aria-label="Breadcrumb" class="breadcrumb">
-        <ul>
-            <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
-            <li><a href="{{ route('statistic.championships') }}">Les championnats</a></li>
-            <li><span aria-current="page">{{ $championship->title }}</span></li>
-        </ul>
-    </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('statistic.home') }}">Statistiques</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('statistic.championships') }}">Les championnats</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ $championship->title }}</li>
+        </ol>
+      </nav>
     <div>
         <table class="table">
             <thead>
@@ -16,7 +16,7 @@
                 <th>Elo</th>
                 <th class="d-none d-md-table-cell">Pourcentage de victoire</th>
                 <th class="d-none d-md-table-cell">Nombre de victoires</th>
-                <th>Points par partie</th>
+                <th >Points par partie</th>
                 <th>Kills par partie</th>
                 <th class="d-none d-lg-table-cell">Total de kills</th>
                 <th class="d-none d-lg-table-cell">Total de morts</th>

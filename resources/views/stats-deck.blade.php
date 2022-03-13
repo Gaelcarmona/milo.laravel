@@ -3,13 +3,13 @@
     <x-slot name="header">
     </x-slot>
     <div class="row">
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ul>
-                <li><a href="{{ route('statistic.home') }}">Statistiques</a></li>
-                <li><a href="{{ route('statistic.decks') }}">Les Decks</a></li>
-                <li><span aria-current="page">{{ $deck->title }}</span></li>
-            </ul>
-        </nav>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ route('statistic.home') }}">Statistiques</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('statistic.decks') }}">Les Decks</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{ $deck->title }}</li>
+            </ol>
+          </nav>
         <div class="col-md-6 col-12 padding">
             <img
                 src="{{ asset('images/large') }}/{{ isset($deck->image->url) ? $deck->image->url  : 'players.jpg' }}"

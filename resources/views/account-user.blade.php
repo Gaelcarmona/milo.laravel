@@ -3,15 +3,12 @@
     <x-slot name="header">
     </x-slot>
     <div class="row">
-        {{--     <div class="col-lg-6 col-12 padding">--}}
-        {{--    <img src="{{ asset('images/large') }}/{{ isset($user->image->url) ? $user->image->url  : 'players.jpg' }}" alt="">--}}
-        {{--     </div>--}}
-        {{--        <div class="col-6 border-5">--}}
-
-        {{--            <h1 class="display-5 d-flex align-items-center justify-content-center">Gestion de compte</h1>--}}
-        {{--            {{$user->pseudo}}--}}
-        {{--            {{$user->email}}--}}
-        {{--        </div>--}}
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Gestion de compte</li>
+            </ol>
+          </nav>
         <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
             <div class="card p-4">
                 <div class=" image d-flex flex-column justify-content-center align-items-center"><img

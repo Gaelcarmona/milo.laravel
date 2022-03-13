@@ -2,6 +2,13 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('user') }}">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('account.user', $user->id) }}">Gestion de compte</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Modifier le compte</li>
+        </ol>
+      </nav>
     <form action="{{ route('update.user') }}" class='mx-5 mt-5' method='post'>
         @csrf
         <div class='mb-3'>
