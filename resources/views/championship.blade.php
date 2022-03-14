@@ -49,4 +49,5 @@
         </table>
         <a class="btn btn-primary mb-1 mt-1 bg-info d-flex align-items-center justify-content-center" href="{{ route('form.player.in.championship', ['championship_id' => $championship->id]) }}">Ajouter un
             joueur au championnat</a>
+{{--    <a></a>--}}
 </x-app-layout>
