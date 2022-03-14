@@ -41,7 +41,7 @@
 {{-- @include('layouts.navigation') --}}
 
 <!-- Page Heading -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark pb-4" aria-label="Fourth navbar example">
     <div class="container-fluid d-flex justify-content-end">
                         <div class="col-3">
                             @if (Auth::user() != null)
@@ -69,13 +69,13 @@
           </li>
             @if (Auth::user() != null)
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('players') }}">Mes Joueurs</a>
+            <a class="nav-link text-info" href="{{ route('players') }}">Mes Joueurs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('championships') }}" >Mes championnats</a>
+            <a class="nav-link text-info" href="{{ route('championships') }}" >Mes championnats</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Mon compte</a>
+            <a class="nav-link dropdown-toggle text-secondary" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Mon compte</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown04">
               <li><a class="dropdown-item" href="{{ route('logout') }}">Se déconnecter</a></li>
               <li><a class="dropdown-item" href="{{ route('account.user',Auth::id()) }}">Gestion du compte</a></li>
@@ -95,7 +95,7 @@
         </div>
     </main>
     {{-- Page footer --}}
-    <footer class='footer mt-auto navbar bottom bg-dark  text-white py-3'>
+    <footer class='footer mt-auto navbar bottom bg-dark  text-white py-4'>
         <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>
     </footer>
 

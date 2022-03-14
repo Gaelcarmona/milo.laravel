@@ -5,6 +5,26 @@
         onClickChooseUser();
     });
 
+ $(document).ready(function () {
+    $('#sortTablePlayerInChampionship').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
+
+  $(document).ready(function () {
+    $('#sortTableDeckInChampionship').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
+
+  $(document).ready(function () {
+    $('#sortTablePlayer').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
+
+  $(document).ready(function () {
+    $('#sortTableDeck').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
+
 
 function onClickChooseUser() {
 
