@@ -47,6 +47,17 @@
                         </td>
                         <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->sum('score') }}</td>
                         <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->count('*') }}</td>
+                    @else
+                        <td>0</td>
+                        <td class="d-none d-md-table-cell">0</td>
+                        <td class="d-none d-md-table-cell">0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td class="d-none d-lg-table-cell">0</td>
+                        <td class="d-none d-lg-table-cell">0</td>
+                        <td>0</td>
+                        <td class="d-none d-md-table-cell">0</td>
+                        <td class="d-none d-md-table-cell">0</td>
                     @endif
                 </tr>
 
@@ -76,5 +87,4 @@
         @endforeach
     </div>
     <script src="{{ asset('js/createResults.js') }}"></script>
-    <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 </x-app-layout>
