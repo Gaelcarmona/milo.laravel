@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\PasswordRequestMail;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -34,11 +33,6 @@ class PasswordResetLinkController extends Controller
         $request->validate([
             'email' => ['required', 'email'],
         ]);
-
-        $user = User::where('email', $request->get('email'))->first();
-
-        $mail = Mail::to($request->user())->queue(new PasswordRequestMail($user));
-
 
 
 
