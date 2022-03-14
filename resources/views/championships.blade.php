@@ -22,7 +22,7 @@
                                     <a role="button" href="{{ route('editChampionship', $championship->id) }}"
                                        class="btn btn-sm btn-outline-secondary">Modifier</a>
                                     <a role="button" href="{{ route('championship.delete', $championship->id) }}"
-                                       class="btn btn-sm btn-outline-secondary">Supprimer</a>
+                                       class="btn btn-sm btn-outline-secondary" onclick=" var championshipDelete = confirm('Vous devez supprimer les matchs ainsi que les participants au championnat avant de pouvoir le supprimer');return championshipDelete">Supprimer</a>
                                 </div>
                             </div>
                         </div>
