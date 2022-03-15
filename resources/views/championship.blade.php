@@ -12,7 +12,7 @@
         <table class='col-12 bg-main table'>
             <thead class='text-white bg-dark'>
             <th>Nom</th>
-            <th>Modifier</th>
+            <th>Renommer</th>
             <th>Supprimer</th>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@
                     <td>
                         <a href="{{ route('displayMatchProfile', $match->id) }}">{{ $match->title}}</a>
                     </td>
-                    <td><a href="{{ route('editForm.match', $match->id) }}"> modifier</a></td>
+                    <td><a href="{{ route('editForm.match', $match->id) }}"> renommer</a></td>
                     <td><a href="{{ route('delete.match', $match->id) }}"
                            onclick=" var result = confirm('Êtes vous sur de vouloir supprimer le match ? Tous les résultats associés seront supprimés');return result">supprimer</a>
                     </td>
