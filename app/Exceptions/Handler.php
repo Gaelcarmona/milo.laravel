@@ -40,18 +40,4 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Exception $e)
-    {
-
-        if ($this->isHttpException($e)) {
-
-            $code = $e->getStatusCode();
-            if ($code== '404') {
-                // return response()->view('404');
-                return redirect('www.youtube.com/watch?v=dQw4w9WgXcQ');
-            }
-        }
-
-        return parent::render($request, $exception);
-    }
 }

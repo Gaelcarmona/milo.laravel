@@ -55,7 +55,7 @@
                         <br>
                         Nombre total de kills de {{ $deck->title }}
                         : {{ $results_for_deck->pluck('kills')->flatten()->count() }}<br>
-                        <br>
+                        {{-- <br>
                         <br>
                         taux de mortalité :
                         @if ($results_for_deck->count('*') != 0)
@@ -66,7 +66,7 @@
                         Nombre total de morts
                         :
                         {{ $resultsOthersDecks->pluck('kills')->flatten()->where('user_killed_id', $deck->user->id)->count() }}
-                        <br>
+                        <br> --}}
 
                     </div>
                 </div>

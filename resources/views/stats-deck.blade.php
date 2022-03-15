@@ -57,13 +57,13 @@
 {{--                        Classement kills : {{ $killRank }}ème<br><br>--}}
                         Nombre total de kills de {{ $deck->title }}
                         : {{ $results_for_deck->pluck('kills')->flatten()->count() }}<br>
-                        <br>
+                        {{-- <br> --}}
 {{--                        @foreach($results_for_player->pluck('kills')->flatten()->groupBy('user_killed_id') as $enemy_id => $kills)--}}
 {{--                            @if($enemy_id != $player->id)--}}
 {{--                                <p>{{ $kills->first()->user->pseudo }} : {{  $kills->count() }} fois</p>--}}
 {{--                            @endif--}}
 {{--                        @endforeach--}}
-                        <br>
+                        {{-- <br>
                         taux de mortalité :
                         @if($results_for_deck->count('*') != 0)
                             {{ round($resultsOthersDecks->pluck('kills')->flatten()->where('user_killed_id', $deck->user->id)->count() / $results_for_deck->count('*') * 100, 2) }}
@@ -71,7 +71,7 @@
                         @endif
                         <br>
                         Nombre total de morts
-                        : {{ $resultsOthersDecks->pluck('kills')->flatten()->where('user_killed_id', $deck->user->id)->count() }} <br>
+                        : {{ $resultsOthersDecks->pluck('kills')->flatten()->where('user_killed_id', $deck->user->id)->count() }} <br> --}}
 {{--                        @foreach($Users as $User)--}}
 {{--                            @if($User->id != $player->id && isset($totalKillsByKiller[$User->id]))--}}
 {{--                                <p>Par {{ $User->pseudo }}--}}
