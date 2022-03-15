@@ -31,7 +31,7 @@
                     $count += 1;
                 @endphp
                 <tr>
-                    <td>{{ $player->pseudo }}</td>
+                    <td><a href="{{ route('statistic.playerInChampionship', [$player->id, $championship->id]) }}">{{ $player->pseudo }}</a></td>
                     {{-- $totalMatchInChampionship != 0 && $results_for_player != null --}}
                     @if ($totalMatch != 0 && $results_for_players[$count]->count('*') != 0)
                         <td>{{ round($results_for_players[$count]->where('place', 1)->count('place') +$results_for_players[$count]->pluck('kills')->flatten()->count() +$results_for_players[$count]->where('place', 2)->count('place') / 2 +$results_for_players[$count]->where('place', 3)->count('place') /3 /round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1),2) }}
@@ -102,7 +102,7 @@
                                     $countDeck += 1;
                                 @endphp
                                 <tr>
-                                    <td>{{ $deck->title }} - {{ $deck->user->pseudo }}</td>
+                                    <td><a href="{{ route('statistic.deck.in.championship', [$deck->id, $championship->id]) }}">{{ $deck->title }} - {{ $deck->user->pseudo }}</a></td>
                                     @if ($totalMatch != 0 && $results_for_decks[$countDeck]->count('*') != 0)
                                         <td>{{ round($results_for_decks[$countDeck]->where('place', 1)->count('place') +$results_for_decks[$countDeck]->pluck('kills')->flatten()->count() +$results_for_decks[$countDeck]->where('place', 2)->count('place') / 2 +$results_for_decks[$countDeck]->where('place', 3)->count('place') /3 /round(($results_for_decks[$countDeck]->count('*') / $totalMatch) * 100, 1),2) }}
                                         </td>

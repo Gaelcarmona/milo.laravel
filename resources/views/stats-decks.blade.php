@@ -29,7 +29,7 @@
                     $countDeck += 1;
                 @endphp
                 <tr>
-                    <td>{{ $deck->title }} - {{ $deck->user->pseudo }}</td>
+                    <td><a href="{{ route('statistic.deck', $deck->id) }}">{{ $deck->title }} - {{ $deck->user->pseudo }}</a></td>
                     @if ($totalMatch != 0 && $results_for_decks[$countDeck]->count('*') != 0)
                         <td>{{ round($results_for_decks[$countDeck]->where('place', 1)->count('place') +$results_for_decks[$countDeck]->pluck('kills')->flatten()->count() +$results_for_decks[$countDeck]->where('place', 2)->count('place') / 2 +$results_for_decks[$countDeck]->where('place', 3)->count('place') /3 /round(($results_for_decks[$countDeck]->count('*') / $totalMatch) * 100, 1),2) }}
                         </td>
