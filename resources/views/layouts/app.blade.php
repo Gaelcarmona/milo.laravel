@@ -41,9 +41,9 @@
 {{-- @include('layouts.navigation') --}}
 
 <!-- Page Heading -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark pb-4" aria-label="Fourth navbar example">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark py-4 pb-4" aria-label="Fourth navbar example">
     <div class="container-fluid d-flex justify-content-end">
-                        <div class="col-3">
+                        <div class="position-absolute top-0 start-0">
                             @if (Auth::user() != null)
 
                                 <a href="{{ route('user') }}"><img src="{{ asset('images/frame57.svg') }}"></a>
@@ -62,8 +62,8 @@
       </button>
 
 
-      <div class="collapse navbar-collapse" id="navbarsExample04">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <div class="collapse navbar-collapse " id="navbarsExample04">
+        <ul class="navbar-nav m-auto  mb-md-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ route('statistic.home') }}">Statistiques</a>
           </li>
