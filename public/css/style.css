@@ -27,6 +27,13 @@ button{
 td, th{
     text-align: center;
 }
+#sortTablePlayerInChampionship_length, #sortTablePlayerInChampionship_filter{
+    display: inline-block;
+    margin-right: 2em;
+}
+th{
+    cursor: pointer;
+}
 
 
 
