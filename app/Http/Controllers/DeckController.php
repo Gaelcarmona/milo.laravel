@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InsertDeckImageRequest;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\Deck;
 use \App\Http\Requests\CreateAndEditDeckRequest;
@@ -33,11 +35,22 @@ class DeckController extends Controller
     {
 
         $deck = Deck::where('id', $id)->first();
+        $images = Image::query()->get();
 
         return view('/deck', [
             'id' => $id,
             'deck' => $deck,
+            'images' => $images,
         ]);
+    }
+
+    public function insertImageDeck(InsertDeckImageRequest $request, $id)
+    {
+        Deck::where('id', $id)->update([
+
+            'image_id' => $request->input('image_id')]);
+
+        return redirect()->route('displayDeckProfile', ['id' => $id]);
     }
 
     //formulaire d'édition d'un championnat

@@ -19,8 +19,8 @@
             <th class="th-sm">Kills par partie</th>
             <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
             <th class="d-none d-lg-table-cell th-sm">Total de morts</th>
-            <th class="th-sm">Taux de mortalité</th>
-            <th class="d-none d-md-table-cell th-sm">Total de points</th>
+            <th class="d-none d-md-table-cell th-sm">Taux de mortalité</th>
+            <th class="th-sm">Total de points</th>
             <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
 
             </thead>
@@ -42,10 +42,10 @@
                         <td>{{ round($results_for_players[$count]->pluck('kills')->flatten()->count() / $results_for_players[$count]->count(),2) }}</td>
                         <td class="d-none d-lg-table-cell">{{ $results_for_players[$count]->pluck('kills')->flatten()->count() }}</td>
                         <td class="d-none d-lg-table-cell">{{ $results->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() }}</td>
-                        <td>{{ round($results->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() / $results_for_players[$count]->count('*') * 100, 2) }}
+                        <td class="d-none d-md-table-cell">{{ round($results->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() / $results_for_players[$count]->count('*') * 100, 2) }}
                             %
                         </td>
-                        <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->sum('score') }}</td>
+                        <td>{{ $results_for_players[$count]->sum('score') }}</td>
                         <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->count('*') }}</td>
                     @else
                         <td>0</td>
@@ -55,8 +55,8 @@
                         <td>0</td>
                         <td class="d-none d-lg-table-cell">0</td>
                         <td class="d-none d-lg-table-cell">0</td>
-                        <td>0</td>
                         <td class="d-none d-md-table-cell">0</td>
+                        <td>0</td>
                         <td class="d-none d-md-table-cell">0</td>
                     @endif
                 </tr>

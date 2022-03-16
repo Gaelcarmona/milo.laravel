@@ -57,7 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
 
 
-
     //Gestion des joueurs
 //vers le formulaire de création de joueurs par un user
     Route::get('/createplayer', function () {
@@ -188,6 +187,8 @@ Route::middleware('auth')->group(function () {
     //Les images
 ////attribution d'une image pour un joueur
     Route::post('/player/{id}', [UserController::class, 'insertImagePlayer'])->name('insert.image.player');
+    ////attribution d'une image pour un deck
+    Route::post('/deck/{id}', [DeckController::class, 'insertImageDeck'])->name('insert.image.deck');
     //Insertion d'images
 //vers le formulaire d'insertion
     Route::get('imageUpload', [ImageUploadController::class, 'imageUpload'])->name('image.upload');
