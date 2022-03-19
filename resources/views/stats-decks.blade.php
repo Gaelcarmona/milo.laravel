@@ -18,8 +18,6 @@
             <th class="th-sm">Points par partie</th>
             <th class="th-sm">Kills par partie</th>
             <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
-            {{-- <th class="d-none d-lg-table-cell th-sm">Total de morts</th>
-            <th class="th-sm">Taux de mortalité</th> --}}
             <th class="th-sm">Total de points</th>
             <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
             </thead>
@@ -44,12 +42,6 @@
                         </td>
                         <td class="d-none d-lg-table-cell">
                             {{ $results_for_decks[$countDeck]->pluck('kills')->flatten()->count() }}</td>
-                        {{-- <td class="d-none d-lg-table-cell">
-                            {{ $championshipResultsDeck->pluck('kills')->flatten()->where('user_killed_id', $deck->user->id)->count() }}
-                        </td>
-                        <td>{{ round(($championshipResultsDeck->pluck('kills')->flatten()->where('user_killed_id', $deck->user->id)->count() /$results_for_decks[$countDeck]->count('*')) *100,2) }}
-                            %
-                        </td> --}}
                         <td>{{ $results_for_decks[$countDeck]->sum('score') }}
                         </td>
                         <td class="d-none d-md-table-cell">{{ $results_for_decks[$countDeck]->count('*') }}</td>
@@ -60,8 +52,6 @@
                         <td>0</td>
                         <td>0</td>
                         <td class="d-none d-lg-table-cell">0</td>
-{{--                        <td class="d-none d-lg-table-cell">0</td>--}}
-{{--                        <td>0</td>--}}
                         <td>0</td>
                         <td class="d-none d-md-table-cell">0</td>
                     @endif
@@ -70,6 +60,7 @@
             </tbody>
         </table>
     </div>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
     @foreach ($players as $player)
         @php
             $countUserDecks += 1;
@@ -87,7 +78,6 @@
                 <div class="accordion-body">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         @foreach ($usersDecks[$countUserDecks] as $deck)
-                            {{-- @dd($deck) --}}
                             <div class="col">
                                 <div class="card shadow-sm">
                                     <img
@@ -112,5 +102,6 @@
             </div>
         </div>
     @endforeach
+    </div>
     <script src="{{ asset('js/createResults.js') }}"></script>
 </x-app-layout>

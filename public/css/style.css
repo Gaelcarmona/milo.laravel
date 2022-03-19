@@ -27,12 +27,21 @@ button{
 td, th{
     text-align: center;
 }
-#sortTablePlayerInChampionship_length, #sortTablePlayerInChampionship_filter{
+#sortTablePlayerInChampionship_length, #sortTablePlayerInChampionship_filter,
+ #sortTableDeckInChampionship_filter, #sortTableDeckInChampionship_length,
+ #sortTableDeck_filter, #sortTableDeck_length,
+ #sortTablePlayer_length, #sortTablePlayer_filter{
     display: inline-block;
     margin-right: 2em;
 }
 th{
     cursor: pointer;
+}
+.form-line{
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    align-items: center;
 }
 
 

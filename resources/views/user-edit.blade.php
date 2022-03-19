@@ -11,8 +11,8 @@
       </nav>
     <form action="{{ route('update.user') }}" class='mx-5 mt-5' method='post'>
         @csrf
-        <div class='mb-3'>
-            <label for='pseudo' class='form-label fw-bold px-3'>Pseudo</label>
+        <div class='mb-3 form-line'>
+            <label for='pseudo' class='form-label fw-bold px-3 '>Pseudo</label>
             <input
                 type='text'
                 name='pseudo'
@@ -24,7 +24,7 @@
                 <p>{{$errors->first('pseudo')}}</p>
             @endif
         </div>
-        <div class='mb-3'>
+        <div class='mb-3 form-line'>
             <label for='email' class='form-label fw-bold px-3'>Adresse e-mail</label>
             <input
                 type='mail'
@@ -43,7 +43,7 @@
                 value="{{ $id }}"
             >
         </div>
-        <div class='mb-3'>
+        <div class='mb-3 form-line'>
             <label for='password' class='form-label fw-bold px-3'>Mot de passe</label>
             <input
                 type='password'
@@ -56,7 +56,7 @@
                 <p>{{$errors->first('password')}}</p>
             @endif
         </div>
-        <div class='mb-3'>
+        <div class='mb-3 form-line'>
             <label for='confirmpassword' class='form-label fw-bold px-3'>Confirmer le mot de passe</label>
             <input
                 type='password'
