@@ -27,18 +27,19 @@
                         <p>Le champ « title » a une erreur</p>
                         <p>{{$errors->first('title')}}</p>
                     @endif
-
                 </div>
                 <div>
-                    <input type="checkbox" value="{{Auth::id()}}" id="{{Auth::user()->pseudo}}" name="player[]">
-                    <label for="player[]">{{Auth::user()->pseudo}}</label>
-                    @foreach($associateUsers as $associateUser)
-                        <input type="checkbox" value="{{$associateUser->id}}"
-                               id="{{$associateUser->pseudo}}"
-                               name="player[]">
-                        <label
-                            for="player[]">{{ $associateUser->pseudo}}</label>
-                    @endforeach
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                          <input class="form-check-input me-1" type="checkbox" value="{{Auth::id()}}" id="{{Auth::user()->pseudo}}" name="player[]" aria-label="player[]">
+                          {{Auth::user()->pseudo}}
+                        </li>
+                        @foreach($associateUsers as $associateUser)
+                        <li class="list-group-item">
+                          <input class="form-check-input me-1" type="checkbox" value="{{$associateUser->id}}" name="player[]" aria-label="player[]">
+                          {{ $associateUser->pseudo}}
+                        </li>
+                        @endforeach
                 </div>
                 <button type='submit' class='btn btn-primary mb-1 mt-1 bg-info my-3'>Envoyer</button>
             </form>
