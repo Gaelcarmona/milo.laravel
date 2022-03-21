@@ -116,7 +116,7 @@
         </main>
         {{-- Page footer --}}
         <footer class='footer mt-auto navbar bottom bg-dark  text-white py-4'>
-            <p class='mx-auto'>Formation développeur Web - Gaël Carmona</p>
+            <p class='mx-auto'>Mars 2022 - <a target="blank" href="http://www.gaelcarmona.com">Gaël Carmona</a> </p>
         </footer>
 
     </div>
