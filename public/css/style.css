@@ -43,6 +43,17 @@ th{
     width: 500px;
     align-items: center;
 }
+.figure {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+.centered {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
 
 
