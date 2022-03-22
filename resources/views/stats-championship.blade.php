@@ -10,6 +10,24 @@
             <li class="breadcrumb-item active" aria-current="page">{{ $championship->title }}</li>
         </ol>
     </nav>
+    <ul class="list-group mb-2">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Parties jouées
+            <span class="badge bg-info rounded-pill">{{ $totalMatch }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Total de meurtres
+            <span class="badge bg-info rounded-pill">{{ $championshipResults->pluck('kills')->flatten()->count() }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Meurtres par partie
+            <span class="badge bg-info rounded-pill">{{ round($championshipResults->pluck('kills')->flatten()->count()/$totalMatch,2)  }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Total de points
+            <span class="badge bg-info rounded-pill">{{ $championshipResults->sum('score')}}</span>
+        </li>
+    </ul>
     <div>
         <table id="sortTablePlayerInChampionship" class="table table-sm">
             <thead>
