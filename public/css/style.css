@@ -70,6 +70,12 @@ th{
         #012E40,
         #025159);
   }
+
+.alignStatsOnAccordion{
+    position: absolute;
+    right: 55px;
+}
+
   @media (max-width: 767px) {
     .marginMenu {
       margin-top: 1rem;

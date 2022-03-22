@@ -86,7 +86,7 @@
                                 data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                 Total de morts
                                 <span
-                                    class="badge bg-secondary rounded-pill ms-5">{{ $results->pluck('kills')->flatten()->where('user_killed_id', $id)->count() }}</span>
+                                    class="badge bg-secondary rounded-pill ms-5 alignStatsOnAccordion">{{ $results->pluck('kills')->flatten()->where('user_killed_id', $id)->count() }}</span>
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -128,7 +128,7 @@
                                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 Meurtres
                                 <span
-                                    class="badge bg-dark rounded-pill ms-5 align-items-end">{{ $results_for_player->pluck('kills')->flatten()->count() }}</span>
+                                    class="badge bg-dark rounded-pill ms-5 align-items-end alignStatsOnAccordion">{{ $results_for_player->pluck('kills')->flatten()->count() }}</span>
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -161,7 +161,7 @@
                                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 Victoires
                                 <span
-                                    class="badge bg-info rounded-pill ms-5">{{ $results_for_player->where('place', 1)->count('place') }}</span>
+                                    class="badge bg-info rounded-pill ms-5 alignStatsOnAccordion">{{ $results_for_player->where('place', 1)->count('place') }}</span>
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"

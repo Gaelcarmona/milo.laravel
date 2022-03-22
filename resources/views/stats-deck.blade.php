@@ -79,7 +79,7 @@
                                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 Victoires
                                 <span
-                                    class="badge bg-info rounded-pill ms-5">{{ $results_for_deck->where('place', 1)->count('place') }}</span>
+                                    class="badge bg-info rounded-pill ms-5 alignStatsOnAccordion">{{ $results_for_deck->where('place', 1)->count('place') }}</span>
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
