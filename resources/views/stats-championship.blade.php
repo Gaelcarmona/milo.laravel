@@ -10,25 +10,9 @@
             <li class="breadcrumb-item active" aria-current="page">{{ $championship->title }}</li>
         </ol>
     </nav>
-    <ul class="list-group mb-2">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Parties jouées
-            <span class="badge bg-info rounded-pill">{{ $totalMatch }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Total de meurtres
-            <span class="badge bg-info rounded-pill">{{ $championshipResults->pluck('kills')->flatten()->count() }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Meurtres par partie
-            <span class="badge bg-info rounded-pill">{{ round($championshipResults->pluck('kills')->flatten()->count()/$totalMatch,2)  }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Total de points
-            <span class="badge bg-info rounded-pill">{{ $championshipResults->sum('score')}}</span>
-        </li>
-    </ul>
     <div>
+        <h2 class="fs-2 text-center">Classement après {{ $totalMatch }} matchs</h2>
+        <hr class="mb-3">
         <table id="sortTablePlayerInChampionship" class="table table-sm">
             <thead>
                 <th class="th-sm">Nom</th>
@@ -49,33 +33,33 @@
                         $count += 1;
                     @endphp
                     <tr>
-                        <td><a
-                                href="{{ route('statistic.playerInChampionship', [$player->id, $championship->id]) }}">{{ $player->pseudo }}</a>
+                        <td><a class="text-decoration-underline"
+                            href="{{ route('statistic.playerInChampionship', [$player->id, $championship->id]) }}">{{ $player->pseudo }}</a>
                         </td>
                         @if ($totalMatch != 0 && $results_for_players[$count]->count('*') != 0)
-                            <td>{{ round($results_for_players[$count]->where('place', 1)->count('place') +$results_for_players[$count]->pluck('kills')->flatten()->count() +$results_for_players[$count]->where('place', 2)->count('place') / 2 +$results_for_players[$count]->where('place', 3)->count('place') /3 /round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1),2) }}
-                            </td>
+                        <td>{{ round($results_for_players[$count]->where('place', 1)->count('place') +$results_for_players[$count]->pluck('kills')->flatten()->count() +$results_for_players[$count]->where('place', 2)->count('place') / 2 +$results_for_players[$count]->where('place', 3)->count('place') /3 /round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1),2) }}
+                        </td>
                             <td class="d-none d-md-table-cell">
                                 {{ round(($results_for_players[$count]->where('place', 1)->count('place') / $results_for_players[$count]->count('*')) * 100,2) }}
                                 %
                             </td>
                             <td class="d-none d-md-table-cell">
                                 {{ $results_for_players[$count]->where('place', 1)->count('place') }}</td>
-                            <td> {{ round($results_for_players[$count]->avg('score'), 2) }}</td>
+                                <td> {{ round($results_for_players[$count]->avg('score'), 2) }}</td>
                             <td>{{ round($results_for_players[$count]->pluck('kills')->flatten()->count() / $results_for_players[$count]->count(),2) }}
                             </td>
                             <td class="d-none d-lg-table-cell">
                                 {{ $results_for_players[$count]->pluck('kills')->flatten()->count() }}</td>
-                            <td class="d-none d-lg-table-cell">
-                                {{ $championshipResults->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() }}
-                            </td>
-                            <td class="d-none d-md-table-cell">
+                                <td class="d-none d-lg-table-cell">
+                                    {{ $championshipResults->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() }}
+                                </td>
+                                <td class="d-none d-md-table-cell">
                                 {{ round(($championshipResults->pluck('kills')->flatten()->where('user_killed_id', $player->id)->count() /$results_for_players[$count]->count('*')) *100,2) }}
                                 %
                             </td>
                             <td>{{ $results_for_players[$count]->sum('score') }}</td>
                             <td class="d-none d-md-table-cell">{{ $results_for_players[$count]->count('*') }}</td>
-                        @else
+                            @else
                             <td>0</td>
                             <td class="d-none d-md-table-cell">0</td>
                             <td class="d-none d-md-table-cell">0</td>
@@ -86,12 +70,34 @@
                             <td class="d-none d-md-table-cell">0</td>
                             <td>0</td>
                             <td class="d-none d-md-table-cell">0</td>
-                        @endif
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                            @endif
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2 class="fs-2 text-center">Statistiques générales</h2>
+                <hr class="mb-3">
+            <ul class="list-group mb-2">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Parties jouées
+                    <span class="badge bg-info rounded-pill">{{ $totalMatch }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Total de meurtres
+                    <span class="badge bg-info rounded-pill">{{ $championshipResults->pluck('kills')->flatten()->count() }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Meurtres par partie
+                    <span class="badge bg-info rounded-pill">{{ round($championshipResults->pluck('kills')->flatten()->count()/$totalMatch,2)  }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Total de points
+                    <span class="badge bg-info rounded-pill">{{ $championshipResults->sum('score')}}</span>
+                </li>
+            </ul>
+        </div>
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
@@ -122,7 +128,7 @@
                                         $countDeck += 1;
                                     @endphp
                                     <tr>
-                                        <td><a
+                                        <td><a class="text-decoration-underline"
                                                 href="{{ route('statistic.deck.in.championship', [$deck->id, $championship->id]) }}">{{ $deck->title }}
                                                 - {{ $deck->user->pseudo }}</a></td>
                                         @if ($totalMatch != 0 && $results_for_decks[$countDeck]->count('*') != 0)

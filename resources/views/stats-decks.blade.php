@@ -9,6 +9,8 @@
         </ol>
     </nav>
     <div>
+        <h2 class="fs-2 text-center">Classement des decks</h2>
+        <hr class="mb-3">
         <table id="sortTableDeck" class="table table-sm">
             <thead>
             <th class="th-sm">Deck</th>
@@ -27,7 +29,8 @@
                     $countDeck += 1;
                 @endphp
                 <tr>
-                    <td><a href="{{ route('statistic.deck', $deck->id) }}">{{ $deck->title }} - {{ $deck->user->pseudo }}</a></td>
+                    <td><a class="text-decoration-underline" href="{{ route('statistic.deck', $deck->id) }}">{{ $deck->title }} - {{ $deck->user->pseudo }}</a></td>
+                    
                     @if ($totalMatch != 0 && $results_for_decks[$countDeck]->count('*') != 0)
                         <td>{{ round($results_for_decks[$countDeck]->where('place', 1)->count('place') +$results_for_decks[$countDeck]->pluck('kills')->flatten()->count() +$results_for_decks[$countDeck]->where('place', 2)->count('place') / 2 +$results_for_decks[$countDeck]->where('place', 3)->count('place') /3 /round(($results_for_decks[$countDeck]->count('*') / $totalMatch) * 100, 1),2) }}
                         </td>

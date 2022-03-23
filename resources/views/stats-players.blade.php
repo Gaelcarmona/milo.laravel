@@ -9,6 +9,8 @@
         </ol>
       </nav>
     <div>
+        <h2 class="fs-2 text-center">Classement des joueurs</h2>
+        <hr class="mb-3">
         <table id="sortTablePlayer" class="table table-sm">
             <thead>
             <th class="th-sm">Nom</th>
@@ -31,7 +33,7 @@
 
                 @endphp
                 <tr>
-                    <td><a href="{{ route('statistic.player', $player->id) }}">{{ $player->pseudo }}</a></td>
+                    <td><a class="text-decoration-underline" href="{{ route('statistic.player', $player->id) }}">{{ $player->pseudo }}</a></td>
                     @if($totalMatch != 0 && $results_for_players[$count]->count('*') != 0)
                         <td>{{ round(($results_for_players[$count]->where('place', 1)->count('place') + $results_for_players[$count]->pluck('kills')->flatten()->count()) + ($results_for_players[$count]->where('place', 2)->count('place') / 2) + ($results_for_players[$count]->where('place', 3)->count('place') / 3) / round(($results_for_players[$count]->count('*') / $totalMatch) * 100, 1),2)}}</td>
                         <td class="d-none d-md-table-cell">{{ round(($results_for_players[$count]->where('place', 1)->count('place') / $results_for_players[$count]->count('*')) * 100, 2) }}

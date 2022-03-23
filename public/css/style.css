@@ -75,6 +75,42 @@ th{
     position: absolute;
     right: 55px;
 }
+.even{
+    background-color: #ffffff;
+}
+.odd{
+   background-color: #c7c7c7;
+}
+#sortTablePlayerInChampionship_filter input,
+#sortTablePlayer_filter input,
+#sortTableDeckInChampionship_filter input,
+#sortTableDeck_filter input{
+    border-radius: 5px;
+    margin-left: 1rem;
+    padding: 0.5rem;
+    padding: 0.2rem;
+}
+.paginate_button{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+#sortTableDeckInChampionship_length select,
+#sortTableDeck_length select,
+#sortTablePlayerInChampionship_length select,
+#sortTablePlayer_length select{
+    border-radius: 5px;
+    padding: 0.2rem;
+}
+/* #sortTablePlayer_previous, #sortTablePlayerInChampionship_previous,
+#sortTableDeck_previous, #sortTableDeckInChampionship_previous{
+    margin-right: 0.5rem;
+} */
+
+
+
+
+
 
   @media (max-width: 767px) {
     .marginMenu {
