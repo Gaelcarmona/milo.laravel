@@ -1,4 +1,5 @@
 @section('title', 'Les decks')
+@section('description', 'Ici on retrouve les statistiques globales des decks')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
@@ -85,7 +86,7 @@
                                 <div class="card shadow-sm">
                                     <img
                                         src="{{ asset('images/small') }}/{{ isset($deck->image->url) ? $deck->image->url : 'players.jpg' }}"
-                                        alt="">
+                                        alt="Image du deck">
                                     <div class="card-body">
                                         <p class="card-text">{{ $deck->title }}</p>
                                         <p class="card-text">{{ $deck->user->pseudo }}</p>

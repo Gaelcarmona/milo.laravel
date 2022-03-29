@@ -13,7 +13,7 @@
             <div class="card p-4">
                 <div class=" image d-flex flex-column justify-content-center align-items-center"><img
                         src="{{ asset('images/large') }}/{{ isset($user->image->url) ? $user->image->url  : 'players.jpg' }}"
-                        alt=""></button> <span class="name mt-3">{{$user->pseudo}}</span> <span
+                        alt="Image du joueur"> <span class="name mt-3">{{$user->pseudo}}</span> <span
                         class="idd">{{$user->email}}</span>
 
                     <span><i class="fa fa-copy"></i></span></div>

@@ -15,7 +15,7 @@
         <div class="card p-4">
             <div class=" image d-flex flex-column justify-content-center align-items-center"><img
                     src="{{ asset('images/large') }}/{{ isset($deck->image->url) ? $deck->image->url : 'players.jpg' }}"
-                    alt=""></button>
+                    alt="Image du deck"></button>
 
                 <span><i class="fa fa-copy"></i></span>
             </div>

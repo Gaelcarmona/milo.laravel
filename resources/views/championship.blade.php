@@ -11,9 +11,9 @@
       </nav>
         <table class='col-12 bg-main table'>
             <thead class='text-white bg-dark'>
-            <th>Nom</th>
-            <th>Renommer</th>
-            <th>Supprimer</th>
+                <th>Nom</th>
+                <th>Renommer</th>
+                <th>Supprimer</th>
             </thead>
             <tbody>
             @foreach($matchs as $match)

@@ -6,9 +6,7 @@
         <div class="card p-4">
             <div class=" image d-flex flex-column justify-content-center align-items-center"><img
                     src="{{ asset('images/large/158926.jpg') }}"
-                    alt=""></button>
-
-                <span><i class="fa fa-copy"></i></span>
+                    alt="Image de bienvenue">
             </div>
 
             <div class=" padding d-flex align-items-center justify-content-center flex-column">

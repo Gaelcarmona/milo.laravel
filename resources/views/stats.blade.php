@@ -1,4 +1,5 @@
 @section('title', 'Statistiques')
+@section('description', 'Voici le point d\'accès à toutes les statistiques présentées sur le site !')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>

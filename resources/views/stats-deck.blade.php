@@ -1,4 +1,5 @@
 @section('title', 'Statistiques de ' . $deck->title)
+@section('description', 'Ici on retrouve les statistiques globales de ' . $deck->title)
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
@@ -12,7 +13,7 @@
         </nav>
         <div class="col-md-6 col-12">
             <img src="{{ asset('images/large') }}/{{ isset($deck->image->url) ? $deck->image->url : 'players.jpg' }}"
-                alt="">
+                alt="Image du deck">
         </div>
         <div class="col-md-6 col-12">
             <div id="statsDeck">

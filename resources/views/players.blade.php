@@ -11,7 +11,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="{{ asset('images/small') }}/{{ isset($user_creator->image->url) ? $user_creator->image->url  : 'players.jpg' }}" alt="">
+                    <img src="{{ asset('images/small') }}/{{ isset($user_creator->image->url) ? $user_creator->image->url  : 'players.jpg' }}" alt="Image du joueur">
                     <div class="card-body">
                         <p class="card-text">{{ $user_creator->pseudo }}</p>
                         <div class="d-flex justify-content-between align-items-center">
@@ -26,7 +26,7 @@
             @foreach ($associateUsers as $associateUser)
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('images/small') }}/{{ isset($associateUser->image->url) ? $associateUser->image->url  : 'players.jpg' }}" alt="">
+                        <img src="{{ asset('images/small') }}/{{ isset($associateUser->image->url) ? $associateUser->image->url  : 'players.jpg' }}" alt="Image du joueur">
                         <div class="card-body">
                             <p class="card-text">{{ $associateUser->pseudo }}</p>
                             <div class="d-flex justify-content-between align-items-center">
@@ -45,7 +45,7 @@
             @endforeach
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="{{ asset('images/small/players.jpg') }}" alt="">
+                    <img src="{{ asset('images/small/players.jpg') }}" alt="Image du joueur">
                     <div class="card-body">
                         <p class="card-text">Ajouter un joueur</p>
                         <div class="d-flex justify-content-between align-items-center">

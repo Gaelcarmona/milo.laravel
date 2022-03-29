@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "milo/milo",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Milo : gestionnaire de tournoi de Magic : L'assemblée",
+    "keywords": ["milo", "magic"],
     "license": "MIT",
     "require": {
         "php": "^8.0",

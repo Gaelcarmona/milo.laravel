@@ -1,4 +1,5 @@
 @section('title', 'Statistiques de ' . $player->pseudo . ' dans ' . $championship->title)
+@section('description', 'Ici on retrouve les statistiques de ' . $player->pseudo . ' dans ' . $championship->title)
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
@@ -15,9 +16,9 @@
         </nav>
         <div class="col-md-6 col-12">
 
-            {{-- <img src="../../images/players.jpg" alt=""> --}}
+            {{-- <img src="../../images/players.jpg" alt="Image du joueur"> --}}
             <img src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url : 'players.jpg' }}"
-                alt="">
+                alt="Image du joueur">
 
         </div>
         <div class="col-md-6 col-12">

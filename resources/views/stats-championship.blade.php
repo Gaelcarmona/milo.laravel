@@ -1,4 +1,6 @@
 @section('title', 'Statistiques de ' . $championship->title)
+@section('description', 'Ici on retrouve les statistiques globales de ' . $championship->title . '. On a ici accès aux statistiques des joueurs et des decks pour le championnat en cours')
+
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
@@ -183,9 +185,9 @@
                             {{-- @dd($player) --}}
                             <div class="col">
                                 <div class="card shadow-sm">
-                                    <img src="images/players.jpg" alt="">
+                                    <img src="images/players.jpg" alt="Image du joueur">
                                     <img src="{{ asset('images/small') }}/{{ isset($player->image->url) ? $player->image->url : 'players.jpg' }}"
-                                        alt="">
+                                        alt="Image du joueur">
                                     <div class="card-body">
                                         <p class="card-text">{{ $player->pseudo }}</p>
                                         <div class="d-flex justify-content-between align-items-center">
@@ -219,7 +221,7 @@
                             <div class="col">
                                 <div class="card shadow-sm">
                                     <img src="{{ asset('images/small') }}/{{ isset($deck->image->url) ? $deck->image->url : 'players.jpg' }}"
-                                        alt="">
+                                        alt="Image du joueur">
                                     <div class="card-body">
                                         <p class="card-text">{{ $deck->title }}</p>
                                         <p class="card-text">{{ $deck->user->pseudo }}</p>

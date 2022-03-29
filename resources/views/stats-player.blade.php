@@ -1,4 +1,6 @@
 @section('title', 'Statistiques de ' . $player->pseudo)
+@section('description', 'Ici on retrouve les statistiques globales de ' . $player->pseudo)
+
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
@@ -12,7 +14,7 @@
         </nav>
         <div class="col-md-6 col-12">
             <img src="{{ asset('images/large') }}/{{ isset($player->image->url) ? $player->image->url : 'players.jpg' }}"
-                alt="">
+                alt="Image du joueur">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

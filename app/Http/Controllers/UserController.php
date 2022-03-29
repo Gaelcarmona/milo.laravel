@@ -253,7 +253,6 @@ class UserController extends Controller
         $this->associateUserInsert($user);
 
         return redirect()->route('players', ['associateUsers' => $associateUsers]);
-//        return view('/players', ['associateUsers' => $associateUsers]);
     }
 
     public function associateUserInsert(User $user)
@@ -289,7 +288,7 @@ class UserController extends Controller
         $playerBread = User::query()->where('id', $id)->first();
         $user = User::query()->where('id', $id)->first();
         $images = Image::query()->get();
-//        dd($user);
+
 
         return view('/user-edit', [
             'id' => $id,
@@ -400,10 +399,6 @@ class UserController extends Controller
             'siteTitle' => $siteTitle,
         ]);
     }
-
-    //Calcul ELO : (nombreDeVictoires + totalDeKills)+(nombreDeDeuxiemePlace /2 ) +(nombreDeTroisiemePlace /3 )/pourcentageDeParticipation
-    //LES KILLS
-
 
 }
 
