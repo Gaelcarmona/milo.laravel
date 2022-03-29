@@ -38,28 +38,22 @@
             <div class="container-fluid d-flex justify-content-end">
                 <div class="position-absolute top-0 start-0">
                     @if (Auth::user() != null)
-                        <a href="{{ route('user') }}"><img src="{{ asset('images/frame57.svg') }}"></a>
+                        <a href="{{ route('user') }}"><img alt="logo su site" src="{{ asset('images/frame57.svg') }}"></a>
                     @else
-                        <a href="{{ route('accueil') }}"><img src="{{ asset('images/frame57.svg') }}"></a>
+                        <a href="{{ route('accueil') }}"><img alt="logo su site" src="{{ asset('images/frame57.svg') }}"></a>
                     @endif
                     <figure>
                     </figure>
                 </div>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
                     aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                {{-- @dd(Route::currentRouteName()); --}}
                 <div class="collapse navbar-collapse " id="navbarsExample04">
                     <ul class="navbar-nav m-auto  mb-md-0">
                         <li class="nav-item">
                             @if (Route::currentRouteName() === 'statistic.home')
-                            @endif
-                            @if (Route::currentRouteName() === 'statistic.home')
-                                <a class="nav-link text-secondary"
-                                    href="{{ route('statistic.home') }}">Statistiques</a>
+                                <a class="nav-link text-secondary" href="{{ route('statistic.home') }}">Statistiques</a>
                             @else
                                 <a class="nav-link text-info" href="{{ route('statistic.home') }}">Statistiques</a>
                             @endif
@@ -74,11 +68,10 @@
                             </li>
                             <li class="nav-item">
                                 @if (Route::currentRouteName() === 'championships')
-                                    <a class="nav-link text-secondary" href="{{ route('championships') }}">Mes
-                                    @else
-                                        <a class="nav-link text-info" href="{{ route('championships') }}">Mes
+                                    <a class="nav-link text-secondary" href="{{ route('championships') }}">Mes championnats </a>
+                                @else
+                                        <a class="nav-link text-info" href="{{ route('championships') }}">Mes championnats </a>
                                 @endif
-                                championnats</a>
                             </li>
                             <li class="nav-item dropdown">
                                 @if (Route::currentRouteName() === 'account.user')
@@ -103,8 +96,8 @@
                                     </ul>
                                 @endif
                             </li>
+                            @endif
                     </ul>
-                    @endif
                 </div>
             </div>
         </nav>

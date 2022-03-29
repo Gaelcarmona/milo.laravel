@@ -17,17 +17,19 @@
         <hr class="mb-3">
         <table id="sortTablePlayerInChampionship" class="table table-sm">
             <thead>
-                <th class="th-sm">Nom</th>
-                <th class="th-sm">Elo</th>
-                <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
-                <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
-                <th class="th-sm">Points par partie</th>
-                <th class="th-sm">Kills par partie</th>
-                <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
-                <th class="d-none d-lg-table-cell th-sm">Total de morts</th>
-                <th class="d-none d-md-table-cell th-sm">Taux de mortalité</th>
-                <th class="th-sm">Total de points</th>
-                <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
+                <tr>
+                    <th class="th-sm">Nom</th>
+                    <th class="th-sm">Elo</th>
+                    <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
+                    <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
+                    <th class="th-sm">Points par partie</th>
+                    <th class="th-sm">Kills par partie</th>
+                    <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
+                    <th class="d-none d-lg-table-cell th-sm">Total de morts</th>
+                    <th class="d-none d-md-table-cell th-sm">Taux de mortalité</th>
+                    <th class="th-sm">Total de points</th>
+                    <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($players as $player)
@@ -114,15 +116,17 @@
                     <div>
                         <table id="sortTableDeckInChampionship" class="table table-sm">
                             <thead>
-                                <th class="th-sm">Deck <i class="fa-regular fa-up-down"></i></th>
-                                <th class="th-sm">Elo</th>
-                                <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
-                                <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
-                                <th class="th-sm">Points par partie</th>
-                                <th class="th-sm">Kills par partie</th>
-                                <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
-                                <th>Total de points</th>
-                                <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
+                                <tr>
+                                    <th class="th-sm">Deck <i class="fa-regular fa-up-down"></i></th>
+                                    <th class="th-sm">Elo</th>
+                                    <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
+                                    <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
+                                    <th class="th-sm">Points par partie</th>
+                                    <th class="th-sm">Kills par partie</th>
+                                    <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
+                                    <th>Total de points</th>
+                                    <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($decks as $deck)

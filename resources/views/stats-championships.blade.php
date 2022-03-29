@@ -8,11 +8,10 @@
           <li class="breadcrumb-item"><a href="{{ route('statistic.home') }}">Statistiques</a></li>
           <li class="breadcrumb-item active" aria-current="page">Les championnats</li>
         </ol>
-      </nav>
-      <h1 class="fs-2 text-center">Les championnats</h1>
-      <hr class="mb-3">
-        <section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
+    </nav>
+    <section>
+        <h1 class="fs-2 text-center">Les championnats</h1>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             @foreach ($championships as $championship)
                 <article class="col">
                     <div class="card shadow-sm">
@@ -23,12 +22,13 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a role="button" href="{{ route('statistic.championship', $championship->id) }}"
-                                       class="btn btn-sm btn-outline-secondary">Voir</a>
+                                        class="btn btn-sm btn-outline-secondary">Voir</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </article>
             @endforeach
-        </section>
+        </div>
+    </section>  
 </x-app-layout>

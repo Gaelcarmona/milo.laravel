@@ -14,15 +14,17 @@
         <hr class="mb-3">
         <table id="sortTableDeck" class="table table-sm">
             <thead>
-            <th class="th-sm">Deck</th>
-            <th class="th-sm">Elo</th>
-            <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
-            <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
-            <th class="th-sm">Points par partie</th>
-            <th class="th-sm">Kills par partie</th>
-            <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
-            <th class="th-sm">Total de points</th>
-            <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
+                <tr>
+                    <th class="th-sm">Deck</th>
+                    <th class="th-sm">Elo</th>
+                    <th class="d-none d-md-table-cell th-sm">Pourcentage de victoire</th>
+                    <th class="d-none d-md-table-cell th-sm">Nombre de victoires</th>
+                    <th class="th-sm">Points par partie</th>
+                    <th class="th-sm">Kills par partie</th>
+                    <th class="d-none d-lg-table-cell th-sm">Total de kills</th>
+                    <th class="th-sm">Total de points</th>
+                    <th class="d-none d-md-table-cell th-sm">Matchs joués</th>
+                </tr>
             </thead>
             <tbody>
             @foreach ($decks as $deck)
@@ -92,9 +94,7 @@
                                         <p class="card-text">{{ $deck->user->pseudo }}</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <a role="button" <a role="button"
-                                                                    href="{{ route('statistic.deck', $deck->id) }}"
-                                                                    class="btn btn-sm btn-outline-secondary">Voir</a>
+                                                <a role="button" href="{{ route('statistic.deck', $deck->id) }}" class="btn btn-sm btn-outline-secondary">Voir</a>
                                             </div>
                                         </div>
                                     </div>

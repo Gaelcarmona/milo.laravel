@@ -6,7 +6,7 @@
                 <div class="championnats row">
                 <div class="col-12 col-md-6 px-0">
                     <figure class="figure">
-                        <img src="{{ asset('images/large/championships') }}.jpg">
+                        <img alt="Image des championnats" src="{{ asset('images/large/championships') }}.jpg">
                         <a class="btn btn-info d-sm-flex d-md-none d-xl-none d-xxl-none text-white mt-3 mb-3 text-center centered" href="{{ route('statistic.championships') }}">Les championnats</a>
                     </figure>
                 </div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-12 col-md-6 px-0">
                     <figure class="figure">
-                        <img src="{{ asset('images/large/players') }}.jpg">
+                        <img alt="Image des joueurs" src="{{ asset('images/large/players') }}.jpg">
                         <a class="btn btn-info d-sm-flex d-md-none d-xl-none d-xxl-none text-white mt-3 mb-3 text-center centered" href="{{ route('statistic.players') }}">Les joueurs</a>
                     </figure>
                 </div>
@@ -28,7 +28,7 @@
             <div class="decks row">
                 <div class="col-12 col-md-6 px-0">
                     <figure class="figure">
-                        <img src="{{ asset('images/large/114446') }}.jpg">
+                        <img alt="Image des decks" src="{{ asset('images/large/114446') }}.jpg">
                         <a class="btn btn-info d-sm-flex d-md-none d-xl-none d-xxl-none text-white mt-3 mb-3 text-center centered" href="{{ route('statistic.decks') }}">Les decks</a>
                     </figure>
                 </div>
