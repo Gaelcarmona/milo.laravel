@@ -211,7 +211,7 @@ class UserController extends Controller
             $resultsWhereDeathOfUser->save();
 
             //Suppression des morts
-            DB::statement(DB::raw('delete from kills where user_killed_id = ' . $user_id));
+            DB::statement(DB::raw('DELETE from kills where user_killed_id = ' . $user_id));
 
         }
 
@@ -228,7 +228,7 @@ class UserController extends Controller
         }
 
         //Supprimer l'association à un créateur
-        DB::statement(DB::raw('delete from associate_user where user_id = ' . $user_id));
+        DB::statement(DB::raw('DELETE from associate_user where user_id = ' . $user_id));
 
         //Supprimer le joueur
         $user = User::query()->where('id', $user_id);
