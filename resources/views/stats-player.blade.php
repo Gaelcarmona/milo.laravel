@@ -27,7 +27,9 @@
                     <div class="accordion-body">
                         <table class='col-12 bg-main table'>
                             <thead class='text-white bg-dark'>
-                                <th>Nom</th>
+                                <tr>
+                                    <th>Nom</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($decks as $deck)

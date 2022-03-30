@@ -1,4 +1,5 @@
 @section('title', 'Entrée')
+@section('description', 'Bienvenue, ce site te permet d\'organiser des tournois de carte Magic entre amis.')
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
