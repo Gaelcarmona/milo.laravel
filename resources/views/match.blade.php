@@ -28,8 +28,7 @@
                     <td class="d-none d-md-table-cell">{{ $result->deck->title }}</td>
                     <td>
                         @foreach($killed_players as $killed_player)
-                            @if($killed_player->result_id === $result->id)
-                                {{--                                    @dd($killed_player->user->pseudo);--}}
+                            @if($killed_player->result_id == $result->id)
                                 <a href="{{ route('delete.kill', [ 'result_id'=> $result->id, 'user_killed_id' => $killed_player->user->id] ) }}">{{ $killed_player->user->pseudo }}</a>
                                 <br>
                             @endif
