@@ -218,6 +218,9 @@ Route::get('/stats-championships', [StatisticController::class, 'displayChampion
 //Vers un championnat
 Route::get('/stats-championship/{championship_id}', [StatisticController::class, 'displayChampionshipStats'])->name('statistic.championship');
 
+//Vers un match
+Route::get('/stats-match/{match_id}', [StatisticController::class, 'displayMatchStats'])->name('statistic.match');
+
 //Vers les decks
 Route::get('/stats-decks', [StatisticController::class, 'displayDecksStats'])->name('statistic.decks');
 

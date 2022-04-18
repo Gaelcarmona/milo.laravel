@@ -7,6 +7,7 @@ use App\Models\Deck;
 use App\Models\Matchs;
 use App\Models\Result;
 use App\Models\User;
+use App\Models\Kill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -139,6 +140,8 @@ class StatisticController extends Controller
 
         $results_for_players = [];
 
+        $matchs = Matchs::query()->where('championship_id', '=', $championship_id)->get();
+
         foreach ($players as $player) {
 
             $championshipResults = $player->championships
@@ -209,8 +212,35 @@ class StatisticController extends Controller
             'results_for_decks' => $results_for_decks,
             'resultsOthersDecks' => $resultsOthersDecks,
             'totalMatchInChampionship' => $totalMatchInChampionship,
+            'matchs' => $matchs,
         ]);
     }
+
+        //Stats d'un match
+        public function displayMatchStats($match_id)
+        {
+            $results = Result::query()->where('match_id', '=', $match_id)->get();
+    
+            $match = Matchs::where('id', $match_id)->first();
+
+            $championship = Championship::where('id',$match->championship_id)->first();
+            // dd($chamionship);
+    
+            $ids = [];
+            foreach ($results as $result) {
+                $ids[] = $result->id;
+            }
+    
+            $killed_players = Kill::whereIn('result_id', $ids)->get();
+    
+            return view('/stats-match', [
+                'id' => $match_id,
+                'match' => $match,
+                'results' => $results,
+                'killed_players' => $killed_players,
+                'championship' => $championship,
+            ]);
+        }
 
 
     public function displayPlayerStatsInChampionship($player_id, $championship_id)

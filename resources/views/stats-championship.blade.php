@@ -13,6 +13,28 @@
         </ol>
     </nav>
     <div>
+        <h2 class="fs-2 text-center">Statistiques générales</h2>
+        <hr class="mb-3">
+        <ul class="list-group mb-2">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Parties jouées
+                <span class="badge bg-info rounded-pill">{{ $totalMatch }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Total de meurtres
+                <span class="badge bg-info rounded-pill">{{ $championshipResults->pluck('kills')->flatten()->count() }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Meurtres par partie
+                <span class="badge bg-info rounded-pill">{{ round($championshipResults->pluck('kills')->flatten()->count()/$totalMatch,2)  }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Total de points
+                <span class="badge bg-info rounded-pill">{{ $championshipResults->sum('score')}}</span>
+            </li>
+        </ul>
+    </div>
+    <div>
         <h2 class="fs-2 text-center">Classement après {{ $totalMatch }} matchs</h2>
         <hr class="mb-3">
         <table id="sortTablePlayerInChampionship" class="table table-sm">
@@ -79,29 +101,7 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-            <div>
-                <h2 class="fs-2 text-center">Statistiques générales</h2>
-                <hr class="mb-3">
-            <ul class="list-group mb-2">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Parties jouées
-                    <span class="badge bg-info rounded-pill">{{ $totalMatch }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Total de meurtres
-                    <span class="badge bg-info rounded-pill">{{ $championshipResults->pluck('kills')->flatten()->count() }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Meurtres par partie
-                    <span class="badge bg-info rounded-pill">{{ round($championshipResults->pluck('kills')->flatten()->count()/$totalMatch,2)  }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Total de points
-                    <span class="badge bg-info rounded-pill">{{ $championshipResults->sum('score')}}</span>
-                </li>
-            </ul>
-        </div>
+    </div>
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
@@ -174,6 +174,63 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingX">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseX" aria-expanded="false" aria-controls="flush-collapseX">
+                    Les matchs
+                </button>
+            </h2>
+            <div id="flush-collapseX" class="accordion-collapse collapse" aria-labelledby="flush-headingX"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                <table class='col-12 bg-main table'>
+                    <thead class='text-white bg-dark'>
+                        <th>Nom</th>
+                    </thead>
+                    <tbody>
+                    @foreach($matchs as $match)
+                        <tr>
+                            <td>
+                                <a href="{{ route('statistic.match', $match->id) }}">{{ $match->title}}</a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
