@@ -58,7 +58,7 @@ th{
 /* These are the KEY styles - you can add them directly to any object you want in your project */
 .fancy-border-radius {
     border-radius: 19% 81% 30% 70% / 70% 70% 30% 30%;
-  
+
     /* These are ADDITIONAL styles - add them if you want an object exactly like in the demo above */
     width: 200px;
     height: 200px;
@@ -100,7 +100,7 @@ th{
 #sortTablePlayerInChampionship_length select,
 #sortTablePlayer_length select{
     border-radius: 5px;
-    padding: 0.2rem;
+    padding-left: 1rem;
 }
 /* #sortTablePlayer_previous, #sortTablePlayerInChampionship_previous,
 #sortTableDeck_previous, #sortTableDeckInChampionship_previous{
