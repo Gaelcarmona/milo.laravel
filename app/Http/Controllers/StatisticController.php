@@ -11,6 +11,7 @@ use App\Models\Kill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StatisticController extends Controller
 {
@@ -135,8 +136,8 @@ class StatisticController extends Controller
     public function displayChampionshipStats($championship_id)
     {
 
-        $championship = Championship::query()->where('id', $championship_id)->first();
-        $players = $championship->users()->get();
+        $championship = Championship::query()->with('users.championships')->where('id', $championship_id)->first();
+        $players = $championship->users()->with('championships.matchs.results')->get();
 
         $results_for_players = [];
 
@@ -151,22 +152,20 @@ class StatisticController extends Controller
 
             $results_for_player = $championshipResults
                 ->where('user_id', $player->id);
-
+                // dd( $championshipResults->toArray());   
             $results_for_players[] = $results_for_player;
         }
 
         $count = -1;
 
-        $totalMatch = Matchs::query()
-            ->where('championship_id', $championship_id)
-            ->get()->count();
+        // $totalMatch =    DB::table('matchs')->where('championship_id', $championship_id)->count('id');
 
         $collect = $championshipResults->groupBy('deck_id');
-
+        // dd($collect, $championshipResults);
         $decksId = $collect->keys()->toArray();
         $decks = [];
         foreach ($decksId as $deckId) {
-            $deck = Deck::query()->where('id', $deckId)->first();
+            $deck = Deck::query()->where('id', $deckId)->with('user.championships')->first();
             $decks[] = $deck;
         }
 
@@ -174,8 +173,6 @@ class StatisticController extends Controller
         $results_for_decks = [];
 
         foreach ($decks as $deck) {
-
-            $championships = $deck->user->championships;
 
             $championshipResultsDeck = $deck->user->championships
                 ->where('id', $championship_id)
@@ -187,14 +184,11 @@ class StatisticController extends Controller
 
             $resultsOthersDecks = $championshipResultsDeck
                 ->where('deck_id', '!=', $deck->id);
-
-            $totalMatchInChampionship = Matchs::query()
-                ->where('championship_id', $championship_id)
-                ->get()->count();
-
+            
             $results_for_decks[] = $results_for_deck;
-
+            
         }
+        $totalMatchInChampionship =    DB::table('matchs')->where('championship_id', $championship_id)->count('id');
 
         $countDeck = -1;
 
@@ -205,7 +199,7 @@ class StatisticController extends Controller
             'results_for_players' => $results_for_players,
             'count' => $count,
             'countDeck' => $countDeck,
-            'totalMatch' => $totalMatch,
+            'totalMatch' => $totalMatchInChampionship,
             'championshipResults' => $championshipResults,
             'decks' => $decks,
             'championshipResultsDeck' => $championshipResultsDeck,
@@ -224,7 +218,6 @@ class StatisticController extends Controller
             $match = Matchs::where('id', $match_id)->first();
 
             $championship = Championship::where('id',$match->championship_id)->first();
-            // dd($chamionship);
     
             $ids = [];
             foreach ($results as $result) {
@@ -320,14 +313,13 @@ class StatisticController extends Controller
     {
 
         $players = User::query()->get();
-        $decks = Deck::query()->get();
+        $decks = Deck::query()->with('user')->get();
 
         $usersDecks = [];
         foreach ($players as $player) {
             $userDecks = Deck::query()->where('user_id', $player->id)->get();
             $usersDecks[] = $userDecks;
         }
-//        dd($usersDecks[0]);
         $countUserDecks = -1;
 
 
@@ -344,11 +336,10 @@ class StatisticController extends Controller
             $results_for_deck = $championshipResultsDeck
                 ->where('deck_id', $deck->id);
 
-            $totalMatch = Matchs::query()
-                ->get()->count();
+            $totalMatch =    DB::table('matchs')->count('id');
 
             $results_for_decks[] = $results_for_deck;
-//            dump($championshipsResultsDeck);
+
 
         }
 
@@ -369,7 +360,6 @@ class StatisticController extends Controller
 
     public function displayDeckStats($deck_id)
     {
-
         $deck = Deck::query()
             ->with([
                 'user.championships.matchs.results.user',
@@ -396,18 +386,68 @@ class StatisticController extends Controller
 
         $totalMatch = Matchs::query()
             ->get()->count();
+          
+        //toutes les fois ou le joueur a kill
+        $deathsOfEachUsers = $results_for_deck->pluck('kills')->flatten()->groupBy('user_killed_id');
+        $allKilledDecks =[];
+        foreach ($deathsOfEachUsers as $deathsOfAnUser) {
+
+            foreach ($deathsOfAnUser as $deathOfAnUser) {
+
+                $result = Result::query()->where('id', $deathOfAnUser->result_id)->first();
+
+                $killedResult = Result::query()->where('match_id', $result->match_id)
+                ->where('user_id', $deathOfAnUser->user_killed_id)
+                ->first();
+
+                $killedDeck = Deck::query()->where('id', $killedResult->deck_id)->with('user')->first();
+                
+                $allKilledDecks[] = $killedDeck;
+            }   
+        }
+        $result = [];
+        foreach ($allKilledDecks as $killedDeck) {
+            $result[$killedDeck->id][] = $killedDeck;
+        }
+        $allKilledDecks = $result;
+
+        //toutes les fois ou le joueur a été kill
+        $playerDeaths = Kill::query()->where('user_killed_id', $deck->user_id)->get();
+        $allDeathsDecks =[];
+        $totalDeaths = [];
+        foreach ($playerDeaths as $playerDeath) {
+
+            $resultOfKillerWhenPlayerIsKilled = Result::query()->where('id', $playerDeath->result_id)->first();
+            $deathDeck = Deck::query()->where('id', $resultOfKillerWhenPlayerIsKilled->deck_id)->with('user')->first();
+            
+            $resultOfPlayerWhenPlayerIsKilled = Result::query()
+            ->where('match_id', $resultOfKillerWhenPlayerIsKilled->match_id)
+            ->where('user_id', $deck->user_id)
+            ->where('deck_id', $deck_id)
+            ->first();
+            
+            if ($resultOfPlayerWhenPlayerIsKilled) {
+                $allDeathsDecks[] = $deathDeck;
+                $totalDeaths[] = $resultOfPlayerWhenPlayerIsKilled;
+            }
+        } 
+        $result = [];
+        foreach ($allDeathsDecks as $DeathDeck) {
+            $result[$DeathDeck->id][] = $DeathDeck;
+        }
+        $allDeathsDecks = $result;
 
         return view('/stats-deck', [
             'deck_id' => $deck_id,
-//            'killRank' => $killRank,
             'deck' => $deck,
             'userChampionships' => $championships,
             'results_for_deck' => $results_for_deck,
             'Decks' => $Decks,
             'resultsOthersDecks' => $resultsOthersDecks,
-//            'totalKillsByKiller' => $totalKillsByKiller,
-            'championshipsResults' => $championshipsResults,
+            'allKilledDecks' => $allKilledDecks,
+            'allDeathsDecks' => $allDeathsDecks,
             'totalMatch' => $totalMatch,
+            'totalDeaths' => $totalDeaths,
         ]);
     }
 
@@ -444,6 +484,56 @@ class StatisticController extends Controller
             ->where('championship_id', $championship_id)
             ->get()->count();
 
+        //toutes les fois ou le joueur a kill
+        $deathsOfEachUsers = $results_for_deck->pluck('kills')->flatten()->groupBy('user_killed_id');
+        $allKilledDecks =[];
+        foreach ($deathsOfEachUsers as $deathsOfAnUser) {
+
+            foreach ($deathsOfAnUser as $deathOfAnUser) {
+
+                $result = Result::query()->where('id', $deathOfAnUser->result_id)->first();
+
+                $killedResult = Result::query()->where('match_id', $result->match_id)
+                ->where('user_id', $deathOfAnUser->user_killed_id)
+                ->first();
+
+                $killedDeck = Deck::query()->where('id', $killedResult->deck_id)->with('user')->first();
+                
+                $allKilledDecks[] = $killedDeck;
+            }   
+        }
+        $result = [];
+        foreach ($allKilledDecks as $killedDeck) {
+            $result[$killedDeck->id][] = $killedDeck;
+        }
+        $allKilledDecks = $result;
+
+        //toutes les fois ou le joueur a été kill
+        $playerDeaths = Kill::query()->where('user_killed_id', $deck->user_id)->get();
+        $allDeathsDecks =[];
+        $totalDeaths = [];
+        foreach ($playerDeaths as $playerDeath) {
+
+            $resultOfKillerWhenPlayerIsKilled = Result::query()->where('id', $playerDeath->result_id)->first();
+            $deathDeck = Deck::query()->where('id', $resultOfKillerWhenPlayerIsKilled->deck_id)->with('user')->first();
+            
+            $resultOfPlayerWhenPlayerIsKilled = Result::query()
+            ->where('match_id', $resultOfKillerWhenPlayerIsKilled->match_id)
+            ->where('user_id', $deck->user_id)
+            ->where('deck_id', $deck_id)
+            ->first();
+            
+            if ($resultOfPlayerWhenPlayerIsKilled) {
+                $allDeathsDecks[] = $deathDeck;
+                $totalDeaths[] = $resultOfPlayerWhenPlayerIsKilled;
+            }
+        } 
+        $result = [];
+        foreach ($allDeathsDecks as $DeathDeck) {
+            $result[$DeathDeck->id][] = $DeathDeck;
+        }
+        $allDeathsDecks = $result;
+
         return view('/stats-deck-in-championship', [
             'deck_id' => $deck_id,
             'deck' => $deck,
@@ -454,6 +544,9 @@ class StatisticController extends Controller
             'championshipResults' => $championshipResults,
             'totalMatchInChampionship' => $totalMatchInChampionship,
             'championship' => $championship,
+            'allKilledDecks' => $allKilledDecks,
+            'allDeathsDecks' => $allDeathsDecks,
+            'totalDeaths' => $totalDeaths,
         ]);
     }
 }

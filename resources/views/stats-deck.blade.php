@@ -53,21 +53,85 @@
                             class="badge bg-primary rounded-pill">{{ round($results_for_deck->avg('place'), 2) }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Meurtres par partie
+                        Éliminations par partie
                         <span class="badge bg-dark rounded-pill">
                             @if ($results_for_deck->count() != 0)
                                 {{ round($results_for_deck->pluck('kills')->flatten()->count() / $results_for_deck->count(),2) }}
                             @endif
                         </span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Meurtres
-                        <span class="badge bg-dark rounded-pill">
-                            @if ($results_for_deck->count() != 0)
-                                {{ $results_for_deck->pluck('kills')->flatten()->count() }}
-                            @endif
-                        </span>
-                    </li>
+                    <div class="accordion" id="accordion1">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapseThree">
+                                    Éliminations
+                                    <span class="badge bg-dark rounded-pill ms-5 alignStatsOnAccordion">
+                                        @if ($results_for_deck->count() != 0)
+                                            {{ $results_for_deck->pluck('kills')->flatten()->count() }}
+                                        @endif
+                                    </span>
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordion1">
+                                <div class="accordion-body">
+                                    <ul class="list-group">
+                                        @php $alreadyKilledDeck = []; @endphp
+                                        @foreach ($allKilledDecks as $killedDeck)
+                                            @if (!in_array($killedDeck, $alreadyKilledDeck))
+                                            @php $alreadyKilledDeck[] = $killedDeck;@endphp
+
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                {{$killedDeck[0]->title}} - {{$killedDeck[0]->user->pseudo}}
+                                                <span
+                                                class="badge bg-info rounded-pill">{{count($killedDeck)}}</span>
+                                            </li>       
+                                            @else
+
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion" id="accordion2">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapseThree">
+                                    Éliminé par
+                                    <span class="badge bg-dark rounded-pill ms-5 alignStatsOnAccordion">
+                                        @if ($results_for_deck->count() != 0)
+                                            {{ count($totalDeaths) }}
+                                        @endif
+                                    </span>
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordion2">
+                                <div class="accordion-body">
+                                    <ul class="list-group">
+                                        @php $alreadyDeadDeck = []; @endphp
+                                        @foreach ($allDeathsDecks as $DeathDeck)
+                                            @if (!in_array($DeathDeck, $alreadyDeadDeck))
+                                            @php $alreadyDeadDeck[] = $DeathDeck;@endphp
+
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                {{$DeathDeck[0]->title}} - {{$DeathDeck[0]->user->pseudo}}
+                                                <span
+                                                class="badge bg-info rounded-pill">{{count($DeathDeck)}}</span>
+                                            </li>       
+                                            @else
+
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Parties jouées
                         <span class="badge bg-info rounded-pill">{{ $results_for_deck->count('*') }}</span>
