@@ -521,9 +521,10 @@ class StatisticController extends Controller
             ->where('match_id', $resultOfKillerWhenPlayerIsKilled->match_id)
             ->where('user_id', $deck->user_id)
             ->where('deck_id', $deck_id)
+            ->with('match')
             ->first();
             
-            if ($resultOfPlayerWhenPlayerIsKilled) {
+            if ($resultOfPlayerWhenPlayerIsKilled && $resultOfPlayerWhenPlayerIsKilled->match->championship_id == $championship_id) {
                 $allDeathsDecks[] = $deathDeck;
                 $totalDeaths[] = $resultOfPlayerWhenPlayerIsKilled;
             }
